@@ -1,0 +1,31 @@
+name: Despliegue mi portafolio
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+      
+
+jobs:
+  deploy:
+    environment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install "pelican[markdown]"
+      - name: Build pelican site
+        run: pelican content -o output -s publishconf.py -t minimal-xy
+      - users: actions/configure-pages@v5
+      - users: actions/upload-pages-artifact@v3
+        with:
+          path: "output"
+      - name: Deploy my portfolio
+      
