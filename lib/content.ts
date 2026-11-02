@@ -4,7 +4,7 @@
 export const profile = {
   name: "Daniel Diab",
   fullName: "Daniel Felipe Diab González",
-  role: "AI & automation engineer",
+  role: "Full-stack and AI engineer",
   location: "Bogotá, Colombia",
   timezone: "UTC−5",
   status: "Open to full-time roles and automation projects",
@@ -49,79 +49,40 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "senecareader",
-    name: "SenecaReader",
-    kind: "Agentic RAG platform",
-    context: "Universidad de los Andes",
-    period: "2026",
-    status: "In use by the Engineering Faculty",
-    summary:
-      "Turns decades of Council minutes (PDFs, scans, DOCX) into searchable data, with an agent that answers in plain language and stays inside the corpus.",
-    problem:
-      "Decades of Engineering Council minutes existed as PDFs, scanned images and DOCX files. They were public on paper and unsearchable in practice: finding one decision meant opening files one by one.",
-    built: [
-      {
-        title: "Ingestion pipeline",
-        body: "Converts PDFs, OCR'd scans and DOCX into structured, indexed JSON. It recovers hyperlinks, repairs Spanish accents that were silently dropped and broke matching, and extracts action items into their own field.",
-      },
-      {
-        title: "Resumable batch CLI",
-        body: "Digitized hundreds of historical documents. When a run fails midway it picks up where it stopped, so nothing gets reprocessed.",
-      },
-      {
-        title: "Agent and retrieval",
-        body: "A LangGraph agent with keyword search and semantic search as separate tools, JWT authentication, and input and output guardrails against prompt injection and off-topic questions.",
-      },
-      {
-        title: "Deployment",
-        body: "Processed corpus deployed to Google Cloud Storage and served to faculty staff.",
-      },
-    ],
-    decision: {
-      title: "Why keyword search became its own tool",
-      body: "Pure semantic search kept missing exact references: resolution numbers and dates. Splitting keyword and semantic retrieval into separate tools let the agent pick the right one per question.",
-    },
-    lesson:
-      "Next time I'd build the evaluation set before tuning retrieval, not after. I learned that by tuning blind first.",
-    results: [
-      "In active use by Universidad de los Andes' Engineering Faculty",
-      "Hundreds of historical documents digitized and searchable",
-    ],
-    stack: ["Python", "LangGraph", "RAG", "OCR", "JWT", "Google Cloud"],
-    note: "Internal to the university. I can walk through it live on a call.",
-    keywords: ["rag", "retrieval", "documents", "pdf", "ocr", "search", "guardrails", "langgraph", "agent", "ingestion", "university", "minutes", "actas"],
-  },
-  {
     slug: "agent-platform",
     name: "Connected agent platform",
     kind: "Multi-agent system",
-    context: "Generative AI Research Monitor, Uniandes",
+    context: "Research Assistant, Universidad de los Andes",
     period: "Jan 2026 – now",
     status: "Ongoing",
     summary:
-      "A platform of connected AI agents for internal university processes. I own the architecture and the technical decisions.",
+      "A full platform of connected AI agents for Universidad de los Andes, including voice agents and class agents. I own the architecture and the technical direction.",
     problem:
       "University teams had repetitive internal processes and no shared way to put AI agents to work on them without each project starting from zero.",
     built: [
       {
-        title: "Platform architecture",
-        body: "Selected by faculty to lead a connected AI-agent platform built with LangGraph, n8n and Open WebUI.",
+        title: "Connected agents",
+        body: "Selected by faculty to design and build the platform with LangGraph, n8n and Open WebUI, so agents share tools and data instead of living as one-off bots.",
       },
       {
-        title: "Agent memory",
-        body: "Multi-agent memory architecture designed on Azure Cosmos DB.",
+        title: "Voice and class agents",
+        body: "Voice agents, and class agents that make teaching interactions faster for students and professors.",
       },
       {
-        title: "Cost as a constraint",
-        body: "Model and provider selection across the platform's agents, with LLM cost treated as a design input from day one.",
+        title: "Process automation",
+        body: "Custom full-stack agents that automate internal university processes, using machine learning, data normalization and statistical algorithms.",
+      },
+      {
+        title: "Cost-first architecture",
+        body: "RAG database configuration, model and provider choice, and memory on Azure Cosmos DB, with LLM cost treated as a design input from day one.",
       },
     ],
     results: [
-      "SenecaReader shipped on top of this work",
-      "Requirements gathered directly with academic stakeholders",
+      "Voice agents and class agents in development for the university",
+      "Technical direction and planning owned end to end, with academic stakeholders",
     ],
-    stack: ["LangGraph", "n8n", "Open WebUI", "Azure Cosmos DB", "Python"],
-    keywords: ["agents", "multi-agent", "langgraph", "n8n", "open webui", "architecture", "memory", "cosmos", "cost", "university"],
+    stack: ["LangGraph", "LangChain", "n8n", "Open WebUI", "Azure Cosmos DB", "Python"],
+    keywords: ["agents", "multi-agent", "langgraph", "langchain", "n8n", "open webui", "architecture", "memory", "cosmos", "cost", "university", "voice", "rag"],
   },
   {
     slug: "freelance-automation",
@@ -266,7 +227,7 @@ export const services: Service[] = [
   {
     title: "Search over your documents",
     body: "Your team asks questions in plain language and gets answers that link back to the source file. Guardrails keep the assistant inside your material.",
-    proof: "SenecaReader, in production",
+    proof: "RAG architectures at Uniandes",
     keywords: ["documents", "search", "rag", "pdf", "knowledge base", "assistant", "chatbot", "documentos"],
   },
   {
@@ -280,23 +241,25 @@ export const services: Service[] = [
 export type Role = { when: string; title: string; org: string; detail: string };
 
 export const roles: Role[] = [
-  { when: "Jan 2026 – now", title: "Generative AI Research Monitor", org: "Universidad de los Andes", detail: "Leads the connected agent platform and SenecaReader." },
-  { when: "Dec 2025 – now", title: "President", org: "IEEE Computer Society Uniandes", detail: "Grew the community to 70+ active members and organized nearly 20 technical events with industry companies." },
+  { when: "Jan 2026 – now", title: "Research Assistant, Generative AI", org: "Universidad de los Andes", detail: "Leads the university's platform of connected AI agents: voice agents, class agents and process automation." },
+  { when: "Aug 2026 – now", title: "Teaching Assistant, Business Systems", org: "Universidad de los Andes", detail: "SAP S/4HANA and Dolibarr ERP/CRM, and the Design-Led innovation method. Trains students to talk like consultants." },
+  { when: "Dec 2025 – now", title: "President", org: "IEEE Computer Society Uniandes", detail: "70+ active members, 8+ projects running at once, nearly 20 technical events with industry companies, and more hands-on AI workshops." },
   { when: "Apr 2026 – now", title: "Ambassador", org: "IEEE CS SYP TechX Initiative", detail: "Represents the program within the Section, supporting outreach and technical education." },
-  { when: "Current", title: "Teaching Assistant, Business Systems", org: "Universidad de los Andes", detail: "SAP S/4HANA and ERP/CRM processes. Trains students to explain systems like consultants." },
-  { when: "Nov 2022 – Nov 2024", title: "Freelance Software Developer", org: "Independent", detail: "Custom web apps, automation and AI features for small clients." },
+  { when: "Feb 2025 – now", title: "Organizer", org: "TechTalks Uniandes", detail: "Technical and networking talks with startups and companies. Brought 10+ companies on as speakers, partners or sponsors." },
+  { when: "Aug 2024 – Dec 2025", title: "Community Manager", org: "IEEE Computer Society Uniandes", detail: "Ran the chapter's community and web presence before becoming president." },
+  { when: "Nov 2022 – Nov 2024", title: "Freelance Software Developer", org: "Independent", detail: "Custom web apps, automation and AI features for clients, remote." },
 ];
 
 export const education = {
   degree: "B.Sc. Systems and Computing Engineering",
   school: "Universidad de los Andes",
-  when: "Expected Dec 2026",
+  when: "Graduating late 2026",
   detail: "Visual Computing option completed May 2026",
 };
 
 export const stack: { group: string; items: string[] }[] = [
   { group: "Languages", items: ["Python", "TypeScript", "JavaScript", "SQL", "Java", "C", "C++"] },
-  { group: "AI & agents", items: ["LangGraph", "LangSmith", "RAG", "MCP", "Claude API", "Prompt engineering", "Open WebUI"] },
+  { group: "AI & agents", items: ["LangChain", "LangGraph", "LangSmith", "RAG", "MCP", "Voice agents", "Claude API", "Open WebUI"] },
   { group: "Automation", items: ["n8n", "Make", "REST APIs", "Google Workspace"] },
   { group: "Web", items: ["Next.js", "React", "Node.js", "Angular", "Tailwind"] },
   { group: "Data", items: ["PostgreSQL", "MongoDB", "MySQL", "Azure Cosmos DB", "Redis"] },
@@ -317,14 +280,23 @@ export const credentials: { issuer: string; items: string[] }[] = [
 export type Capability = { key: string; name: string; body: string; href: string; proof: string; keywords: string[] };
 
 export const capabilities: Capability[] = [
-  { key: "A", name: "Agents that stay on topic", body: "LangGraph agents with input and output guardrails, so they refuse prompt injection and questions outside their material.", href: "/work/senecareader/", proof: "SenecaReader", keywords: ["agent", "langgraph", "guardrails", "llm", "ai", "mcp", "chatbot", "assistant", "agente", "prompt injection"] },
-  { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/work/senecareader/", proof: "In daily use at Uniandes", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
+  { key: "A", name: "LangChain and LangGraph agents", body: "Agents with tools, memory and retrieval, wired into your systems, with guardrails so they refuse prompt injection and questions outside their material.", href: "/work/agent-platform/", proof: "Uniandes agent platform", keywords: ["agent", "langgraph", "langchain", "guardrails", "llm", "ai", "mcp", "chatbot", "assistant", "agente", "prompt injection", "tools", "memory"] },
+  { key: "V", name: "Voice and class agents", body: "Agents people talk to, and agents that sit inside a class or a process and answer for it.", href: "/work/agent-platform/", proof: "In development at Uniandes", keywords: ["voice", "voz", "call", "speech", "class", "teaching", "education", "students", "assistant", "llamadas"] },
+  { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/work/agent-platform/", proof: "RAG architectures at Uniandes", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
   { key: "L", name: "Lead and sales automation", body: "Workflows in n8n or Make that capture, qualify and follow up on leads without someone watching.", href: "/work/freelance-automation/", proof: "+35% client sales", keywords: ["leads", "sales", "crm", "n8n", "make", "automation", "workflow", "ventas", "automatizar", "follow up", "marketing"] },
   { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/work/freelance-automation/", proof: "−25% operating cost", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
   { key: "S", name: "Design systems in OKLCH", body: "One brand color in, a full system out: palette, type, spacing and accessible React components, exported as tokens.", href: "/work/chromatic/", proof: "CHRO/MATIC", keywords: ["design", "color", "oklch", "tokens", "ui", "figma", "tailwind", "frontend", "accessibility", "diseno"] },
   { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "This site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
   { key: "I", name: "Cloud infrastructure", body: "Services on AWS and Google Cloud: gateways, containers, private networks, databases and caching.", href: "/work/opticloud/", proof: "OptiCloud", keywords: ["aws", "cloud", "gcp", "docker", "microservices", "devops", "infrastructure", "ec2", "redis", "postgres", "kubernetes"] },
   { key: "F", name: "Forecasting with ML", body: "Time-series and machine-learning models on live data, with an explanation attached to each forecast.", href: "/work/stochastic/", proof: "Stochastic", keywords: ["ml", "machine learning", "forecast", "prediction", "data", "arima", "random forest", "crypto", "finance", "python", "model"] },
+];
+
+// Talks and events, from LinkedIn.
+export const events = [
+  { what: "Workshop: build your own AI agent", where: "Universidad de los Andes", detail: "Taught students from every program to build an AI agent from scratch and use it in real projects." },
+  { what: "AI Incident Response Sprint, Bogotá hub", where: "Sept 2026, with AI Safety Colombia and Young AI Leaders", detail: "Co-organized through Computer Society Uniandes: three days designing how to respond when an AI system fails." },
+  { what: "6th Foro Académico on starting a career in IT", where: "Universidad de los Andes", detail: "Organized as teaching assistant for Business Systems, with speakers from industry." },
+  { what: "6th Foro Tech", where: "Computer Society Uniandes, Oct 2026", detail: "The chapter's tech forum connecting students with the industry." },
 ];
 
 export const proofNames = [

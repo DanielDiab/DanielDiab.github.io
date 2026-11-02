@@ -188,7 +188,7 @@ code { font-family: var(--code); font-size: 0.85em; }
 .role { display: grid; grid-template-columns: 11em minmax(0, 1fr); gap: 4px 24px; padding: 18px 0; }
 .role { padding-left: 18px; padding-right: 18px; }
 .role:nth-child(odd) { background: rgba(0, 0, 0, 0.16); }
-.role time { font-size: var(--s-small); opacity: 0.8; padding-top: 4px; }
+.role time, .ev-where { font-size: var(--s-small); opacity: 0.8; padding-top: 4px; }
 .role b { font-weight: 700; }
 .role p { opacity: 0.85; font-size: var(--s-small); margin-top: 4px; }
 .creds { display: grid; grid-template-columns: 9em minmax(0, 1fr); }
@@ -329,6 +329,7 @@ footer { padding: var(--gap-section) var(--m) 28px; overflow: hidden; }
   .band-track { font-size: 15vw; }
   .cmd-input { height: 56px; font-size: 1.25rem; }
   .keycap { display: none; }
+  .cmd-name { font-size: 1.875rem; }
   .role { grid-template-columns: 1fr; }
   .creds { grid-template-columns: 1fr; }
   .creds dt { padding-bottom: 0; }

@@ -8,7 +8,7 @@ Personal portfolio of Daniel Diab, built with Next.js (static export) and deploy
 
 - **Brutalist, industrial design:** flat fields of post red, ink, mustard, bone and maroon, TikTok Sans stretched wide. See `DESIGN.md`.
 - **Hero:** the name runs edge to edge as one giant moving line over a portrait; the letters turn mustard as they cross it.
-- **What I do:** a working command list. Typing filters it with an in-browser hybrid retriever (input guardrail, BM25, concept vectors, reciprocal rank fusion), the same pattern as SenecaReader. `⌘K` jumps to it.
+- **What I do:** a working command list. Typing filters it with an in-browser hybrid retriever (input guardrail, BM25, concept vectors, reciprocal rank fusion). `⌘K` jumps to it.
 - **Work wall** linking to case studies at `/work/[slug]/`, generated from `lib/content.ts`.
 - **GitHub section** fetched from the GitHub API at build time. Coursework repos are hidden by the pattern in `lib/github.ts`.
 

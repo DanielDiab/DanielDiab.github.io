@@ -1,5 +1,5 @@
 // "Ask my portfolio": a small hybrid retriever that runs entirely in the browser.
-// Same shape as SenecaReader: an input guardrail, a keyword retriever (BM25),
+// The shape of a real RAG retriever: an input guardrail, a keyword retriever (BM25),
 // a concept retriever (cosine over concept vectors, a stand-in for embeddings),
 // and reciprocal rank fusion to merge them. No model, no API, no cost.
 

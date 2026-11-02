@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { capabilities } from "@/lib/content";
 import { buildCapabilityDocs, createIndex, type Trace } from "@/lib/search";
 
-// What I do, set as a command menu. Typing runs the same hybrid retrieval as SenecaReader:
+// What I do, set as a command menu. Typing runs a small hybrid retriever:
 // input guardrail, BM25 keyword search, concept search, reciprocal rank fusion. No API.
 export default function CommandList() {
   const search = useMemo(() => createIndex(buildCapabilityDocs()), []);
@@ -92,7 +92,7 @@ export default function CommandList() {
       <p className="cmd-trace" aria-live="polite">
         {trace && !trace.blocked
           ? <>Ranked in {trace.ms.toFixed(1)} ms: {trace.keyword.length} keyword hits, {trace.concept.length} concept hits{trace.concepts.length ? ` (${trace.concepts.join(", ")})` : ""}, fused by reciprocal rank. Runs in your browser.</>
-          : <>Type anything, in English or Spanish. It filters with the same hybrid retrieval SenecaReader uses, in your browser. <kbd>⌘K</kbd> jumps here.</>}
+          : <>Type anything, in English or Spanish. It filters with the kind of hybrid retrieval I build for clients, in your browser. <kbd>⌘K</kbd> jumps here.</>}
       </p>
     </div>
   );

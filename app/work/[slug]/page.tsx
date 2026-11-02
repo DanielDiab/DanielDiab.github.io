@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Pipeline from "@/components/Pipeline";
 import PaletteDemo from "@/components/PaletteDemo";
 import { STILLS, STILL_BG } from "@/components/Stills";
 import { projects } from "@/lib/content";
@@ -56,13 +55,6 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
         <h2 className="display rise">The problem</h2>
         <p className="prose rise" style={{ "--i": 1 } as React.CSSProperties}>{p.problem}</p>
       </section>
-
-      {p.slug === "senecareader" && (
-        <section className="block field-bone" style={{ paddingTop: 0 }} data-reveal>
-          <h2 className="display rise">Pipeline</h2>
-          <div className="rise" style={{ "--i": 1 } as React.CSSProperties}><Pipeline /></div>
-        </section>
-      )}
 
       {p.slug === "chromatic" && (
         <section className="block field-bone" style={{ paddingTop: 0 }} data-reveal>

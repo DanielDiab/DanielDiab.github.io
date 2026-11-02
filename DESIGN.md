@@ -4,7 +4,7 @@ Direction: **Loud and flat** (tasteskill v2, seed 291383188), set for a brutalis
 
 **The idea.** Daniel's real work (raw documents in, structured answers out) runs the page. His name runs
 across the first screen as one giant moving line over his portrait, and "What I do" is a working search
-box that filters his capabilities with the same hybrid retrieval SenecaReader uses.
+box that filters his capabilities.
 
 ## Colour
 
@@ -36,8 +36,8 @@ Six sizes: 16 / 19 / 26 / 76 / 130 px, plus the 216px hero line.
 ## Pictures
 
 All photographs and screenshots are Daniel's own (`public/img/`). About photos share one treatment:
-greyscale multiplied over a rotating palette tint. Projects without screenshots (SenecaReader, the agent
-platform, freelance work, OptiCloud) use flat drawings in `components/Stills.tsx` until real ones exist.
+greyscale multiplied over a rotating palette tint. Projects without screenshots (the agent platform,
+freelance work, OptiCloud) use flat drawings in `components/Stills.tsx` until real ones exist.
 
 ## Rules for future edits
 

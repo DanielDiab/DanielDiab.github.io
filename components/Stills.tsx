@@ -6,33 +6,6 @@ const F = "TikTok Sans Variable, Arial Black, sans-serif";
 const CODE = ["JetBrains", "Mono Variable, monospace"].join(" "); // literal JSON in the drawing is code
 const svg = { preserveAspectRatio: "xMidYMid meet" as const, xmlns: "http://www.w3.org/2000/svg", role: "img" as const };
 
-function Seneca() {
-  return (
-    <svg viewBox="0 0 600 400" {...svg} aria-label="SenecaReader: a scanned page on the left becomes structured JSON on the right">
-      <rect width="600" height="400" fill={C.bone} />
-      <g transform="rotate(-5 160 200)">
-        <rect x="70" y="50" width="190" height="290" fill={C.white} />
-        <text x="90" y="88" fontFamily={F} fontWeight="800" fontSize="16" fill={C.ink}>ACTA</text>
-        {[108, 124, 140].map((y) => <rect key={y} x="90" y={y} width="150" height="7" fill={C.bone2} />)}
-        <rect x="82" y="156" width="166" height="28" fill="none" stroke={C.red} strokeWidth="5" />
-        <text x="92" y="175" fontFamily={F} fontWeight="700" fontSize="12" fill={C.ink}>Resolución 14</text>
-        {[200, 216, 232, 248, 264].map((y) => <rect key={y} x="90" y={y} width="150" height="7" fill={C.bone2} />)}
-      </g>
-      <rect x="300" y="186" width="44" height="28" fill={C.red} />
-      <polygon points="344,176 368,200 344,224" fill={C.red} />
-      <rect x="390" y="70" width="180" height="260" fill={C.ink} />
-      <text x="408" y="110" fontFamily={CODE} fontSize="15" fill={C.mustard}>{"{"}</text>
-      <text x="422" y="138" fontFamily={CODE} fontSize="13" fill={C.bone}>&quot;res&quot;: 14,</text>
-      <text x="422" y="164" fontFamily={CODE} fontSize="13" fill={C.bone}>&quot;year&quot;: 2023,</text>
-      <text x="422" y="190" fontFamily={CODE} fontSize="13" fill={C.bone}>&quot;actions&quot;: [</text>
-      <rect x="436" y="202" width="110" height="9" fill={C.slate} />
-      <rect x="436" y="220" width="84" height="9" fill={C.slate} />
-      <text x="422" y="252" fontFamily={CODE} fontSize="13" fill={C.bone}>]</text>
-      <text x="408" y="282" fontFamily={CODE} fontSize="15" fill={C.mustard}>{"}"}</text>
-    </svg>
-  );
-}
-
 function Agents() {
   const n = [
     { x: 60, y: 70, w: 170, t: "Open WebUI", f: C.bone },
@@ -111,11 +84,10 @@ function OptiCloud() {
 }
 
 export const STILL_BG: Record<string, string> = {
-  senecareader: C.bone, "agent-platform": C.slate, "freelance-automation": C.mustard, chromatic: C.ink, stochastic: C.red, opticloud: C.maroon,
+  "agent-platform": C.slate, "freelance-automation": C.mustard, chromatic: C.ink, stochastic: C.red, opticloud: C.maroon,
 };
 
 export const STILLS: Record<string, () => React.ReactElement> = {
-  senecareader: Seneca,
   "agent-platform": Agents,
   "freelance-automation": Freelance,
   chromatic: Chromatic,

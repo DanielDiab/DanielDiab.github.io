@@ -4,13 +4,12 @@ import ProofBand from "@/components/ProofBand";
 import CommandList from "@/components/CommandList";
 import CopyEmail from "@/components/CopyEmail";
 import { STILLS, STILL_BG } from "@/components/Stills";
-import { profile, projects, roles, credentials, education, proofNames, photos } from "@/lib/content";
+import { profile, projects, roles, credentials, education, proofNames, photos, events } from "@/lib/content";
 import { getRepos } from "@/lib/github";
 
 const WALL: { h: number; tiles: [string, number][] }[] = [
-  { h: 380, tiles: [["senecareader", 1.6], ["freelance-automation", 1]] },
-  { h: 250, tiles: [["chromatic", 1.25], ["stochastic", 1.1], ["opticloud", 1]] },
-  { h: 300, tiles: [["agent-platform", 1]] },
+  { h: 380, tiles: [["agent-platform", 1.5], ["freelance-automation", 1]] },
+  { h: 270, tiles: [["chromatic", 1.25], ["stochastic", 1.1], ["opticloud", 1]] },
 ];
 
 const year = (period: string) => period.replace(/^.*(\d{4}).*$/, "$1");
@@ -25,7 +24,7 @@ export default async function Home() {
         <HeroLine name={profile.name} />
         <div className="hero-copy hero-load" style={{ "--i": 3 } as React.CSSProperties}>
           <p>I build AI agents that know what they can&apos;t answer, and automations that pay for themselves.</p>
-          <p>Systems and computing engineer. One of my systems is in daily use at Universidad de los Andes.</p>
+          <p>Full-stack developer and research assistant at Universidad de los Andes, building its platform of connected AI agents.</p>
         </div>
         <div className="hero-foot hero-load" style={{ "--i": 5 } as React.CSSProperties}>
           <p>Bogotá, Colombia. Open to full-time roles and projects.</p>
@@ -82,7 +81,7 @@ export default async function Home() {
       </section>
 
       <ProofBand names={proofNames} />
-      <p className="band-note">Where the proof comes from: first place nationwide at IEEEXtreme 19.0, the university where SenecaReader runs, the IEEE community I lead, and certifications from Anthropic, NVIDIA, Microsoft and AWS.</p>
+      <p className="band-note">Where the proof comes from: first place nationwide at IEEEXtreme 19.0, the university where I build its AI-agent platform, the IEEE community I lead, and certifications from Anthropic, NVIDIA, Microsoft and AWS.</p>
 
       <section id="what-i-do" className="field-bone pad cmd" aria-labelledby="cmd-title" data-reveal>
         <h2 id="cmd-title" className="display rise">What I do</h2>
@@ -99,8 +98,8 @@ export default async function Home() {
             <div className="rise" style={{ "--i": 3 } as React.CSSProperties}><dt>Languages</dt><dd>{profile.languages}</dd></div>
           </dl>
           <div>
-            <p className="story rise" style={{ "--i": 2 } as React.CSSProperties}>I like the unglamorous part: getting decades of scanned minutes into a shape a machine can read, then making the agent refuse what it doesn&apos;t know.</p>
-            <p className="story rise" style={{ "--i": 3 } as React.CSSProperties}>I also teach, lead a 70-member IEEE chapter, and compete. We placed first in Colombia at IEEEXtreme 19.0.</p>
+            <p className="story rise" style={{ "--i": 2 } as React.CSSProperties}>I build agents in LangChain and LangGraph, and I like the unglamorous part: clean data in, guardrails on, and an agent that refuses what it doesn&apos;t know.</p>
+            <p className="story rise" style={{ "--i": 3 } as React.CSSProperties}>I also teach, run events, lead a 70-member IEEE chapter, and compete. We placed first in Colombia at IEEEXtreme 19.0.</p>
           </div>
         </div>
         <ul className="photos">
@@ -120,6 +119,17 @@ export default async function Home() {
               <li key={r.title + r.org} className="role slide" style={{ "--i": i } as React.CSSProperties}>
                 <time className="num">{r.when}</time>
                 <div><b>{r.title}</b>, {r.org}<p>{r.detail}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="roles">
+          <h3 className="rise">Talks and events</h3>
+          <ol>
+            {events.map((e, i) => (
+              <li key={e.what} className="role slide" style={{ "--i": i } as React.CSSProperties}>
+                <span className="ev-where">{e.where}</span>
+                <div><b>{e.what}</b><p>{e.detail}</p></div>
               </li>
             ))}
           </ol>
