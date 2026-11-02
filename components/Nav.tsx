@@ -1,28 +1,19 @@
 import Link from "next/link";
-import ThemeControls from "./ThemeControls";
-import { AskButton } from "./AskPalette";
 import { profile } from "@/lib/content";
 
+// A plain bar: two links, the wordmark centred, two links and the action.
 export default function Nav() {
   return (
-    <header className="nav">
-      <div className="wrap nav-in">
-        <Link href="/" className="brand">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="6" /><path d="M12 1v5M12 18v5M1 12h5M18 12h5" /></svg>
-          {profile.name}
-        </Link>
-        <nav className="nav-links" aria-label="Sections">
-          <Link href="/#work">Work</Link>
-          <Link href="/#services">Services</Link>
-          <Link href="/#github">GitHub</Link>
-          <Link href="/#about">About</Link>
-          <Link href="/#contact">Contact</Link>
-        </nav>
-        <div className="nav-tools">
-          <AskButton />
-          <ThemeControls />
-        </div>
-      </div>
+    <header className="bar">
+      <nav className="bar-left" aria-label="Sections">
+        <Link href="/#work" className="ulink">Work</Link>
+        <Link href="/#what-i-do" className="ulink">What I do</Link>
+      </nav>
+      <Link href="/" className="wordmark">{profile.name}</Link>
+      <nav className="bar-right" aria-label="More">
+        <Link href="/#about" className="ulink">About</Link>
+        <Link href="/#contact" className="ulink bar-cta">Contact</Link>
+      </nav>
     </header>
   );
 }

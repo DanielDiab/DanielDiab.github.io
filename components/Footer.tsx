@@ -2,9 +2,10 @@ import { profile } from "@/lib/content";
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="wrap">
-        <span>{profile.name}, {profile.location}</span>
+    <footer className="field-red">
+      <p className="closing display" aria-hidden="true">{profile.name}</p>
+      <div className="foot-row">
+        <span>{profile.fullName}, {profile.location}</span>
         <span>Built with Next.js, deployed on GitHub Pages. <a href={profile.github}>Source on GitHub</a></span>
       </div>
     </footer>

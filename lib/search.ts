@@ -3,7 +3,7 @@
 // a concept retriever (cosine over concept vectors, a stand-in for embeddings),
 // and reciprocal rank fusion to merge them. No model, no API, no cost.
 
-import { profile, projects, services, roles, stack, credentials, education } from "./content";
+import { profile, projects, services, roles, stack, credentials, education, capabilities } from "./content";
 
 export type Doc = {
   id: string;
@@ -81,6 +81,10 @@ function cosine(a: number[], b: number[]): number {
   let dot = 0, na = 0, nb = 0;
   for (let i = 0; i < a.length; i++) { dot += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; }
   return na && nb ? dot / Math.sqrt(na * nb) : 0;
+}
+
+export function buildCapabilityDocs(): Doc[] {
+  return capabilities.map((c) => ({ id: c.key, title: c.name, href: c.href, kind: c.proof, text: [c.name, c.body, c.proof, ...c.keywords].join(" "), answer: c.body }));
 }
 
 export function buildDocs(): Doc[] {

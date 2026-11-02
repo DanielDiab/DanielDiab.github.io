@@ -42,6 +42,8 @@ export type Project = {
   stack: string[];
   link?: { label: string; href: string };
   note?: string;
+  image?: { src: string; w: number; h: number; alt: string };
+  gallery?: { src: string; w: number; h: number; alt: string }[];
   keywords: string[];
 };
 
@@ -174,17 +176,23 @@ export const projects: Project[] = [
         title: "Token export",
         body: "Exports to six formats, including CSS variables, Tailwind config, Style Dictionary (W3C draft), Figma Tokens and TypeScript.",
       },
+      {
+        title: "Presets and a live preview",
+        body: "Ten brand presets, from neo bank to wellness, and an overview that shows the generated system on a realistic landing page and dashboard.",
+      },
     ],
     results: ["Live and free to use", "The hue dial on this site runs on the same OKLCH idea"],
     stack: ["React", "TypeScript", "Tailwind", "OKLCH"],
     link: { label: "chro-matic.vercel.app", href: "https://chro-matic.vercel.app" },
+    image: { src: "/img/chromatic.jpg", w: 1600, h: 940, alt: "CHRO/MATIC landing page: the wordmark set huge in cream and gold on black" },
+    gallery: [{ src: "/img/chromatic-studio.jpg", w: 1800, h: 1002, alt: "The CHRO/MATIC studio: brand presets on the left, a live preview of the generated system on the right" }],
     keywords: ["design", "design system", "color", "oklch", "palette", "tokens", "react", "tailwind", "frontend", "ui", "accessibility"],
   },
   {
     slug: "stochastic",
     name: "Stochastic",
     kind: "Forecasting platform",
-    context: "Personal product",
+    context: "Academic project, machine learning and finance",
     period: "2026",
     status: "Live beta",
     summary:
@@ -198,16 +206,21 @@ export const projects: Project[] = [
       },
       {
         title: "Models and indicators",
-        body: "ARIMA, Random Forest, RSI, MACD and moving averages producing forecasts on a 5+ hour horizon.",
+        body: "ARIMA, Random Forest, RSI, MACD and moving averages producing forecasts on a 5+ hour horizon, with signals refreshed every hour.",
       },
       {
         title: "Explainable output",
-        body: "Integrating LLM-based reasoning so each forecast comes with an explanation.",
+        body: "Each analysis ends in a plain decision (buy, sell or hold) with the reasoning written out in Spanish: which indicators agree, which disagree, and why.",
       },
     ],
     results: ["Deployed front-end and API layer", "Full chain from ingestion to forecast"],
-    stack: ["Python", "Time series", "Scikit-learn", "Vercel"],
+    stack: ["Python", "Flask", "Scikit-learn", "Statsmodels", "Pandas", "CryptoCompare API"],
     link: { label: "stochastic-beta.vercel.app", href: "https://stochastic-beta.vercel.app" },
+    image: { src: "/img/stochastic.jpg", w: 1600, h: 924, alt: "Stochastic dashboard: a grid of coins to analyse and a written hold signal for Bitcoin" },
+    gallery: [
+      { src: "/img/stochastic-chart.jpg", w: 1800, h: 906, alt: "Bitcoin closing price with 50- and 200-day moving averages and the decision to hold" },
+      { src: "/img/stochastic-about.jpg", w: 1600, h: 881, alt: "Stochastic's about page: learning to predict the crypto market with statistical models" },
+    ],
     keywords: ["machine learning", "ml", "forecasting", "crypto", "finance", "arima", "random forest", "data", "time series"],
   },
   {
@@ -298,4 +311,36 @@ export const credentials: { issuer: string; items: string[] }[] = [
   { issuer: "Microsoft", items: ["Design Multi-Agent Memory Architectures with Azure Cosmos DB"] },
   { issuer: "AWS", items: ["Cloud Practitioner Essentials"] },
   { issuer: "CU Boulder", items: ["Databases for Data Scientists specialization"] },
+];
+
+// The "what I do" command list on the home page. Typing filters it with lib/search.ts.
+export type Capability = { key: string; name: string; body: string; href: string; proof: string; keywords: string[] };
+
+export const capabilities: Capability[] = [
+  { key: "A", name: "Agents that stay on topic", body: "LangGraph agents with input and output guardrails, so they refuse prompt injection and questions outside their material.", href: "/work/senecareader/", proof: "SenecaReader", keywords: ["agent", "langgraph", "guardrails", "llm", "ai", "mcp", "chatbot", "assistant", "agente", "prompt injection"] },
+  { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/work/senecareader/", proof: "In daily use at Uniandes", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
+  { key: "L", name: "Lead and sales automation", body: "Workflows in n8n or Make that capture, qualify and follow up on leads without someone watching.", href: "/work/freelance-automation/", proof: "+35% client sales", keywords: ["leads", "sales", "crm", "n8n", "make", "automation", "workflow", "ventas", "automatizar", "follow up", "marketing"] },
+  { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/work/freelance-automation/", proof: "−25% operating cost", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
+  { key: "S", name: "Design systems in OKLCH", body: "One brand color in, a full system out: palette, type, spacing and accessible React components, exported as tokens.", href: "/work/chromatic/", proof: "CHRO/MATIC", keywords: ["design", "color", "oklch", "tokens", "ui", "figma", "tailwind", "frontend", "accessibility", "diseno"] },
+  { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "This site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
+  { key: "I", name: "Cloud infrastructure", body: "Services on AWS and Google Cloud: gateways, containers, private networks, databases and caching.", href: "/work/opticloud/", proof: "OptiCloud", keywords: ["aws", "cloud", "gcp", "docker", "microservices", "devops", "infrastructure", "ec2", "redis", "postgres", "kubernetes"] },
+  { key: "F", name: "Forecasting with ML", body: "Time-series and machine-learning models on live data, with an explanation attached to each forecast.", href: "/work/stochastic/", proof: "Stochastic", keywords: ["ml", "machine learning", "forecast", "prediction", "data", "arima", "random forest", "crypto", "finance", "python", "model"] },
+];
+
+export const proofNames = [
+  "1st in Colombia at IEEEXtreme 19.0",
+  "Universidad de los Andes",
+  "IEEE Computer Society",
+  "Anthropic",
+  "NVIDIA",
+  "Microsoft",
+  "AWS",
+];
+
+// Photos for the About section. Captions say what each one shows.
+export const photos = [
+  { src: "/img/talk.jpg", w: 1100, h: 1298, alt: "Daniel presenting a workshop slide on setting up Google Cloud for an AI agent", caption: "Teaching a workshop on building AI agents" },
+  { src: "/img/ieeextreme.jpg", w: 920, h: 515, alt: "Three team members of Overflowsquad outdoors on campus", caption: "Overflowsquad, first in Colombia at IEEEXtreme 19.0" },
+  { src: "/img/board.jpg", w: 770, h: 595, alt: "Five members of the IEEE Computer Society Uniandes board on a campus rooftop", caption: "The IEEE Computer Society Uniandes board I lead" },
+  { src: "/img/chapter-event.jpg", w: 900, h: 861, alt: "Four IEEE Uniandes members in front of a projected chapter website", caption: "At an IEEE Uniandes chapter event" },
 ];

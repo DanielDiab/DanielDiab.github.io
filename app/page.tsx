@@ -1,149 +1,152 @@
 import Link from "next/link";
-import EmbeddingField from "@/components/EmbeddingField";
+import HeroLine from "@/components/HeroLine";
+import ProofBand from "@/components/ProofBand";
+import CommandList from "@/components/CommandList";
 import CopyEmail from "@/components/CopyEmail";
-import { AskButton } from "@/components/AskPalette";
-import { profile, projects, services, roles, stack, credentials, education } from "@/lib/content";
+import { STILLS, STILL_BG } from "@/components/Stills";
+import { profile, projects, roles, credentials, education, proofNames, photos } from "@/lib/content";
 import { getRepos } from "@/lib/github";
 
-function month(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", { month: "short", year: "numeric" });
-}
+const WALL: { h: number; tiles: [string, number][] }[] = [
+  { h: 380, tiles: [["senecareader", 1.6], ["freelance-automation", 1]] },
+  { h: 250, tiles: [["chromatic", 1.25], ["stochastic", 1.1], ["opticloud", 1]] },
+  { h: 300, tiles: [["agent-platform", 1]] },
+];
+
+const year = (period: string) => period.replace(/^.*(\d{4}).*$/, "$1");
+const month = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", year: "numeric" });
 
 export default async function Home() {
-  const repos = await getRepos();
+  const repos = await getRepos(5);
 
   return (
     <>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-plane" aria-hidden="true" />
-        <EmbeddingField />
-        <div className="wrap hero-in">
-          <div>
-            <p className="hero-where">Based in Bogotá. Open to full-time roles and automation projects.</p>
-            <h1 id="hero-title">AI agents that know what they can&apos;t answer.</h1>
-            <p className="lede">I&apos;m <strong>{profile.name}</strong>, a systems and computing engineer. I build retrieval, automation and agent systems that hold up with real users. One of them is in daily use by the Engineering Faculty at Universidad de los Andes.</p>
-            <div className="actions">
-              <Link href="#work" className="btn btn-solid">See the work</Link>
-              <AskButton className="btn btn-line">Ask my portfolio <span className="kbd">⌘K</span></AskButton>
+      <section className="hero field-red" aria-label="Introduction">
+        <HeroLine name={profile.name} />
+        <div className="hero-copy hero-load" style={{ "--i": 3 } as React.CSSProperties}>
+          <p>I build AI agents that know what they can&apos;t answer, and automations that pay for themselves.</p>
+          <p>Systems and computing engineer. One of my systems is in daily use at Universidad de los Andes.</p>
+        </div>
+        <div className="hero-foot hero-load" style={{ "--i": 5 } as React.CSSProperties}>
+          <p>Bogotá, Colombia. Open to full-time roles and projects.</p>
+          <a className="btn" href={`mailto:${profile.email}?subject=Hello%20Daniel`}>Email me</a>
+        </div>
+      </section>
+
+      <section id="work" className="field-ink pad" aria-labelledby="work-title" data-reveal>
+        <div className="work-head">
+          <h2 id="work-title" className="display rise">Work</h2>
+          <a href={profile.github} className="ulink rise" style={{ "--i": 1 } as React.CSSProperties}>Everything on GitHub</a>
+        </div>
+        <div className="wall">
+          {WALL.map((row, r) => (
+            <div className="wall-row" key={r} style={{ "--rh": `${row.h}px` } as React.CSSProperties}>
+              {row.tiles.map(([slug, g], t) => {
+                const p = projects.find((x) => x.slug === slug)!;
+                const Still = STILLS[slug];
+                return (
+                  <Link key={slug} href={`/work/${slug}/`} className="tile" style={{ "--g": g } as React.CSSProperties}>
+                    <span className="still open" style={{ "--i": r * 2 + t, "--bg": STILL_BG[slug] } as React.CSSProperties}>
+                      {p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} loading="lazy" /> : <Still />}
+                      {slug !== "freelance-automation" && <span className="tile-proof">{p.results[0]}</span>}
+                    </span>
+                    <span className="cap"><b>{p.name}, {p.kind.toLowerCase()}</b><span className="num">{year(p.period)}</span></span>
+                  </Link>
+                );
+              })}
             </div>
-          </div>
-          <p className="hero-note">Move your cursor across the field. It acts as a search query, and the six closest chunks are what a retriever would pull.</p>
+          ))}
         </div>
-      </section>
 
-      <section className="section" id="work" aria-labelledby="work-title">
-        <div className="wrap split">
-          <div className="split-head">
-            <h2 id="work-title">Work</h2>
-            <p>Systems people use, and the decisions behind them. Each case study covers what got in the way and what I did about it.</p>
-          </div>
-          <ul className="ledger">
-            {projects.map((p) => (
-              <li key={p.slug}>
-                <Link href={`/work/${p.slug}/`} className="entry">
-                  <span className="entry-name">{p.name}</span>
-                  <span className="entry-year num">{p.period.replace(/^.*(\d{4}).*$/, "$1")}</span>
-                  <span className="entry-kind">{p.kind}, {p.context}</span>
-                  <span className="entry-sum">{p.summary}</span>
-                  <span className="entry-foot">
-                    <b>{p.results[0]}</b>
-                    <span>{p.stack.slice(0, 4).join(", ")}</span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="section" id="services" aria-labelledby="services-title">
-        <div className="wrap split">
-          <div className="split-head">
-            <h2 id="services-title">Services</h2>
-            <p>Fixed-scope AI work for teams without an AI team. Each one is something I&apos;ve already delivered.</p>
-          </div>
+        <div className="repos">
           <div>
-            <dl className="offers">
-              {services.map((s) => (
-                <div className="offer" key={s.title}>
-                  <dt>{s.title}</dt>
-                  <dd>{s.body}<b>Done before: {s.proof}</b></dd>
-                </div>
-              ))}
-            </dl>
-            <p className="after">Projects are quoted after a 30-minute call. I work in English and Spanish, on Colombian time ({profile.timezone}).</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="github" aria-labelledby="gh-title">
-        <div className="wrap split">
-          <div className="split-head">
-            <h2 id="gh-title">On GitHub</h2>
-            <p>My most recently pushed repositories, refreshed every time this site rebuilds. <a href={profile.github}>See all of them on my profile</a>.</p>
+            <h3 className="rise">Recently on GitHub</h3>
+            <p className="rise" style={{ "--i": 1 } as React.CSSProperties}>Pulled from my profile each time this site rebuilds.</p>
           </div>
           {repos.length > 0 ? (
-            <ul className="repos">
-              {repos.map((r) => (
-                <li key={r.name}>
+            <ul className="repo-list">
+              {repos.map((r, i) => (
+                <li key={r.name} className="rise" style={{ "--i": i + 2 } as React.CSSProperties}>
                   <a className="repo" href={r.url}>
-                    <span className="repo-name">{r.name}</span>
-                    <span className="repo-meta num">{[r.language, month(r.pushedAt), r.stars > 0 ? `${r.stars} stars` : ""].filter(Boolean).join(", ")}</span>
-                    <span className="repo-desc">{r.description ?? "No description yet."}</span>
+                    <b>{r.name}</b>
+                    <span className="num">{[r.language, month(r.pushedAt)].filter(Boolean).join(", ")}</span>
+                    <p>{r.description ?? "No description yet."}</p>
                   </a>
                 </li>
               ))}
             </ul>
           ) : (
-            <p><a className="btn btn-line" href={profile.github}>Open github.com/{profile.githubUser}</a></p>
+            <p className="rise">See every repository at <a href={profile.github}>github.com/{profile.githubUser}</a>.</p>
           )}
         </div>
       </section>
 
-      <section className="section" id="about" aria-labelledby="about-title">
-        <div className="wrap split">
-          <div className="split-head">
-            <h2 id="about-title">About</h2>
-            <p>{education.degree} at {education.school}, {education.when.toLowerCase()}. {education.detail}. I teach, I lead a 70-person tech community, and I placed first in Colombia at IEEEXtreme 19.0.</p>
-          </div>
+      <ProofBand names={proofNames} />
+      <p className="band-note">Where the proof comes from: first place nationwide at IEEEXtreme 19.0, the university where SenecaReader runs, the IEEE community I lead, and certifications from Anthropic, NVIDIA, Microsoft and AWS.</p>
+
+      <section id="what-i-do" className="field-bone pad cmd" aria-labelledby="cmd-title" data-reveal>
+        <h2 id="cmd-title" className="display rise">What I do</h2>
+        <div className="rise" style={{ "--i": 1 } as React.CSSProperties}><CommandList /></div>
+        <p className="cmd-after rise" style={{ "--i": 2 } as React.CSSProperties}>Projects are fixed in scope and quoted after a 30-minute call, in English or Spanish.</p>
+      </section>
+
+      <section id="about" className="field-maroon pad about" aria-labelledby="about-title" data-reveal>
+        <h2 id="about-title" className="display rise">About</h2>
+        <div className="about-top">
+          <dl className="facts">
+            <div className="rise" style={{ "--i": 1 } as React.CSSProperties}><dt>Based in</dt><dd>{profile.location}, {profile.timezone}</dd></div>
+            <div className="rise" style={{ "--i": 2 } as React.CSSProperties}><dt>Studies</dt><dd>{education.degree}, {education.school}, {education.when.toLowerCase()}</dd></div>
+            <div className="rise" style={{ "--i": 3 } as React.CSSProperties}><dt>Languages</dt><dd>{profile.languages}</dd></div>
+          </dl>
           <div>
-            <div className="block">
-              <h3 className="subhead">Roles</h3>
-              <ul className="timeline">
-                {roles.map((r) => (
-                  <li key={r.title + r.org}>
-                    <time className="num">{r.when}</time>
-                    <div><b>{r.title}</b>, {r.org}<span>{r.detail}</span></div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="block">
-              <h3 className="subhead">Stack</h3>
-              <dl className="defs">
-                {stack.map((s) => [<dt key={s.group + "t"}>{s.group}</dt>, <dd key={s.group + "d"}>{s.items.join(", ")}</dd>])}
-              </dl>
-            </div>
-            <div className="block">
-              <h3 className="subhead">Credentials</h3>
-              <dl className="defs">
-                {credentials.map((c) => [<dt key={c.issuer + "t"}>{c.issuer}</dt>, <dd key={c.issuer + "d"}>{c.items.join("; ")}</dd>])}
-              </dl>
-            </div>
+            <p className="story rise" style={{ "--i": 2 } as React.CSSProperties}>I like the unglamorous part: getting decades of scanned minutes into a shape a machine can read, then making the agent refuse what it doesn&apos;t know.</p>
+            <p className="story rise" style={{ "--i": 3 } as React.CSSProperties}>I also teach, lead a 70-member IEEE chapter, and compete. We placed first in Colombia at IEEEXtreme 19.0.</p>
           </div>
+        </div>
+        <ul className="photos">
+          {photos.map((ph, i) => (
+            <li key={ph.src} className={`photo photo-${i}`}>
+              <figure className="open" style={{ "--i": i } as React.CSSProperties}>
+                <span className="duo"><img src={ph.src} width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" /></span>
+                <figcaption>{ph.caption}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <div className="roles">
+          <h3 className="rise">Roles</h3>
+          <ol>
+            {roles.map((r, i) => (
+              <li key={r.title + r.org} className="role slide" style={{ "--i": i } as React.CSSProperties}>
+                <time className="num">{r.when}</time>
+                <div><b>{r.title}</b>, {r.org}<p>{r.detail}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="roles">
+          <h3 className="rise">Credentials</h3>
+          <dl className="creds rise">
+            {credentials.map((c) => [<dt key={c.issuer + "t"}>{c.issuer}</dt>, <dd key={c.issuer + "d"}>{c.items.join("; ")}</dd>])}
+          </dl>
         </div>
       </section>
 
-      <section className="contact" id="contact" aria-labelledby="contact-title">
-        <div className="wrap">
-          <h2 id="contact-title">Got a workflow eating your week, or a role that fits?</h2>
-          <a className="mail" href={`mailto:${profile.email}`}>{profile.email}</a>
-          <div className="contact-row">
-            <CopyEmail email={profile.email} />
-            <a className="btn btn-line" href={profile.linkedin}>LinkedIn</a>
-            <a className="btn btn-line" href={profile.github}>GitHub</a>
-          </div>
-        </div>
+      <section id="contact" className="field-red contact" aria-labelledby="contact-title" data-reveal>
+        <h2 id="contact-title" className="display rise">Contact</h2>
+        <ul className="rows">
+          <li className="greet slide" style={{ "--i": 0 } as React.CSSProperties}>
+            <span>Hola, let&apos;s talk</span>
+            <a className="round" href={`mailto:${profile.email}?subject=Hello%20Daniel`} aria-label="Email Daniel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+          </li>
+          <li className="slide" style={{ "--i": 1 } as React.CSSProperties}><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+          <li className="slide" style={{ "--i": 2 } as React.CSSProperties}><a href={profile.linkedin}>LinkedIn</a></li>
+          <li className="slide" style={{ "--i": 3 } as React.CSSProperties}><a href={profile.github}>GitHub</a></li>
+          <li className="slide" style={{ "--i": 4 } as React.CSSProperties}><span>{profile.location}, {profile.timezone}</span></li>
+        </ul>
+        <div className="copyline"><CopyEmail email={profile.email} /></div>
       </section>
     </>
   );

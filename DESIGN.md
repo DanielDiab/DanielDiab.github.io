@@ -1,57 +1,45 @@
 # Design notes
 
-Subject: Daniel builds retrieval and agent systems over messy institutional documents.
-Audience: recruiters and technical leads first, small-business owners second.
-The page's job: prove he ships systems that hold up, and make it easy to get in touch.
+Direction: **Loud and flat** (tasteskill v2, seed 291383188), set for a brutalist, industrial brief.
 
-## The one bold thing
+**The idea.** Daniel's real work (raw documents in, structured answers out) runs the page. His name runs
+across the first screen as one giant moving line over his portrait, and "What I do" is a working search
+box that filters his capabilities with the same hybrid retrieval SenecaReader uses.
 
-The hero canvas: the cursor is a query and its top-k chunks connect. It is the only ambient motion on the site.
-The ⌘K search is the second memorable moment, and it only moves when someone opens it.
-Everything else stays quiet: no card grids, no decorative numbering, no entrance animations.
+## Colour
 
-## Color
+Flat fields meet edge to edge: no gradients, shadows or hairlines.
 
-One OKLCH hue (`--h`, default 268) generates every token, so the hue dial can regenerate the palette live.
-Approximate hex at the default hue:
-
-| Token    | Light     | Role                                   |
-|----------|-----------|----------------------------------------|
-| bg       | #f6f6fb   | page                                   |
-| ink      | #191b2b   | text                                   |
-| muted    | #5f6276   | secondary text                         |
-| line     | #d9dae6   | rules between rows                     |
-| accent   | #4a3fe0   | links, the query marker, focus         |
-
-The accent never colors a single word in a headline. It marks things you can act on and things the retriever selected.
+| Token     | Hex       | Where                                      |
+|-----------|-----------|--------------------------------------------|
+| red       | `#dc1928` | hero, contact, footer (opens and closes)   |
+| ink       | `#2a1110` | work                                       |
+| mustard   | `#e0a912` | proof band; letters crossing the portrait  |
+| bone      | `#e2dccf` | what I do, case-study body                 |
+| maroon    | `#952625` | about                                      |
+| slate     | `#4a6f84` | the button and the selected command row    |
 
 ## Type
 
-Two families, clearly distinct:
-- **Bricolage Grotesque** for everything people read. Its optical-size axis lets the same family run from 96px headlines (tight, opsz 96) to 18px body (opsz 14).
-- **JetBrains Mono** only where the content is code: tool names, retrieval traces, repo names, scores. Never for labels.
+One family: **TikTok Sans** (variable). Display is weight 800 at `font-stretch: 150%`, uppercase,
+leading 0.88. Text is normal width, 16–19px. JetBrains Mono appears only inside `<code>`.
+Six sizes: 16 / 19 / 26 / 76 / 130 px, plus the 216px hero line.
 
-Scale (Elements of Typographic Style): 14 · 18 · 21 · 24 · 36 · 48 · 72 · 96 px.
-Sentence case everywhere. No uppercase tracked eyebrows. Body lines stay under 70 characters.
+## Motion
 
-## Layout
+- Signature: the name line runs at a constant 40px/s; a mustard copy is clipped to the portrait.
+- The proof band moves only with the scroll.
+- Sections enter part by part (heading, text, pictures), 70–90ms apart, once.
+- Pictures open from a mask; the hero portrait drifts slowly.
+- Everything stops under `prefers-reduced-motion`.
 
-Left-aligned, two columns. The section heading itself sits in a sticky left column, so there is no separate label above it.
+## Pictures
 
-```
-| Work                  | SenecaReader                        2026 |
-| Systems people use,   | Agentic RAG platform, Uniandes           |
-| and the decisions     | Turns decades of Council minutes…        |
-| behind them.          | In daily use · Python, LangGraph         |
-|                       |------------------------------------------|
-| (sticky)              | Connected agent platform            2026 |
-```
-
-Results and numbers live inside the work rows they belong to, not in a separate stat strip.
-Rules (hairlines) separate rows; borders and fills are reserved for the one callout per case study and the search dialog.
+All photographs and screenshots are Daniel's own (`public/img/`). About photos share one treatment:
+greyscale multiplied over a rotating palette tint. Projects without screenshots (SenecaReader, the agent
+platform, freelance work, OptiCloud) use flat drawings in `components/Stills.tsx` until real ones exist.
 
 ## Rules for future edits
 
-- Numbers only mark real sequences (the SenecaReader pipeline).
-- No arrows appended to link text; links are underlined or the whole row is the target.
-- Motion answers a user action, except the hero canvas.
+No eyebrow labels, no 01/02/03 except real sequences, no gradients, no shadows at rest, no thin rules,
+headlines two lines or fewer at every width. Check with the taste-skill `lint.mjs` and `inspect.mjs`.

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Pipeline from "@/components/Pipeline";
 import PaletteDemo from "@/components/PaletteDemo";
+import { STILLS, STILL_BG } from "@/components/Stills";
 import { projects } from "@/lib/content";
 
 type Params = { slug: string };
@@ -19,105 +20,102 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return p ? { title: p.name, description: p.summary } : {};
 }
 
+// Size a display title so it fits two lines: limited by total length and by its longest word.
+const fit = (s: string) => {
+  const longest = Math.max(...s.split(/\s+/).map((w) => w.length));
+  const vw = Math.min(9, 150 / s.length, 88 / longest);
+  return { fontSize: `min(var(--s-display), ${vw.toFixed(2)}vw)` } as React.CSSProperties;
+};
+
 export default async function CaseStudy({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const i = projects.findIndex((x) => x.slug === slug);
   if (i < 0) notFound();
   const p = projects[i];
   const next = projects[(i + 1) % projects.length];
+  const Still = STILLS[p.slug];
 
   return (
     <article>
-      <header className="case-hero">
-        <div className="hero-plane" aria-hidden="true" />
-        <div className="wrap" style={{ position: "relative" }}>
-          <Link href="/#work" className="back">Back to all work</Link>
-          <h1>{p.name}</h1>
-          <p className="case-kind">{p.kind}</p>
-          <p className="case-summary">{p.summary}</p>
-          <dl className="facts">
-            <div><dt>Context</dt><dd>{p.context}</dd></div>
+      <header className="case-hero field-red" data-reveal>
+        <h1 className="display hero-load" style={fit(p.name)}>{p.name}</h1>
+        <div className="case-sub">
+          <p className="hero-load" style={{ "--i": 2 } as React.CSSProperties}>{p.summary}</p>
+          <dl className="case-facts hero-load" style={{ "--i": 3 } as React.CSSProperties}>
+            <div><dt>What</dt><dd>{p.kind}</dd></div>
             <div><dt>When</dt><dd className="num">{p.period}</dd></div>
-            <div><dt>Status</dt><dd>{p.status}</dd></div>
-            <div>
-              <dt>{p.link ? "Live site" : "Stack"}</dt>
-              <dd>{p.link ? <a href={p.link.href}>{p.link.label}</a> : p.stack.slice(0, 3).join(", ")}</dd>
-            </div>
+            <div><dt>Where</dt><dd>{p.context}</dd></div>
+            <div><dt>{p.link ? "Live site" : "Status"}</dt><dd>{p.link ? <a href={p.link.href}>{p.link.label}</a> : p.status}</dd></div>
           </dl>
         </div>
       </header>
 
-      <div className="case-body">
-        <section className="section">
-          <div className="wrap split">
-            <div className="split-head"><h2>The problem</h2></div>
-            <p className="prose">{p.problem}</p>
+      <div className={`case-still${p.image ? " has-img" : ""}`} style={{ "--bg": STILL_BG[p.slug] } as React.CSSProperties} data-reveal><div className="open" style={{ position: "absolute", inset: 0 }}>{p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} /> : <Still />}</div></div>
+
+      <section className="block field-bone" data-reveal>
+        <h2 className="display rise">The problem</h2>
+        <p className="prose rise" style={{ "--i": 1 } as React.CSSProperties}>{p.problem}</p>
+      </section>
+
+      {p.slug === "senecareader" && (
+        <section className="block field-bone" style={{ paddingTop: 0 }} data-reveal>
+          <h2 className="display rise">Pipeline</h2>
+          <div className="rise" style={{ "--i": 1 } as React.CSSProperties}><Pipeline /></div>
+        </section>
+      )}
+
+      {p.slug === "chromatic" && (
+        <section className="block field-bone" style={{ paddingTop: 0 }} data-reveal>
+          <h2 className="display rise">Try the ramp</h2>
+          <div className="rise" style={{ "--i": 1 } as React.CSSProperties}><PaletteDemo /></div>
+        </section>
+      )}
+
+      {p.gallery && (
+        <section className="block field-bone gallery" style={{ paddingTop: 0 }} data-reveal>
+          <h2 className="display rise">Screens</h2>
+          <div className="shots">
+            {p.gallery.map((g, k) => (
+              <figure key={g.src} className="rise" style={{ "--i": k + 1 } as React.CSSProperties}>
+                <img src={g.src} width={g.w} height={g.h} alt={g.alt} loading="lazy" />
+                <figcaption>{g.alt}</figcaption>
+              </figure>
+            ))}
           </div>
         </section>
+      )}
 
-        {p.slug === "senecareader" && (
-          <section className="section">
-            <div className="wrap stacked">
-              <h2>Architecture</h2>
-              <Pipeline />
-            </div>
-          </section>
-        )}
+      <section className="block field-bone" style={{ paddingTop: 0 }} data-reveal>
+        <h2 className="display rise">What I built</h2>
+        <ul className="built">
+          {p.built.map((s, k) => (
+            <li key={s.title} className="slide" style={{ "--i": k } as React.CSSProperties}><h3>{s.title}</h3><p>{s.body}</p></li>
+          ))}
+        </ul>
+      </section>
 
-        {p.slug === "chromatic" && (
-          <section className="section">
-            <div className="wrap split">
-              <div className="split-head">
-                <h2>Try the idea</h2>
-                <p>Fixed lightness and chroma steps in OKLCH, one hue. The same ramp drives every color on this site.</p>
-              </div>
-              <PaletteDemo />
-            </div>
-          </section>
-        )}
-
-        <section className="section">
-          <div className="wrap split">
-            <div className="split-head"><h2>What I built</h2></div>
-            <ul className="built">
-              {p.built.map((s) => (
-                <li key={s.title}><h3>{s.title}</h3><p>{s.body}</p></li>
-              ))}
-            </ul>
+      {(p.decision || p.lesson) && (
+        <section className="block field-mustard decision" data-reveal>
+          <h2 className="display rise">The call</h2>
+          <div>
+            {p.decision && <><h3 className="rise" style={{ "--i": 1 } as React.CSSProperties}>{p.decision.title}</h3><p className="rise" style={{ "--i": 2 } as React.CSSProperties}>{p.decision.body}</p></>}
+            {p.lesson && <p className="lesson rise" style={{ "--i": 3 } as React.CSSProperties}><b>What I&apos;d change:</b> {p.lesson}</p>}
           </div>
         </section>
+      )}
 
-        {(p.decision || p.lesson) && (
-          <section className="section">
-            <div className="wrap split">
-              <div className="split-head"><h2>Decisions</h2></div>
-              <div>
-                {p.decision && (
-                  <div className="callout"><h3>{p.decision.title}</h3><p>{p.decision.body}</p></div>
-                )}
-                {p.lesson && <p className="lesson"><b>What I&apos;d change:</b> {p.lesson}</p>}
-              </div>
-            </div>
-          </section>
-        )}
-
-        <section className="section">
-          <div className="wrap split">
-            <div className="split-head"><h2>Results</h2></div>
-            <div>
-              <ul className="results">{p.results.map((r) => <li key={r}>{r}</li>)}</ul>
-              <p className="stackline">Built with {p.stack.join(", ")}.</p>
-              {p.note && <p className="stackline">{p.note}</p>}
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <Link href={`/work/${next.slug}/`} className="next">
-        <div className="wrap">
-          <p>Next case study</p>
-          <span>{next.name}</span>
+      <section className="block field-bone" data-reveal>
+        <h2 className="display rise">Results</h2>
+        <div>
+          <ul className="results">{p.results.map((r, k) => <li key={r} className="slide" style={{ "--i": k } as React.CSSProperties}>{r}</li>)}</ul>
+          <p className="stackline rise" style={{ "--i": 3 } as React.CSSProperties}>Built with {p.stack.join(", ")}.</p>
+          {p.note && <p className="stackline rise" style={{ "--i": 4 } as React.CSSProperties}>{p.note}</p>}
         </div>
+      </section>
+
+      <Link href={`/work/${next.slug}/`} className="next-case field-ink">
+        <span className="display" style={fit(next.name)}>{next.name}</span>
+        <p>Next case study</p>
       </Link>
     </article>
   );

@@ -2,12 +2,11 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="case-hero">
-      <div className="wrap">
-        <p className="muted">404</p>
-        <h1 style={{ marginTop: 16 }}>This page isn&apos;t in the corpus.</h1>
-        <p className="case-summary">The guardrail refuses to make one up. Head back and try the work index instead.</p>
-        <div className="actions"><Link href="/" className="btn btn-solid">Go to the home page</Link></div>
+    <section className="case-hero field-red" style={{ minHeight: "80svh" }}>
+      <h1 className="display">Not in the corpus</h1>
+      <div className="case-sub">
+        <p>There is no page at this address, and I won&apos;t make one up. The work is one click away.</p>
+        <div><Link href="/#work" className="btn btn-ink">See the work</Link></div>
       </div>
     </section>
   );

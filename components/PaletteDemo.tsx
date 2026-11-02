@@ -1,30 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { DEFAULT_HUE, RAMP, rampColor } from "@/lib/theme";
-import { setHue } from "./ThemeControls";
+import { useState } from "react";
+import { RAMP, rampColor } from "@/lib/theme";
 
-// Live CHRO/MATIC-style ramp tied to the site's hue.
+// CHRO/MATIC's idea, live: fixed lightness and chroma steps in OKLCH, one hue.
 export default function PaletteDemo() {
-  const [hue, setH] = useState(DEFAULT_HUE);
-  useEffect(() => {
-    const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--h"));
-    if (Number.isFinite(v)) setH(v);
-    const on = (e: Event) => setH((e as CustomEvent<number>).detail);
-    window.addEventListener("hue:change", on);
-    return () => window.removeEventListener("hue:change", on);
-  }, []);
+  const [hue, setHue] = useState(30);
   return (
     <div>
-      <div className="demo-ramp">
+      <div className="ramp">
         {RAMP.map((s, i) => (
-          <div key={i} style={{ background: rampColor(hue, i), color: s.l > 0.6 ? "oklch(0.2 0.03 " + hue + ")" : "oklch(0.98 0.01 " + hue + ")" }}>
-            {(i + 1) * 100}
-          </div>
+          <div key={i} style={{ background: rampColor(hue, i), color: s.l > 0.6 ? "#2a1110" : "#ffffff" }}>{(i + 1) * 100}</div>
         ))}
       </div>
-      <label htmlFor="demo-hue" className="demo-label">Hue {Math.round(hue)}°. Drag to regenerate this page.</label>
-      <input id="demo-hue" className="hue-range" type="range" min={0} max={360} value={Math.round(hue)} onChange={(e) => { const v = +e.target.value; setH(v); setHue(v); }} />
+      <input id="ramp-hue" className="hue-range" type="range" min={0} max={360} value={hue} onChange={(e) => setHue(+e.target.value)} aria-describedby="ramp-label" />
+      <label id="ramp-label" htmlFor="ramp-hue" className="ramp-label">Hue {hue}°. Drag it: the nine steps stay evenly spaced to the eye at every hue.</label>
     </div>
   );
 }
