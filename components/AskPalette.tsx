@@ -17,7 +17,7 @@ export function openAsk(q?: string) {
   window.dispatchEvent(new CustomEvent("ask:open", { detail: q ?? "" }));
 }
 
-export function AskButton({ className = "icon-btn", children }: { className?: string; children?: React.ReactNode }) {
+export function AskButton({ className = "tool", children }: { className?: string; children?: React.ReactNode }) {
   return (
     <button type="button" className={className} onClick={() => openAsk()} aria-haspopup="dialog">
       {children ?? (
@@ -77,8 +77,8 @@ export default function AskPalette() {
     <div className="ask-backdrop" onMouseDown={(e) => { if (e.target === e.currentTarget) close(); }}>
       <div className="ask" role="dialog" aria-modal="true" aria-label="Ask my portfolio" onKeyDown={(e) => { if (e.key === "Escape") close(); }}>
         <form className="ask-top" onSubmit={(e) => { e.preventDefault(); if (top) { router.push(top.doc.href); close(); } }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" style={{ color: "var(--accent)" }}><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
-          <label htmlFor="ask-input" className="skip">Question</label>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+          <label htmlFor="ask-input" className="sr">Question</label>
           <input id="ask-input" ref={input} value={q} onChange={(e) => run(e.target.value)} placeholder="Ask about my work, services or background…" autoComplete="off" spellCheck={false} />
           <button type="button" className="kbd" onClick={close} aria-label="Close" style={{ cursor: "pointer" }}>esc</button>
         </form>
@@ -94,7 +94,7 @@ export default function AskPalette() {
           )}
 
           {trace?.blocked === "injection" && (
-            <div className="answer refuse"><p><b>Input guardrail stopped that.</b> It reads like an instruction to change how this search behaves. Ask about Daniel&apos;s projects, services or background instead.</p></div>
+            <div className="answer refuse"><p><b>The input guardrail stopped that.</b> It reads like an instruction to change how this search behaves. Ask about Daniel&apos;s projects, services or background instead.</p></div>
           )}
           {trace?.blocked === "off-topic" && (
             <div className="answer refuse"><p><b>Nothing in this portfolio covers that, so I won&apos;t guess.</b> Try asking about projects, AI agents, automation, costs, or where Daniel is based.</p></div>
@@ -103,24 +103,26 @@ export default function AskPalette() {
           {trace && !trace.blocked && top && (
             <>
               <div className="answer">
-                <p className="label" style={{ marginBottom: 8 }}>Best match · {top.doc.title}</p>
+                <h3>Best match: {top.doc.title}</h3>
                 <p>{top.doc.answer}</p>
               </div>
-              <div className="hits">
+              <ul className="hits">
                 {trace.fused.map((h) => (
-                  <Link key={h.doc.id} href={h.doc.href} className="hit" onClick={close}>
-                    <span><b>{h.doc.title}</b> <span className="mono">· {h.doc.kind}</span></span>
-                    <span className="mono">rrf {h.score.toFixed(4)} →</span>
-                  </Link>
+                  <li key={h.doc.id}>
+                    <Link href={h.doc.href} className="hit" onClick={close}>
+                      <span><b>{h.doc.title}</b> <small>{h.doc.kind}</small></span>
+                      <code className="muted">rrf {h.score.toFixed(4)}</code>
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </>
           )}
 
           {trace && trace.blocked !== "empty" && (
             <details className="trace" open>
               <summary><span>retrieval trace</span><span>{trace.ms.toFixed(1)} ms</span></summary>
-              <div className="trace-row g"><span>guardrail</span><span>{trace.blocked === "injection" ? "input · blocked: instruction pattern" : "input · passed"}</span></div>
+              <div className="trace-row g"><span>guardrail</span><span>{trace.blocked === "injection" ? "input: blocked, instruction pattern" : "input: passed"}</span></div>
               <div className="trace-row"><span>concepts</span><span>{trace.concepts.length ? trace.concepts.join(", ") : "none matched"}</span></div>
               <div className="trace-row"><span>keyword</span><span>{trace.keyword.length ? trace.keyword.slice(0, 3).map((h) => (
                 <span key={h.doc.id} style={{ display: "block" }}><span className="bar" style={{ width: Math.max(6, (h.score / maxK) * 60) }} />{h.doc.title} <span className="muted">bm25 {h.score.toFixed(2)}</span></span>
@@ -128,7 +130,7 @@ export default function AskPalette() {
               <div className="trace-row"><span>concept</span><span>{trace.concept.length ? trace.concept.slice(0, 3).map((h) => (
                 <span key={h.doc.id} style={{ display: "block" }}><span className="bar" style={{ width: Math.max(6, h.score * 60) }} />{h.doc.title} <span className="muted">cos {h.score.toFixed(2)}</span></span>
               )) : "no hits"}</span></div>
-              <div className="trace-row g"><span>guardrail</span><span>{trace.blocked === "off-topic" ? "output · refused: no grounded source" : trace.blocked ? "output · skipped" : "output · answer taken from a source document"}</span></div>
+              <div className="trace-row g"><span>guardrail</span><span>{trace.blocked === "off-topic" ? "output: refused, no grounded source" : trace.blocked ? "output: skipped" : "output: answer taken from a source document"}</span></div>
             </details>
           )}
         </div>

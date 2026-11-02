@@ -31,77 +31,92 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
       <header className="case-hero">
         <div className="hero-plane" aria-hidden="true" />
         <div className="wrap" style={{ position: "relative" }}>
-          <Link href="/#work" className="back mono">← All work</Link>
+          <Link href="/#work" className="back">Back to all work</Link>
           <h1>{p.name}</h1>
           <p className="case-kind">{p.kind}</p>
           <p className="case-summary">{p.summary}</p>
           <dl className="facts">
             <div><dt>Context</dt><dd>{p.context}</dd></div>
-            <div><dt>When</dt><dd>{p.period}</dd></div>
+            <div><dt>When</dt><dd className="num">{p.period}</dd></div>
             <div><dt>Status</dt><dd>{p.status}</dd></div>
-            <div><dt>{p.link ? "Live" : "Stack"}</dt><dd>{p.link ? <a href={p.link.href}>{p.link.label} ↗</a> : p.stack.slice(0, 3).join(", ")}</dd></div>
+            <div>
+              <dt>{p.link ? "Live site" : "Stack"}</dt>
+              <dd>{p.link ? <a href={p.link.href}>{p.link.label}</a> : p.stack.slice(0, 3).join(", ")}</dd>
+            </div>
           </dl>
         </div>
       </header>
 
-      <div className="wrap case-body">
-        <section className="case-block">
-          <p className="label">The problem</p>
-          <p className="prose">{p.problem}</p>
+      <div className="case-body">
+        <section className="section">
+          <div className="wrap split">
+            <div className="split-head"><h2>The problem</h2></div>
+            <p className="prose">{p.problem}</p>
+          </div>
         </section>
 
         {p.slug === "senecareader" && (
-          <section className="case-block">
-            <p className="label">Architecture</p>
-            <Pipeline />
+          <section className="section">
+            <div className="wrap stacked">
+              <h2>Architecture</h2>
+              <Pipeline />
+            </div>
           </section>
         )}
 
         {p.slug === "chromatic" && (
-          <section className="case-block">
-            <p className="label">Try the idea</p>
-            <div>
-              <p className="prose" style={{ marginBottom: 24 }}>This ramp is generated the way CHRO/MATIC does it: fixed lightness and chroma steps in OKLCH, one hue. It also drives every color on this site.</p>
+          <section className="section">
+            <div className="wrap split">
+              <div className="split-head">
+                <h2>Try the idea</h2>
+                <p>Fixed lightness and chroma steps in OKLCH, one hue. The same ramp drives every color on this site.</p>
+              </div>
               <PaletteDemo />
             </div>
           </section>
         )}
 
-        <section className="case-block">
-          <p className="label">What I built</p>
-          <ol className="steps">
-            {p.built.map((s) => (
-              <li key={s.title}><h3>{s.title}</h3><p>{s.body}</p></li>
-            ))}
-          </ol>
+        <section className="section">
+          <div className="wrap split">
+            <div className="split-head"><h2>What I built</h2></div>
+            <ul className="built">
+              {p.built.map((s) => (
+                <li key={s.title}><h3>{s.title}</h3><p>{s.body}</p></li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {(p.decision || p.lesson) && (
-          <section className="case-block">
-            <p className="label">Decisions</p>
-            <div>
-              {p.decision && (
-                <div className="callout"><h3>{p.decision.title}</h3><p>{p.decision.body}</p></div>
-              )}
-              {p.lesson && <p className="lesson"><b>What I&apos;d change:</b> {p.lesson}</p>}
+          <section className="section">
+            <div className="wrap split">
+              <div className="split-head"><h2>Decisions</h2></div>
+              <div>
+                {p.decision && (
+                  <div className="callout"><h3>{p.decision.title}</h3><p>{p.decision.body}</p></div>
+                )}
+                {p.lesson && <p className="lesson"><b>What I&apos;d change:</b> {p.lesson}</p>}
+              </div>
             </div>
           </section>
         )}
 
-        <section className="case-block">
-          <p className="label">Results</p>
-          <div>
-            <ul className="results">{p.results.map((r) => <li key={r}>{r}</li>)}</ul>
-            <div className="chips" style={{ marginTop: 28 }}>{p.stack.map((s) => <span key={s} className="chip">{s}</span>)}</div>
-            {p.note && <p className="muted" style={{ marginTop: 20 }}>{p.note}</p>}
+        <section className="section">
+          <div className="wrap split">
+            <div className="split-head"><h2>Results</h2></div>
+            <div>
+              <ul className="results">{p.results.map((r) => <li key={r}>{r}</li>)}</ul>
+              <p className="stackline">Built with {p.stack.join(", ")}.</p>
+              {p.note && <p className="stackline">{p.note}</p>}
+            </div>
           </div>
         </section>
       </div>
 
       <Link href={`/work/${next.slug}/`} className="next">
         <div className="wrap">
-          <p className="label">Next case study</p>
-          <span className="row-name" style={{ display: "block" }}>{next.name} →</span>
+          <p>Next case study</p>
+          <span>{next.name}</span>
         </div>
       </Link>
     </article>

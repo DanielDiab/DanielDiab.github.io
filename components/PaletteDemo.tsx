@@ -23,7 +23,7 @@ export default function PaletteDemo() {
           </div>
         ))}
       </div>
-      <label htmlFor="demo-hue" className="label" style={{ display: "block", marginTop: 20 }}>Hue {Math.round(hue)}° · drag to regenerate this page</label>
+      <label htmlFor="demo-hue" className="demo-label">Hue {Math.round(hue)}°. Drag to regenerate this page.</label>
       <input id="demo-hue" className="hue-range" type="range" min={0} max={360} value={Math.round(hue)} onChange={(e) => { const v = +e.target.value; setH(v); setHue(v); }} />
     </div>
   );

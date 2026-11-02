@@ -104,19 +104,33 @@ export default function EmbeddingField() {
         ctx.fillStyle = hot ? `${accent} / 1)` : `${faint} / ${p.label ? 0.55 : 0.35})`;
         ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI * 2); ctx.fill();
         if (hot) { ctx.strokeStyle = `${accent} / 0.35)`; ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, Math.PI * 2); ctx.stroke(); }
-        if (p.label && (hot || !narrow)) {
-          ctx.fillStyle = hot ? `${accent} / 1)` : `${faint} / 0.5)`;
-          ctx.fillText(p.label, p.x + 9, p.y + 4);
-        }
       });
+
+      // labels: the query's label first, then selected chunks, then the rest; skip any that would overlap
+      const boxes: [number, number, number, number][] = [];
+      const free = (x: number, y: number, bw: number) => !boxes.some(([bx, by, bw2]) => x < bx + bw2 + 6 && x + bw + 6 > bx && Math.abs(y - by) < 14);
+      const put = (text: string, x: number, y: number, style: string) => {
+        const bw = ctx.measureText(text).width;
+        if (!free(x, y, bw)) return;
+        boxes.push([x, y, bw, 14]);
+        ctx.fillStyle = style; ctx.fillText(text, x, y);
+      };
+      const qLabel = `query, k = ${K}`;
+      put(qLabel, q.x - ctx.measureText(qLabel).width / 2, q.y + 40, `${accent} / 1)`);
+      const order = [...ranked.slice(0, K).map((r) => r.i), ...pts.map((_, i) => i).filter((i) => !top.has(i))];
+      for (const i of order) {
+        const p = pts[i];
+        if (!p.label) continue;
+        const hot = top.has(i);
+        if (!hot && narrow) continue;
+        put(p.label, p.x + 9, p.y + 4, hot ? `${accent} / 1)` : `${faint} / 0.5)`);
+      }
 
       // the query marker
       ctx.strokeStyle = `${accent} / 0.9)`; ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.arc(q.x, q.y, 14, 0, Math.PI * 2); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(q.x - 22, q.y); ctx.lineTo(q.x - 8, q.y); ctx.moveTo(q.x + 8, q.y); ctx.lineTo(q.x + 22, q.y);
       ctx.moveTo(q.x, q.y - 22); ctx.lineTo(q.x, q.y - 8); ctx.moveTo(q.x, q.y + 8); ctx.lineTo(q.x, q.y + 22); ctx.stroke();
-      ctx.fillStyle = `${accent} / 1)`;
-      ctx.fillText(`query · top-${K}`, q.x + 20, q.y - 18);
     };
 
     const loop = () => {

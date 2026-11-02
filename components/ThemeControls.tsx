@@ -53,19 +53,19 @@ export default function ThemeControls() {
   return (
     <>
       <div className="hue" ref={ref}>
-        <button className="icon-btn" type="button" aria-expanded={open} aria-controls="hue-pop" onClick={() => setOpen((o) => !o)} aria-label="Change the site's color">
-          <span className="hue-swatch" aria-hidden="true" />
+        <button className="tool" type="button" aria-expanded={open} aria-controls="hue-pop" onClick={() => setOpen((o) => !o)} aria-label="Change the site's color">
+          <span className="swatch" aria-hidden="true" />
         </button>
         {open && (
           <div className="hue-pop" id="hue-pop" role="dialog" aria-label="Site color">
             <h3>Pick the site&apos;s hue</h3>
-            <p className="muted" style={{ fontSize: "0.9rem" }}>Every color on this site comes from one OKLCH hue. Drag to regenerate the palette.</p>
-            <label htmlFor="hue-range" className="label" style={{ display: "block", marginTop: 12 }}>Hue</label>
+            <p className="muted">Every color on this site comes from one OKLCH hue. Drag to regenerate the palette.</p>
+            <label htmlFor="hue-range" className="sr">Hue</label>
             <input id="hue-range" className="hue-range" type="range" min={0} max={360} step={1} value={Math.round(hue)} onChange={(e) => update(+e.target.value)} />
             <div className="ramp" aria-hidden="true">
               {RAMP.map((_, i) => <span key={i} style={{ background: rampColor(hue, i) }} />)}
             </div>
-            <div className="hue-meta mono"><span>oklch(L C {Math.round(hue)})</span><span>9 steps</span></div>
+            <div className="hue-meta"><code>oklch(L C {Math.round(hue)})</code><span>9 steps</span></div>
             <div className="presets" aria-label="Presets">
               {PRESETS.map((p) => (
                 <button key={p} type="button" style={{ background: `oklch(0.62 0.2 ${p})` }} aria-label={`Hue ${p}`} onClick={() => update(p)} />
@@ -74,7 +74,7 @@ export default function ThemeControls() {
           </div>
         )}
       </div>
-      <button className="icon-btn" type="button" onClick={toggleTheme} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}>
+      <button className="tool" type="button" onClick={toggleTheme} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}>
         {dark ? (
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
         ) : (

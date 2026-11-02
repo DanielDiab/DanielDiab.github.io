@@ -7,7 +7,10 @@ export default function Nav() {
   return (
     <header className="nav">
       <div className="wrap nav-in">
-        <Link href="/" className="brand"><span className="brand-mark" aria-hidden="true" />{profile.name}</Link>
+        <Link href="/" className="brand">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="6" /><path d="M12 1v5M12 18v5M1 12h5M18 12h5" /></svg>
+          {profile.name}
+        </Link>
         <nav className="nav-links" aria-label="Sections">
           <Link href="/#work">Work</Link>
           <Link href="/#services">Services</Link>

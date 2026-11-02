@@ -13,12 +13,12 @@ export default function Pipeline() {
       <div className="pipe">
         {COLS.map((c) => (
           <div className="pipe-col" key={c.title}>
-            <h4>{c.title}</h4>
+            <h4>{c.title}<span>{String(COLS.indexOf(c) + 1)}</span></h4>
             {c.nodes.map((n) => <div key={n.t} className={`node ${n.kind ?? ""}`}>{n.t}</div>)}
-            <div className="flow" aria-hidden="true" />
           </div>
         ))}
       </div>
+      <p className="pipe-caption">Five stages, left to right. Dashed boxes are guardrails; highlighted boxes are the parts that needed the most engineering.</p>
     </div>
   );
 }

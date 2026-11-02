@@ -15,7 +15,7 @@ export default function CopyEmail({ email }: { email: string }) {
   };
   return (
     <>
-      <button type="button" className="btn btn-primary" onClick={copy}>Copy email</button>
+      <button type="button" className="btn btn-solid" onClick={copy}>Copy email</button>
       <span className="toast" role="status" aria-live="polite">{msg}</span>
     </>
   );
