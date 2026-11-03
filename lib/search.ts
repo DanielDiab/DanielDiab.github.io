@@ -139,8 +139,8 @@ export function buildDocs(): Doc[] {
     title: "Credentials",
     href: "/#about",
     kind: "Credentials",
-    text: credentials.map((c) => `${c.issuer} ${c.items.join(" ")}`).join(" ") + " certification certificate award competition",
-    answer: credentials.map((c) => `${c.issuer}: ${c.items.join(", ")}`).join(". ") + ".",
+    text: credentials.map((c) => `${c.issuer} ${c.items.map((i) => i.name).join(" ")}`).join(" ") + " certification certificate award competition",
+    answer: credentials.map((c) => `${c.issuer}: ${c.items.map((i) => i.name).join(", ")}`).join(". ") + ".",
   });
   return docs;
 }

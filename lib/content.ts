@@ -375,14 +375,68 @@ export const stack: { group: string; items: string[] }[] = [
   { group: "Design and 3D", items: ["Figma", "Framer", "OKLCH color", "Design systems", "TouchDesigner", "Photogrammetry", "Rhino", "Fusion 360"] },
 ];
 
-export const credentials: { issuer: string; items: string[] }[] = [
-  { issuer: "IEEE", items: ["1st place nationwide, Colombia, IEEEXtreme 19.0 (2025)"] },
-  { issuer: "Anthropic", items: ["Model Context Protocol: Advanced Topics", "Introduction to MCP", "Claude Code in Action", "Claude 101", "AI Fluency"] },
-  { issuer: "NVIDIA", items: ["Fundamentals of Deep Learning", "Rapid Application Development with LLMs"] },
-  { issuer: "Microsoft", items: ["Design Multi-Agent Memory Architectures with Azure Cosmos DB"] },
-  { issuer: "AWS", items: ["Cloud Practitioner Essentials"] },
-  { issuer: "CU Boulder", items: ["Databases for Data Scientists specialization"] },
+export type Credential = { name: string; date: string; id?: string; url?: string };
+
+export const credentials: { issuer: string; items: Credential[] }[] = [
+  { issuer: "IEEE", items: [{ name: "1st place nationwide, Colombia, IEEEXtreme 19.0", date: "2025" }] },
+  {
+    issuer: "Anthropic",
+    items: [
+      { name: "Model Context Protocol: Advanced Topics", date: "Mar 2026", id: "jz3nj4s82uyn", url: "https://verify.skilljar.com/c/jz3nj4s82uyn" },
+      { name: "Introduction to Model Context Protocol", date: "Mar 2026", id: "q5nvmih2swtz", url: "https://verify.skilljar.com/c/q5nvmih2swtz" },
+      { name: "Claude Code in Action", date: "Mar 2026", id: "qdxzw3oemtvf", url: "https://verify.skilljar.com/c/qdxzw3oemtvf" },
+      { name: "AI Fluency: Framework & Foundations", date: "Mar 2026", url: "https://verify.skilljar.com/c/d2v6qkyw8szb" },
+      { name: "Claude 101", date: "Mar 2026", url: "https://verify.skilljar.com/c/de8tnfizypqo" },
+      { name: "AI Fluency for Students", date: "Mar 2026", id: "qk95226xfkeq", url: "https://verify.skilljar.com/c/qk95226xfkeq" },
+    ],
+  },
+  {
+    issuer: "NVIDIA",
+    items: [
+      { name: "Fundamentals of Deep Learning", date: "Sept 2026", id: "1tO0Ys3ITkGJkXM3sgBKrQ" },
+      { name: "Rapid Application Development with LLMs", date: "Sept 2026", id: "m06La3cFRCa5UZFk7kKM_Q" },
+    ],
+  },
+  {
+    issuer: "Microsoft",
+    items: [
+      { name: "Design Multi-Agent Memory Architectures with Azure Cosmos DB", date: "Sept 2026" },
+      { name: "AI Fluency", date: "Sept 2026" },
+    ],
+  },
+  { issuer: "AWS", items: [{ name: "Cloud Practitioner Essentials", date: "Aug 2026", id: "9756fd36-5166-4744-90e0-8338ed03daf3" }] },
+  {
+    issuer: "University of Colorado Boulder",
+    items: [
+      { name: "Databases for Data Scientists, specialization", date: "Mar 2025", id: "2LO9ZBQRQN9O", url: "https://www.coursera.org/account/accomplishments/specialization/2LO9ZBQRQN9O" },
+      { name: "Relational Database Design", date: "Mar 2025", id: "LOK9FK6GPNSD", url: "https://www.coursera.org/account/accomplishments/verify/LOK9FK6GPNSD" },
+      { name: "The Structured Query Language (SQL)", date: "Mar 2025", id: "BPEYONQMLTIT", url: "https://www.coursera.org/account/accomplishments/records/BPEYONQMLTIT" },
+    ],
+  },
+  { issuer: "Universidad de los Andes", items: [{ name: "Introduction to UML", date: "Feb 2025", id: "ZGRA6VYBVFVK" }] },
 ];
+
+// The IEEE Computer Society Uniandes chapter Daniel leads, from his CV and LinkedIn.
+export const chapter = {
+  name: "IEEE Computer Society Uniandes",
+  role: "President since December 2025",
+  stats: [
+    { big: "70+", small: "active members" },
+    { big: "~20", small: "technical events with industry" },
+    { big: "10+", small: "companies as speakers, partners or sponsors" },
+    { big: "8+", small: "projects running at once" },
+  ],
+  lines: [
+    "Grew the student chapter to 70+ active members and leads cross-functional teams across its technical projects.",
+    "Organized nearly 20 technical and networking events connecting students with top tech companies, and expanded the hands-on AI workshops.",
+    "Managed a 100+ participant hackathon with 8+ companies: communications, logistics and challenge design, plus technical direction for the AI projects.",
+    "Ambassador for the IEEE Computer Society Student & Young Professionals TechX initiative, and organizer of TechTalks Uniandes.",
+  ],
+};
+
+export const headline = "AI Engineer: agents, RAG and evaluation";
+export const keyFacts = ["6 MCP servers authored", "25% lower LLM operating costs", "1st nationwide, IEEEXtreme 19.0", "C1 English"];
+
 
 // The "what I do" command list on the home page. Typing filters it with lib/search.ts.
 export type Capability = { key: string; name: string; body: string; href: string; proof: string; keywords: string[] };
@@ -407,6 +461,7 @@ export const events = [
   { what: "AI Incident Response Sprint, Bogotá hub", where: "Sept 2026, with AI Safety Colombia and Young AI Leaders", detail: "Co-organized through Computer Society Uniandes: three days designing how to respond when an AI system fails." },
   { what: "6th Foro Académico on starting a career in IT", where: "Universidad de los Andes", detail: "Organized as teaching assistant for Business Systems, with speakers from industry." },
   { what: "6th Foro Tech", where: "Computer Society Uniandes, Oct 2026", detail: "The chapter's tech forum connecting students with the industry." },
+  { what: "Hackathon Uniandes", where: "100+ participants, 8+ companies", detail: "Managed communications, logistics and challenge design, and gave technical direction to the AI projects." },
 ];
 
 // Facts that fill the hero's geometric panel.
