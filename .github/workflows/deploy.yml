@@ -1,36 +1,43 @@
-name: Despliegue mi portafolio
+name: Deploy portfolio to GitHub Pages
 
 on:
   push:
     branches: ["main"]
+  schedule:
+    - cron: "17 11 * * 1" # weekly rebuild so the GitHub section stays fresh
   workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
-      
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: "3.10"
-      - run: pip install "pelican[markdown]"
-      - name: Build pelican site
-        run: pelican content -o output -s publishconf.py -t theme content
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: "output"
-      - name: Deploy my portfolio
-        id: deployment
-        uses: actions/deploy-pages@v4
+          path: out
 
-      
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
