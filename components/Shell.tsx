@@ -10,13 +10,16 @@ import type { Project } from "@/lib/content";
 // bottom, and panels that slide in over the room. The hash names the open panel, so links like
 // /#about or /#charter open straight to it.
 
-type PanelId = "work" | "what-i-do" | "about" | "contact";
-const DOCK: { id: PanelId; label: string }[] = [
+type PanelId = "work" | "what-i-do" | "contact";
+// About and Work are places on the page (the intro above, the room below); the other two are panels.
+const DOCK: { id: "about" | PanelId; label: string }[] = [
+  { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "what-i-do", label: "What I do" },
-  { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ];
+const PANELS: PanelId[] = ["work", "what-i-do", "contact"];
+const PLACES = ["about", "talks", "chapter", "experience", "certifications", "exhibition"];
 
 function BogotaClock() {
   const [t, setT] = useState("");
@@ -90,10 +93,12 @@ export default function Shell({
   const [open, setOpen] = useState<string | null>(null);
   const [hover, setHover] = useState<string | null>(null);
   const [narrow, setNarrow] = useState(false);
+  const [inRoom, setInRoom] = useState(false);
+  const roomRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
 
-  const valid = useCallback((id: string) => DOCK.some((d) => d.id === id) || projects.some((p) => p.slug === id), [projects]);
+  const valid = useCallback((id: string) => (PANELS as string[]).includes(id) || projects.some((p) => p.slug === id), [projects]);
 
   const show = useCallback((id: string | null) => {
     if (id && !valid(id)) id = null;
@@ -104,14 +109,25 @@ export default function Shell({
   }, [valid]);
 
   useEffect(() => {
-    const fromHash = () => { const h = window.location.hash.slice(1); setOpen(h && valid(h) ? h : null); };
+    const fromHash = () => {
+      const h = window.location.hash.slice(1);
+      if (PLACES.includes(h)) { setOpen(null); document.getElementById(h)?.scrollIntoView({ behavior: "smooth" }); return; }
+      setOpen(h && valid(h) ? h : null);
+      if (h && valid(h) && h !== "what-i-do" && h !== "contact") roomRef.current?.scrollIntoView();
+    };
     fromHash();
     window.addEventListener("hashchange", fromHash);
     const mq = window.matchMedia("(max-width: 900px)");
     const n = () => setNarrow(mq.matches);
     n(); mq.addEventListener("change", n);
-    return () => { window.removeEventListener("hashchange", fromHash); mq.removeEventListener("change", n); };
+    const io = new IntersectionObserver(([e]) => setInRoom(e.isIntersecting && e.intersectionRatio > 0.5), { threshold: [0, 0.5, 1] });
+    if (roomRef.current) io.observe(roomRef.current);
+    return () => { window.removeEventListener("hashchange", fromHash); mq.removeEventListener("change", n); io.disconnect(); };
   }, [valid]);
+
+  useEffect(() => {
+    document.body.style.overflow = open && narrow ? "hidden" : "";
+  }, [open, narrow]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -131,19 +147,27 @@ export default function Shell({
   const go = (d: number) => show(projects[(pi + d + projects.length) % projects.length].slug);
   const hovered = projects.find((p) => p.slug === hover);
   const hoveredIndex = projects.findIndex((p) => p.slug === hover);
-  const dockActive = pi >= 0 ? "work" : open;
+  const dockActive = open === "what-i-do" || open === "contact" ? open : pi >= 0 || open === "work" || inRoom ? "work" : "about";
+  const onDock = (id: string) => {
+    if (id === "about") { show(null); document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); return; }
+    if (id === "work") {
+      if (!inRoom) { show(null); roomRef.current?.scrollIntoView({ behavior: "smooth" }); return; }
+      show(open === "work" ? null : "work"); return;
+    }
+    show(open === id ? null : id);
+  };
 
   return (
-    <div className={`app${open ? " has-panel" : ""}`}>
+    <div ref={roomRef} id="exhibition" className={`app${open ? " has-panel" : ""}`}>
       <header className="topbar">
-        <Link href="/" className="wordmark" onClick={(e) => { e.preventDefault(); show(null); }}>Daniel Diab</Link>
+        <a href="#about" className="wordmark" onClick={(e) => { e.preventDefault(); onDock("about"); }}>Daniel Diab</a>
         <p className="status"><span>{intro.where}</span><BogotaClock /></p>
       </header>
 
-      <Exhibition key={narrow ? "portrait" : "landscape"} exhibits={exhibits} onSelect={show} onHover={setHover} paused={!!open && narrow} shifted={!!open && !narrow} />
+      <Exhibition key={narrow ? "portrait" : "landscape"} exhibits={exhibits} onSelect={show} onHover={setHover} paused={(!!open && narrow) || !inRoom} shifted={!!open && !narrow} />
 
       <div className="intro">
-        <h1 className="display">{intro.title}</h1>
+        <h2 className="display">{intro.title}</h2>
         <p>{intro.lead}</p>
       </div>
 
@@ -155,7 +179,7 @@ export default function Shell({
 
       <nav className="dock" aria-label="Sections">
         {DOCK.map((d, k) => (
-          <button key={d.id} type="button" className={dockActive === d.id ? "on" : ""} aria-current={dockActive === d.id ? "true" : undefined} onClick={() => show(dockActive === d.id && open === d.id ? null : d.id)}>
+          <button key={d.id} type="button" className={dockActive === d.id ? "on" : ""} aria-current={dockActive === d.id ? "true" : undefined} onClick={() => onDock(d.id)}>
             <span className="num">{String(k + 1).padStart(2, "0")}</span>{d.label}
           </button>
         ))}
@@ -183,7 +207,6 @@ export default function Shell({
           </div>
         )}
         {open === "what-i-do" && <div className="pp">{panels["what-i-do"]}</div>}
-        {open === "about" && <div className="pp">{panels.about}</div>}
         {open === "contact" && <div className="pp">{panels.contact}</div>}
       </aside>
 

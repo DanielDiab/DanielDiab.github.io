@@ -2,7 +2,9 @@
 
 Direction: **Loud and flat** (tasteskill v2, seed 291383188), set for a brutalist, industrial brief.
 
-**The idea.** The home page is an exhibition room, not a scrolling page: every project is a monitor on a
+**The idea.** The home page has two chapters. First, an about page: name, portrait, talks and workshops,
+the IEEE Computer Society Uniandes chapter Daniel leads, experience and every certification with its ID
+and verification link. Then the exhibition room: every project is a monitor on a
 concrete plinth (Three.js). Hover lifts a monitor, click opens its panel. A dock of four sections (Work,
 What I do, About, Contact) opens panels over the room, and the URL hash names the open panel, so
 /#charter or /#about open straight to it. Case-study pages at /work/[slug]/ keep the full story for

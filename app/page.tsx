@@ -1,9 +1,10 @@
 import Shell from "@/components/Shell";
+import AboutIntro from "@/components/AboutIntro";
 import CommandList from "@/components/CommandList";
 import CopyEmail from "@/components/CopyEmail";
 import { STILLS, STILL_BG } from "@/components/Stills";
 import type { Exhibit } from "@/components/Exhibition";
-import { profile, projects, roles, credentials, education, photos, events } from "@/lib/content";
+import { profile, projects } from "@/lib/content";
 import { getRepos } from "@/lib/github";
 
 // Which plinth each project stands on: three tall ones at the back, four in front.
@@ -52,43 +53,6 @@ export default async function Home() {
     </>
   );
 
-  const about = (
-    <>
-      <h2 className="display pp-name">About</h2>
-      <p className="pp-sum">I build agents in LangChain and LangGraph, and I like the unglamorous part: clean data in, guardrails on, and an agent that refuses what it doesn&apos;t know. I also teach, run events, lead a 70-member IEEE chapter, and compete. We placed first in Colombia at IEEEXtreme 19.0.</p>
-      <dl className="pp-facts">
-        <div><dt>Based in</dt><dd>{profile.location}, {profile.timezone}</dd></div>
-        <div><dt>Studies</dt><dd>{education.degree}, {education.school}</dd></div>
-        <div><dt>Graduating</dt><dd>{education.when.replace("Graduating ", "")}</dd></div>
-        <div><dt>Languages</dt><dd>{profile.languages}</dd></div>
-      </dl>
-      <div className="pp-photos">
-        {photos.map((ph) => (
-          <figure key={ph.src}>
-            <img src={ph.src} width={ph.w} height={ph.h} alt={ph.alt} loading="lazy" />
-            <figcaption>{ph.caption}</figcaption>
-          </figure>
-        ))}
-      </div>
-      <h3 className="pp-h">Roles</h3>
-      <ol className="pp-rows">
-        {roles.map((r) => (
-          <li key={r.title + r.org}><time className="num">{r.when}</time><div><b>{r.title}</b>, {r.org}<p>{r.detail}</p></div></li>
-        ))}
-      </ol>
-      <h3 className="pp-h">Talks and events</h3>
-      <ol className="pp-rows">
-        {events.map((e) => (
-          <li key={e.what}><span>{e.where}</span><div><b>{e.what}</b><p>{e.detail}</p></div></li>
-        ))}
-      </ol>
-      <h3 className="pp-h">Credentials</h3>
-      <dl className="creds">
-        {credentials.map((c) => [<dt key={c.issuer + "t"}>{c.issuer}</dt>, <dd key={c.issuer + "d"}>{c.items.join("; ")}</dd>])}
-      </dl>
-    </>
-  );
-
   const contact = (
     <>
       <h2 className="display pp-name">Contact</h2>
@@ -105,15 +69,16 @@ export default async function Home() {
 
   return (
     <>
+      <AboutIntro />
       <Shell
         projects={projects}
         exhibits={exhibits}
         intro={{
-          title: "AI agents that know what they can't answer",
-          lead: "I'm Daniel Diab, a full-stack and AI engineer in Bogotá. Each monitor is a project; pick one.",
+          title: "The work, on display",
+          lead: "Seven projects, one per monitor. Pick one to open it, or use Work below for the list.",
           where: "Bogotá, open to work",
         }}
-        panels={{ work, "what-i-do": whatIDo, about, contact }}
+        panels={{ work, "what-i-do": whatIDo, contact }}
       />
       {/* Drawings used as monitor screens for projects without screenshots */}
       <div hidden>
