@@ -47,7 +47,7 @@ export default function CommandList() {
   };
 
   return (
-    <div data-ui>
+    <div>
       <label htmlFor="cmd-input" className="sr">Search what I do</label>
       <input
         id="cmd-input" ref={input} className="cmd-input" type="search" autoComplete="off" spellCheck={false}

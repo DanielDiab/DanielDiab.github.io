@@ -49,6 +49,59 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "charter",
+    name: "Charter",
+    kind: "Agent platform with an evaluation gate",
+    context: "Prototype, applied to an energy retailer",
+    period: "Oct 2026",
+    status: "Open source",
+    summary:
+      "A platform where LLM agents are declared as versioned YAML manifests and must pass an evaluation gate before they can be published. Runs fully local on Ollama.",
+    problem:
+      "Once several teams build their own agents, nobody can say how many exist, which model each runs on, what customer data it touches or what it costs. Charter makes the agent a piece of configuration instead of code, so those answers come for free.",
+    built: [
+      {
+        title: "Agents as manifests",
+        body: "Each agent is a versioned YAML file: purpose, must and must-not rules, tools, knowledge, a model alias, a budget and an eval suite. The platform validates it against curated catalogs and computes its risk.",
+      },
+      {
+        title: "An evaluation gate",
+        body: "Three layers before publishing: the agent's own suite against a risk-based threshold (85, 90 or 95%), shared security suites for prompt injection and cross-customer PII at 100%, and cost and latency against budget.",
+      },
+      {
+        title: "Six MCP servers",
+        body: "Billing, metering, tariffs, support, knowledge search and platform introspection, one server per system. Permission checks happen in the runtime before each call.",
+      },
+      {
+        title: "One LangGraph runtime",
+        body: "Input guard, hybrid retrieval (BM25 plus vectors with rank fusion), the agent step, tool calls with writes held for confirmation, and an output guard. Every step is traced with tokens, cost and latency, PII masked.",
+      },
+      {
+        title: "An Architect agent",
+        body: "Answers questions about the platform and runs a five-question interview to create new agents. Code, not the model, picks the archetype, model tier, risk and approvals, and turns the user's examples into the new agent's first eval suite.",
+      },
+      {
+        title: "OpenAI-compatible API",
+        body: "Every published agent is served as a model on /v1/chat/completions. The bearer token defines the session, so customer identity never comes from the request body.",
+      },
+    ],
+    decision: {
+      title: "Numbers come from tools, and a guard checks them",
+      body: "The output guard requires every figure in an answer to appear in a tool result from the same conversation. With the runtime fixes and write confirmation, it took the billing agent's suite from 80% to 100%.",
+    },
+    lesson:
+      "The guard compares values, not units: a correct number in pesos instead of kWh would still pass. That is the next step.",
+    results: [
+      "Billing agent suite raised from 80% to 100%",
+      "Two-step scope check: 17 of 18 test messages right, against 13 with the classifier alone",
+      "85 automated tests that run without a model in under 20 seconds",
+      "Fully local on Ollama with Qwen models, no API keys",
+    ],
+    stack: ["Python", "LangGraph", "MCP", "Ollama", "SQLite", "Pytest"],
+    link: { label: "github.com/DanielDiab/Charter", href: "https://github.com/DanielDiab/Charter" },
+    keywords: ["agents", "platform", "governance", "evaluation", "evals", "gate", "mcp", "langgraph", "ollama", "guardrails", "yaml", "manifest", "enterprise", "llm", "testing", "rag"],
+  },
+  {
     slug: "agent-platform",
     name: "Connected agent platform",
     kind: "Multi-agent system",
@@ -328,10 +381,11 @@ export const credentials: { issuer: string; items: string[] }[] = [
 export type Capability = { key: string; name: string; body: string; href: string; proof: string; keywords: string[] };
 
 export const capabilities: Capability[] = [
-  { key: "A", name: "LangChain and LangGraph agents", body: "Agents with tools, memory and retrieval, wired into your systems, with guardrails so they refuse prompt injection and questions outside their material.", href: "/work/agent-platform/", proof: "Uniandes agent platform", keywords: ["agent", "langgraph", "langchain", "guardrails", "llm", "ai", "mcp", "chatbot", "assistant", "agente", "prompt injection", "tools", "memory"] },
+  { key: "A", name: "LangChain and LangGraph agents", body: "Agents with tools, memory and retrieval, wired into your systems through MCP, with guardrails so they refuse prompt injection and questions outside their material.", href: "/work/charter/", proof: "Charter and the Uniandes agent platform", keywords: ["agent", "langgraph", "langchain", "guardrails", "llm", "ai", "mcp", "chatbot", "assistant", "agente", "prompt injection", "tools", "memory"] },
   { key: "V", name: "Voice and class agents", body: "Agents people talk to, and agents that sit inside a class or a process and answer for it.", href: "/work/agent-platform/", proof: "In development at Uniandes", keywords: ["voice", "voz", "call", "speech", "class", "teaching", "education", "students", "assistant", "llamadas"] },
   { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/work/agent-platform/", proof: "RAG architectures at Uniandes", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
   { key: "L", name: "Lead and sales automation", body: "Workflows in n8n or Make that capture, qualify and follow up on leads without someone watching.", href: "/work/freelance-automation/", proof: "+35% client sales", keywords: ["leads", "sales", "crm", "n8n", "make", "automation", "workflow", "ventas", "automatizar", "follow up", "marketing"] },
+  { key: "G", name: "Agent evaluation and governance", body: "Eval suites, red-team tests and a gate that keeps an agent unpublished until it passes, plus an inventory of every agent, model and cost.", href: "/work/charter/", proof: "Charter", keywords: ["evaluation", "evals", "testing", "governance", "compliance", "red team", "security", "inventory", "audit", "quality", "gate"] },
   { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/work/freelance-automation/", proof: "−25% operating cost", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
   { key: "S", name: "Design systems in OKLCH", body: "One brand color in, a full system out: palette, type, spacing and accessible React components, exported as tokens.", href: "/work/chromatic/", proof: "CHRO/MATIC", keywords: ["design", "color", "oklch", "tokens", "ui", "figma", "tailwind", "frontend", "accessibility", "diseno"] },
   { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "This site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
@@ -347,6 +401,14 @@ export const events = [
   { what: "6th Foro Académico on starting a career in IT", where: "Universidad de los Andes", detail: "Organized as teaching assistant for Business Systems, with speakers from industry." },
   { what: "6th Foro Tech", where: "Computer Society Uniandes, Oct 2026", detail: "The chapter's tech forum connecting students with the industry." },
 ];
+
+// Facts that fill the hero's geometric panel.
+export const heroFacts = {
+  first: { big: "1st", small: "Colombia, IEEEXtreme 19.0" },
+  agents: { big: "6", small: "MCP servers behind one LangGraph runtime in Charter" },
+  community: { big: "70+", small: "members in the IEEE chapter I lead" },
+  results: [{ big: "−25%", small: "LLM cost" }, { big: "+35%", small: "client sales" }],
+};
 
 export const proofNames = [
   "1st in Colombia at IEEEXtreme 19.0",

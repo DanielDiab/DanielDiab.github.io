@@ -27,10 +27,10 @@ Six sizes: 16 / 19 / 26 / 76 / 130 px, plus the 216px hero line.
 
 ## Motion
 
-- Signature: the name line runs at a constant 40px/s; a mustard copy is clipped to the portrait.
+- Signature: on load the name rises out of a mask and the hero blocks wipe open one after another.
+- Shapes in the hero drift slightly toward the cursor; the dashed ring turns; the agent graph pulses.
 - The proof band moves only with the scroll.
 - Sections enter part by part (heading, text, pictures), 70–90ms apart, once.
-- Pictures open from a mask; the hero portrait drifts slowly.
 - Everything stops under `prefers-reduced-motion`.
 
 ## Pictures

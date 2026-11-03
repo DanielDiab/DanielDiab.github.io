@@ -6,6 +6,25 @@ const F = "TikTok Sans Variable, Arial Black, sans-serif";
 const CODE = ["JetBrains", "Mono Variable, monospace"].join(" "); // literal JSON in the drawing is code
 const svg = { preserveAspectRatio: "xMidYMid meet" as const, xmlns: "http://www.w3.org/2000/svg", role: "img" as const };
 
+function Charter() {
+  const code = ["JetBrains", "Mono Variable, monospace"].join(" ");
+  const lines = ["kind: Agent", "model: estandar", "must_not: [promises]", "quality:", "  min_pass_rate: 0.90"];
+  return (
+    <svg viewBox="0 0 600 400" {...svg} aria-label="Charter: a YAML manifest passes an evaluation gate and is published">
+      <rect width="600" height="400" fill={C.bone} />
+      <rect x="40" y="70" width="230" height="260" fill={C.ink} />
+      {lines.map((l, i) => <text key={l} x="58" y={112 + i * 34} fontFamily={code} fontSize="14" fill={i === 4 ? C.mustard : C.bone}>{l}</text>)}
+      <rect x="270" y="192" width="50" height="16" fill={C.ink} />
+      <polygon points="390,120 470,200 390,280 310,200" fill={C.mustard} />
+      <text x="390" y="196" textAnchor="middle" fontFamily={F} fontWeight="900" fontStretch="150%" fontSize="20" fill={C.ink}>GATE</text>
+      <text x="390" y="220" textAnchor="middle" fontFamily={F} fontWeight="700" fontSize="14" fill={C.ink}>100% security</text>
+      <rect x="470" y="192" width="30" height="16" fill={C.ink} />
+      <rect x="500" y="150" width="70" height="100" fill={C.red} />
+      <text x="535" y="206" textAnchor="middle" fontFamily={F} fontWeight="800" fontSize="13" fill={C.white}>LIVE</text>
+    </svg>
+  );
+}
+
 function Agents() {
   const n = [
     { x: 60, y: 70, w: 170, t: "Open WebUI", f: C.bone },
@@ -84,10 +103,12 @@ function OptiCloud() {
 }
 
 export const STILL_BG: Record<string, string> = {
+  charter: C.bone,
   "agent-platform": C.slate, "freelance-automation": C.mustard, chromatic: C.ink, stochastic: C.red, opticloud: C.maroon, paco: "#05050a",
 };
 
 export const STILLS: Record<string, () => React.ReactElement> = {
+  charter: Charter,
   "agent-platform": Agents,
   "freelance-automation": Freelance,
   chromatic: Chromatic,

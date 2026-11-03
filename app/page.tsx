@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HeroLine from "@/components/HeroLine";
+import Hero from "@/components/Hero";
 import ProofBand from "@/components/ProofBand";
 import CommandList from "@/components/CommandList";
 import CopyEmail from "@/components/CopyEmail";
@@ -8,8 +8,8 @@ import { profile, projects, roles, credentials, education, proofNames, photos, e
 import { getRepos } from "@/lib/github";
 
 const WALL: { h: number; tiles: [string, number][] }[] = [
-  { h: 380, tiles: [["agent-platform", 1.5], ["freelance-automation", 1]] },
-  { h: 300, tiles: [["chromatic", 1.2], ["stochastic", 1.1]] },
+  { h: 380, tiles: [["charter", 1.5], ["agent-platform", 1]] },
+  { h: 280, tiles: [["chromatic", 1.2], ["stochastic", 1.1], ["freelance-automation", 0.9]] },
   { h: 320, tiles: [["paco", 1.1], ["opticloud", 1]] },
 ];
 
@@ -21,17 +21,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="hero field-indigo" aria-label="Introduction">
-        <HeroLine name={profile.name} />
-        <div className="hero-copy hero-load" style={{ "--i": 3 } as React.CSSProperties}>
-          <p>I build AI agents that know what they can&apos;t answer, and automations that pay for themselves.</p>
-          <p>Full-stack developer and research assistant at Universidad de los Andes, building its platform of connected AI agents.</p>
-        </div>
-        <div className="hero-foot hero-load" style={{ "--i": 5 } as React.CSSProperties}>
-          <p>Bogotá, Colombia. Open to full-time roles and projects.</p>
-          <a className="btn" href={`mailto:${profile.email}?subject=Hello%20Daniel`}>Email me</a>
-        </div>
-      </section>
+      <Hero />
 
       <section id="work" className="field-ink pad" aria-labelledby="work-title" data-reveal>
         <div className="work-head">

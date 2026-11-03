@@ -44,7 +44,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
             <div><dt>What</dt><dd>{p.kind}</dd></div>
             <div><dt>When</dt><dd className="num">{p.period}</dd></div>
             <div><dt>Where</dt><dd>{p.context}</dd></div>
-            <div><dt>{p.link ? "Live site" : "Status"}</dt><dd>{p.link ? <a href={p.link.href}>{p.link.label}</a> : p.status}</dd></div>
+            <div><dt>{p.link ? (p.link.href.includes("github.com") ? "Code" : p.link.href.includes("behance") ? "Gallery" : "Live site") : "Status"}</dt><dd>{p.link ? <a href={p.link.href}>{p.link.label}</a> : p.status}</dd></div>
           </dl>
         </div>
       </header>
