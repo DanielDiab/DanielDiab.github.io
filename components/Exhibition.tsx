@@ -153,7 +153,10 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
     const bodyMat = new THREE.MeshStandardMaterial({ color: COL.body, roughness: 0.55, metalness: 0.1 });
     const plinthMat = new THREE.MeshStandardMaterial({ color: COL.plinth, roughness: 0.92 });
 
-    type Item = { slug: string; group: THREE.Group; monitor: THREE.Group; screen: THREE.Mesh; baseY: number; lift: number; phase: number };
+    type Item = { slug: string; group: THREE.Group; monitor: THREE.Group; screen: THREE.Mesh; baseY: number; lift: number; phase: number; label: HTMLDivElement; order: number; below: boolean };
+    const labels = document.createElement("div");
+    labels.className = "room-labels";
+    el.appendChild(labels);
     const items: Item[] = [];
     const hitTargets: THREE.Object3D[] = [];
 
@@ -180,7 +183,7 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       body.castShadow = true;
       const back = new THREE.Mesh(backGeo, bodyMat);
       back.position.z = -0.42; back.castShadow = true;
-      const screenMat = new THREE.MeshBasicMaterial({ color: 0x2a2a2a, toneMapped: false });
+      const screenMat = new THREE.MeshBasicMaterial({ color: 0x2a2a2a, toneMapped: false, transparent: true });
       const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.75), screenMat);
       screen.position.z = 0.312;
       monitor.add(body, back, screen);
@@ -190,7 +193,12 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       scene.add(group);
 
       [body, back, screen, plinth].forEach((m) => { m.userData.slug = ex.slug; hitTargets.push(m); });
-      items.push({ slug: ex.slug, group, monitor, screen, baseY, lift: 0, phase: Math.random() * 6 });
+      const tag = document.createElement("div");
+      // floating titles only for the rows whose plinth fronts are hidden behind other monitors
+      tag.className = i < (portrait ? 4 : 3) ? "room-label" : "room-label hide";
+      tag.innerHTML = `<span>${ex.index}</span>${ex.name}`;
+      labels.appendChild(tag);
+      items.push({ slug: ex.slug, group, monitor, screen, baseY, lift: 0, phase: Math.random() * 6, label: tag, order: i, below: portrait && (i === 2 || i === 3) });
 
       const p = ex.src ? loadImage(ex.src) : ex.svgId ? svgToImage(ex.svgId) : null;
       p?.then((img) => { screenMat.map = screenTexture(img, ex.bg); screenMat.color.set(0xffffff); screenMat.needsUpdate = true; }).catch(() => {});
@@ -233,6 +241,9 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
     el.addEventListener("click", onClick as unknown as EventListener);
 
     const clock = new THREE.Clock();
+    const tmp = new THREE.Vector3();
+    let introStart = -1;
+    const ease = (x: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
     const cam = new THREE.Vector2(0, 0);
     let baseX = 0;
     let raf = 0;
@@ -257,12 +268,30 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       const now = hit ? (hit.object.userData.slug as string) : null;
       if (now !== hovered) { hovered = now; el.style.cursor = now ? "pointer" : ""; hoverCb.current?.(now); }
 
+      if (introStart < 0) introStart = t;
+      const since = reduce ? 99 : t - introStart;
+      const w = el.clientWidth, hgt = el.clientHeight;
       for (const it of items) {
+        // drop in one after another, then power the screen on
+        const k = ease((since - it.order * 0.12) / 0.9);
         const goal = it.slug === hovered ? 0.16 : 0;
         it.lift += (goal - it.lift) * 0.12;
         const bob = reduce ? 0 : Math.sin(t * 0.9 + it.phase) * 0.012;
-        it.monitor.position.y = it.baseY + it.lift + bob;
-        it.monitor.rotation.y = it.lift * 0.6;
+        it.monitor.position.y = it.baseY + it.lift + bob + (1 - k) * 2.2;
+        it.monitor.rotation.y = it.lift * 0.6 + (1 - k) * 0.8;
+        it.group.scale.setScalar(0.6 + 0.4 * ease((since - it.order * 0.12) / 0.6));
+        const power = ease((since - 0.5 - it.order * 0.12) / 0.5);
+        const flick = power < 1 ? (Math.sin(t * 60) > 0 ? 1 : 0.4) : 1;
+        it.screen.scale.set(1, Math.max(0.02, power), 1);
+        (it.screen.material as THREE.MeshBasicMaterial).opacity = flick;
+        // title above the monitor, projected to the screen
+        it.monitor.getWorldPosition(tmp);
+        tmp.y += it.below ? -0.6 : 0.72;
+        tmp.project(camera);
+        const x = (tmp.x * 0.5 + 0.5) * w, y = (-tmp.y * 0.5 + 0.5) * hgt;
+        it.label.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, ${it.below ? "0" : "-100%"})`;
+        it.label.style.opacity = String(ease((since - 0.9 - it.order * 0.1) / 0.5));
+        it.label.classList.toggle("on", it.slug === hovered);
       }
       renderer.render(scene, camera);
     };
@@ -276,6 +305,7 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       el.removeEventListener("click", onClick as unknown as EventListener);
       renderer.dispose();
       el.removeChild(renderer.domElement);
+      labels.remove();
     };
   }
 
