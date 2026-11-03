@@ -1,3 +1,5 @@
+import AgentTrace from "./AgentTrace";
+import CountUp from "./CountUp";
 import { chapter, credentials, events, headline, keyFacts, photos, profile, roles, education } from "@/lib/content";
 
 // Chapter one of the home page: who Daniel is, the talks, the IEEE chapter he leads and every
@@ -26,7 +28,10 @@ export default function AboutIntro() {
         </header>
         <div className="ab-hero-grid">
           <div className="ab-hero-text">
-            <p className="ab-role hero-load">{headline}</p>
+            <p className="ab-role hero-load">
+              <img src="/img/portrait.jpg" width={56} height={56} alt="" className="ab-avatar" />
+              <span>{headline}<br /><em>{education.degree}, {education.school}</em></span>
+            </p>
             <h1 id="about-title" className="display ab-name">
               <span className="mask"><span className="hero-word" style={{ "--i": 1 } as React.CSSProperties}>Daniel</span></span>
               <span className="mask"><span className="hero-word" style={{ "--i": 2 } as React.CSSProperties}>Diab</span></span>
@@ -40,10 +45,7 @@ export default function AboutIntro() {
               <a className="btn btn-light" href={`mailto:${profile.email}?subject=Hello%20Daniel`}>Email me</a>
             </div>
           </div>
-          <figure className="ab-portrait wipe" style={{ "--i": 3 } as React.CSSProperties}>
-            <img src="/img/portrait.jpg" width={580} height={580} alt="Portrait of Daniel Diab on the Universidad de los Andes campus" fetchPriority="high" />
-            <figcaption>{education.degree}, {education.school}</figcaption>
-          </figure>
+          <div className="ab-trace wipe" style={{ "--i": 3 } as React.CSSProperties}><AgentTrace /></div>
         </div>
       </section>
 
@@ -78,7 +80,7 @@ export default function AboutIntro() {
         </div>
         <ul className="ab-stats">
           {chapter.stats.map((s, i) => (
-            <li key={s.small} className="rise" style={{ "--i": i + 2 } as React.CSSProperties}><b className="display num">{s.big}</b><span>{s.small}</span></li>
+            <li key={s.small} className="rise" style={{ "--i": i + 2 } as React.CSSProperties}><CountUp value={s.big} className="display num" /><span>{s.small}</span></li>
           ))}
         </ul>
         <div className="ab-chapter-grid">
