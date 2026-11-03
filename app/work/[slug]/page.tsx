@@ -36,7 +36,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
 
   return (
     <article>
-      <header className="case-hero field-red" data-reveal>
+      <header className="case-hero field-indigo" data-reveal>
         <h1 className="display hero-load" style={fit(p.name)}>{p.name}</h1>
         <div className="case-sub">
           <p className="hero-load" style={{ "--i": 2 } as React.CSSProperties}>{p.summary}</p>
@@ -49,7 +49,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
         </div>
       </header>
 
-      <div className={`case-still${p.image ? " has-img" : ""}`} style={{ "--bg": STILL_BG[p.slug] } as React.CSSProperties} data-reveal><div className="open" style={{ position: "absolute", inset: 0 }}>{p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} /> : <Still />}</div></div>
+      <div className={`case-still${p.image ? " has-img" : ""}`} style={{ "--bg": STILL_BG[p.slug] } as React.CSSProperties} data-reveal><div className="open" style={{ position: "absolute", inset: 0 }}>{p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} style={p.slug === "paco" ? { objectFit: "contain", objectPosition: "center" } : undefined} /> : <Still />}</div></div>
 
       <section className="block field-bone" data-reveal>
         <h2 className="display rise">The problem</h2>
@@ -87,7 +87,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
       </section>
 
       {(p.decision || p.lesson) && (
-        <section className="block field-mustard decision" data-reveal>
+        <section className="block field-gold decision" data-reveal>
           <h2 className="display rise">The call</h2>
           <div>
             {p.decision && <><h3 className="rise" style={{ "--i": 1 } as React.CSSProperties}>{p.decision.title}</h3><p className="rise" style={{ "--i": 2 } as React.CSSProperties}>{p.decision.body}</p></>}

@@ -1,7 +1,7 @@
 // Drawn stills of the real work, in one flat language and the palette's own colours.
 // They stand in for screenshots until real ones are added (see README).
 
-const C = { red: "#dc1928", maroon: "#952625", mustard: "#e0a912", slate: "#4a6f84", bone: "#e2dccf", bone2: "#d7d0c1", ink: "#2a1110", white: "#ffffff" };
+const C = { red: "#2d4351", maroon: "#362a20", mustard: "#cda247", slate: "#665b29", bone: "#e1d8c9", bone2: "#d6cdbd", ink: "#1b1b1b", white: "#f6f3ec" };
 const F = "TikTok Sans Variable, Arial Black, sans-serif";
 const CODE = ["JetBrains", "Mono Variable, monospace"].join(" "); // literal JSON in the drawing is code
 const svg = { preserveAspectRatio: "xMidYMid meet" as const, xmlns: "http://www.w3.org/2000/svg", role: "img" as const };
@@ -84,7 +84,7 @@ function OptiCloud() {
 }
 
 export const STILL_BG: Record<string, string> = {
-  "agent-platform": C.slate, "freelance-automation": C.mustard, chromatic: C.ink, stochastic: C.red, opticloud: C.maroon,
+  "agent-platform": C.slate, "freelance-automation": C.mustard, chromatic: C.ink, stochastic: C.red, opticloud: C.maroon, paco: "#05050a",
 };
 
 export const STILLS: Record<string, () => React.ReactElement> = {

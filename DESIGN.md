@@ -8,16 +8,16 @@ box that filters his capabilities.
 
 ## Colour
 
-Flat fields meet edge to edge: no gradients, shadows or hairlines.
+A Japandi / Edo palette chosen by Daniel: named Japanese colours, flat fields edge to edge, no gradients, shadows or hairlines.
 
-| Token     | Hex       | Where                                      |
-|-----------|-----------|--------------------------------------------|
-| red       | `#dc1928` | hero, contact, footer (opens and closes)   |
-| ink       | `#2a1110` | work                                       |
-| mustard   | `#e0a912` | proof band; letters crossing the portrait  |
-| bone      | `#e2dccf` | what I do, case-study body                 |
-| maroon    | `#952625` | about                                      |
-| slate     | `#4a6f84` | the button and the selected command row    |
+| Token  | Hex       | Name                 | Where                                        |
+|--------|-----------|----------------------|----------------------------------------------|
+| indigo | `#2d4351` | ai-iro               | hero, contact, footer; selected command row  |
+| ink    | `#1b1b1b` | sumi-iro             | work; text                                   |
+| gold   | `#cda247` | yamabuki             | the button, proof band, letters over the photo |
+| brown  | `#362a20` | kogecha              | about                                        |
+| bone   | `#e1d8c9` | kinari               | what I do, case-study body                   |
+| white  | `#f6f3ec` | gofun                | text on dark fields                          |
 
 ## Type
 
@@ -35,8 +35,8 @@ Six sizes: 16 / 19 / 26 / 76 / 130 px, plus the 216px hero line.
 
 ## Pictures
 
-All photographs and screenshots are Daniel's own (`public/img/`). About photos share one treatment:
-greyscale multiplied over a rotating palette tint. Projects without screenshots (the agent platform,
+All photographs and screenshots are Daniel's own (`public/img/`), shown as taken with no filters.
+PACO images come from his Behance project. Projects without screenshots (the agent platform,
 freelance work, OptiCloud) use flat drawings in `components/Stills.tsx` until real ones exist.
 
 ## Rules for future edits

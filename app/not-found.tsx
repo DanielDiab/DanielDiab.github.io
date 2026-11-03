@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="case-hero field-red" style={{ minHeight: "80svh" }}>
+    <section className="case-hero field-indigo" style={{ minHeight: "80svh" }}>
       <h1 className="display">Not in the corpus</h1>
       <div className="case-sub">
         <p>There is no page at this address, and I won&apos;t make one up. The work is one click away.</p>

@@ -185,6 +185,54 @@ export const projects: Project[] = [
     keywords: ["machine learning", "ml", "forecasting", "crypto", "finance", "arima", "random forest", "data", "time series"],
   },
   {
+    slug: "paco",
+    name: "PACO",
+    kind: "Interactive installation, 3D art",
+    context: "Personal project",
+    period: "Mar 2026",
+    status: "Published on Behance",
+    summary:
+      "A real penguin figurine, scanned with photogrammetry, that a turn of a knob breaks into particles, sets vibrating to the beat and finally presses into a vinyl record shaped by a trance bassline. Live, in TouchDesigner.",
+    problem:
+      "I wanted a transformation people would believe. Not a model built from nothing, but a real object the viewer could watch come apart and turn into sound.",
+    built: [
+      {
+        title: "Photogrammetry",
+        body: "Scanned Paco from many angles to capture his geometry and texture, then cleaned and modified the 3D model so it could break apart convincingly.",
+      },
+      {
+        title: "A knob that tells the story",
+        body: "An Arduino potentiometer is the narrator: each position maps in real time to one of four states in TouchDesigner.",
+      },
+      {
+        title: "Four states",
+        body: "Origin, the solid scan. Deconstruction, the mesh fractures into a particle system. Micro-beat, every particle vibrates to the music. Synthesis, the energy condenses into a vinyl disc.",
+      },
+      {
+        title: "Sound builds the form",
+        body: "In the last state the amplitude of the trance bass sets the radius and the groove of the record in real time. The audio doesn't illustrate the result; it builds it.",
+      },
+      {
+        title: "The viewer steers",
+        body: "In every state the mouse moves the scene: orbit the scan, spin the particle cloud, turn the waves, tilt the plane of the record.",
+      },
+    ],
+    decision: {
+      title: "Why scan a real object",
+      body: "Paco wasn't modelled from scratch. Scanning a real figurine gives the transformation a real referent, so what people watch disintegrate is something genuine.",
+    },
+    results: ["Published on Behance with a real-time demo video and an interactive 3D model", "Four live states driven by hardware and audio"],
+    stack: ["TouchDesigner", "Arduino", "Photogrammetry", "3D modelling", "Real-time audio"],
+    link: { label: "PACO on Behance", href: "https://www.behance.net/gallery/245644523/PACO-Metamorfosis-de-Frecuencia" },
+    image: { src: "/img/paco-particles.jpg", w: 810, h: 670, alt: "PACO: the scanned penguin figurine rendered as a cloud of blue particles" },
+    gallery: [
+      { src: "/img/paco-vinyl.jpg", w: 1054, h: 600, alt: "The final state: particles condensed into a glowing vinyl disc" },
+      { src: "/img/paco-network.jpg", w: 1800, h: 588, alt: "The TouchDesigner network that drives the four states" },
+      { src: "/img/paco-touchdesigner.jpg", w: 1146, h: 719, alt: "TouchDesigner: the Arduino serial input routed to the three renders" },
+    ],
+    keywords: ["touchdesigner", "arduino", "photogrammetry", "3d", "scan", "interactive", "installation", "audio", "music", "visual", "creative coding", "art", "hardware"],
+  },
+  {
     slug: "opticloud",
     name: "OptiCloud",
     kind: "Microservices on AWS",
@@ -264,7 +312,7 @@ export const stack: { group: string; items: string[] }[] = [
   { group: "Web", items: ["Next.js", "React", "Node.js", "Angular", "Tailwind"] },
   { group: "Data", items: ["PostgreSQL", "MongoDB", "MySQL", "Azure Cosmos DB", "Redis"] },
   { group: "Cloud", items: ["AWS", "Google Cloud", "Docker", "Linux"] },
-  { group: "Design", items: ["Figma", "Framer", "OKLCH color", "Design systems"] },
+  { group: "Design and 3D", items: ["Figma", "Framer", "OKLCH color", "Design systems", "TouchDesigner", "Photogrammetry", "Rhino", "Fusion 360"] },
 ];
 
 export const credentials: { issuer: string; items: string[] }[] = [
@@ -287,6 +335,7 @@ export const capabilities: Capability[] = [
   { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/work/freelance-automation/", proof: "−25% operating cost", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
   { key: "S", name: "Design systems in OKLCH", body: "One brand color in, a full system out: palette, type, spacing and accessible React components, exported as tokens.", href: "/work/chromatic/", proof: "CHRO/MATIC", keywords: ["design", "color", "oklch", "tokens", "ui", "figma", "tailwind", "frontend", "accessibility", "diseno"] },
   { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "This site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
+  { key: "R", name: "Real-time interactive visuals", body: "Installations that react to sound and to people: 3D scans, particles and hardware, built in TouchDesigner with Arduino.", href: "/work/paco/", proof: "PACO", keywords: ["touchdesigner", "arduino", "interactive", "installation", "visuals", "3d", "photogrammetry", "audio", "creative", "art", "event", "museum"] },
   { key: "I", name: "Cloud infrastructure", body: "Services on AWS and Google Cloud: gateways, containers, private networks, databases and caching.", href: "/work/opticloud/", proof: "OptiCloud", keywords: ["aws", "cloud", "gcp", "docker", "microservices", "devops", "infrastructure", "ec2", "redis", "postgres", "kubernetes"] },
   { key: "F", name: "Forecasting with ML", body: "Time-series and machine-learning models on live data, with an explanation attached to each forecast.", href: "/work/stochastic/", proof: "Stochastic", keywords: ["ml", "machine learning", "forecast", "prediction", "data", "arima", "random forest", "crypto", "finance", "python", "model"] },
 ];

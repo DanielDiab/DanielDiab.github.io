@@ -2,7 +2,7 @@ import { profile } from "@/lib/content";
 
 export default function Footer() {
   return (
-    <footer className="field-red">
+    <footer className="field-indigo">
       <p className="closing display" aria-hidden="true">{profile.name}</p>
       <div className="foot-row">
         <span>{profile.fullName}, {profile.location}</span>

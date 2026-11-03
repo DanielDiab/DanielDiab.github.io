@@ -9,7 +9,8 @@ import { getRepos } from "@/lib/github";
 
 const WALL: { h: number; tiles: [string, number][] }[] = [
   { h: 380, tiles: [["agent-platform", 1.5], ["freelance-automation", 1]] },
-  { h: 270, tiles: [["chromatic", 1.25], ["stochastic", 1.1], ["opticloud", 1]] },
+  { h: 300, tiles: [["chromatic", 1.2], ["stochastic", 1.1]] },
+  { h: 320, tiles: [["paco", 1.1], ["opticloud", 1]] },
 ];
 
 const year = (period: string) => period.replace(/^.*(\d{4}).*$/, "$1");
@@ -20,7 +21,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="hero field-red" aria-label="Introduction">
+      <section className="hero field-indigo" aria-label="Introduction">
         <HeroLine name={profile.name} />
         <div className="hero-copy hero-load" style={{ "--i": 3 } as React.CSSProperties}>
           <p>I build AI agents that know what they can&apos;t answer, and automations that pay for themselves.</p>
@@ -46,7 +47,7 @@ export default async function Home() {
                 return (
                   <Link key={slug} href={`/work/${slug}/`} className="tile" style={{ "--g": g } as React.CSSProperties}>
                     <span className="still open" style={{ "--i": r * 2 + t, "--bg": STILL_BG[slug] } as React.CSSProperties}>
-                      {p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} loading="lazy" /> : <Still />}
+                      {p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} loading="lazy" style={slug === "paco" ? ({ "--pos": "center 45%" } as React.CSSProperties) : undefined} /> : <Still />}
                       {slug !== "freelance-automation" && <span className="tile-proof">{p.results[0]}</span>}
                     </span>
                     <span className="cap"><b>{p.name}, {p.kind.toLowerCase()}</b><span className="num">{year(p.period)}</span></span>
@@ -89,7 +90,7 @@ export default async function Home() {
         <p className="cmd-after rise" style={{ "--i": 2 } as React.CSSProperties}>Projects are fixed in scope and quoted after a 30-minute call, in English or Spanish.</p>
       </section>
 
-      <section id="about" className="field-maroon pad about" aria-labelledby="about-title" data-reveal>
+      <section id="about" className="field-brown pad about" aria-labelledby="about-title" data-reveal>
         <h2 id="about-title" className="display rise">About</h2>
         <div className="about-top">
           <dl className="facts">
@@ -142,7 +143,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="contact" className="field-red contact" aria-labelledby="contact-title" data-reveal>
+      <section id="contact" className="field-indigo contact" aria-labelledby="contact-title" data-reveal>
         <h2 id="contact-title" className="display rise">Contact</h2>
         <ul className="rows">
           <li className="greet slide" style={{ "--i": 0 } as React.CSSProperties}>

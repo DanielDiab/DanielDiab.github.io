@@ -78,7 +78,7 @@ export default function CommandList() {
                 )}
               </button>
               {on && (
-                <p className="cmd-detail" style={{ padding: "0 14px 14px 24px", marginTop: 0, background: "var(--slate)", color: "var(--white)" }}>
+                <p className="cmd-detail" style={{ padding: "0 14px 14px 24px", marginTop: 0, background: "var(--indigo)", color: "var(--white)" }}>
                   <span>Done before: {c.proof}.</span>
                   <Link href={c.href} style={{ color: "var(--white)", fontWeight: 700 }}>Read the case study</Link>
                 </p>
