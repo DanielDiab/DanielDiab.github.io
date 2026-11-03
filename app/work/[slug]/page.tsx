@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import PaletteDemo from "@/components/PaletteDemo";
 import { STILLS, STILL_BG } from "@/components/Stills";
 import { projects } from "@/lib/content";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 
 type Params = { slug: string };
 
@@ -35,6 +37,8 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
   const Still = STILLS[p.slug];
 
   return (
+    <>
+    <Nav />
     <article>
       <header className="case-hero field-indigo" data-reveal>
         <h1 className="display hero-load" style={fit(p.name)}>{p.name}</h1>
@@ -110,5 +114,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
         <p>Next case study</p>
       </Link>
     </article>
+    <Footer />
+    </>
   );
 }
