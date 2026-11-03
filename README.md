@@ -7,7 +7,7 @@ Personal portfolio of Daniel Diab, built with Next.js (static export) and deploy
 ## What's in it
 
 - **Brutalist, industrial design:** flat fields of post red, ink, mustard, bone and maroon, TikTok Sans stretched wide. See `DESIGN.md`.
-- **Hero:** the name set huge beside a geometric panel of flat colour blocks, each holding a real fact.
+- **Exhibition home:** a Three.js room where each project is a monitor on a plinth; click one to open its panel. A dock opens What I do, About and Contact.
 - **What I do:** a working command list. Typing filters it with an in-browser hybrid retriever (input guardrail, BM25, concept vectors, reciprocal rank fusion). `⌘K` jumps to it.
 - **Work wall** linking to case studies at `/work/[slug]/`, generated from `lib/content.ts`.
 - **GitHub section** fetched from the GitHub API at build time. Coursework repos are hidden by the pattern in `lib/github.ts`.

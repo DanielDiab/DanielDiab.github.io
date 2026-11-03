@@ -2,10 +2,11 @@
 
 Direction: **Loud and flat** (tasteskill v2, seed 291383188), set for a brutalist, industrial brief.
 
-**The idea.** The first screen pairs the name, set huge, with a geometric panel of flat colour blocks.
-Every block carries a real fact: the teaching photo, first place at IEEEXtreme, Charter's six MCP servers
-behind one runtime, the 70-member chapter, the freelance results. "What I do" is a working search box
-that filters Daniel's capabilities with in-browser hybrid retrieval.
+**The idea.** The home page is an exhibition room, not a scrolling page: every project is a monitor on a
+concrete plinth (Three.js). Hover lifts a monitor, click opens its panel. A dock of four sections (Work,
+What I do, About, Contact) opens panels over the room, and the URL hash names the open panel, so
+/#charter or /#about open straight to it. Case-study pages at /work/[slug]/ keep the full story for
+sharing and search. Photos and screenshots always show at their natural aspect ratio, never cropped.
 
 ## Colour
 
@@ -28,10 +29,9 @@ Six sizes: 16 / 19 / 26 / 76 / 130 px, plus the 216px hero line.
 
 ## Motion
 
-- Signature: on load the name rises out of a mask and the hero blocks wipe open one after another.
-- Shapes in the hero drift slightly toward the cursor; the dashed ring turns; the agent graph pulses.
-- The proof band moves only with the scroll.
-- Sections enter part by part (heading, text, pictures), 70–90ms apart, once.
+- Signature: the room leans toward the cursor and sways slowly; hovered monitors lift and turn.
+- Panels slide in from the right; with a panel open the room recentres in the space left.
+- Case-study sections enter part by part, once.
 - Everything stops under `prefers-reduced-motion`.
 
 ## Pictures

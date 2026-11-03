@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/tiktok-sans/standard.css";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { bootScript } from "@/lib/theme";
 import { profile } from "@/lib/content";
@@ -29,9 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <a className="skip" href="#main">Skip to content</a>
-        <Nav />
         <main id="main">{children}</main>
-        <Footer />
         <Reveal />
       </body>
     </html>
