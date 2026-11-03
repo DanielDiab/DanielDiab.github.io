@@ -2,9 +2,10 @@
 
 Direction: **Loud and flat** (tasteskill v2, seed 291383188), set for a brutalist, industrial brief.
 
-**The idea.** Daniel's real work (raw documents in, structured answers out) runs the page. His name runs
-across the first screen as one giant moving line over his portrait, and "What I do" is a working search
-box that filters his capabilities.
+**The idea.** The first screen pairs the name, set huge, with a geometric panel of flat colour blocks.
+Every block carries a real fact: the teaching photo, first place at IEEEXtreme, Charter's six MCP servers
+behind one runtime, the 70-member chapter, the freelance results. "What I do" is a working search box
+that filters Daniel's capabilities with in-browser hybrid retrieval.
 
 ## Colour
 
