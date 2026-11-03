@@ -7,7 +7,7 @@ export const profile = {
   role: "Full-stack and AI engineer",
   location: "Bogotá, Colombia",
   timezone: "UTC−5",
-  status: "Open to full-time roles and automation projects",
+  status: "Based in Bogotá, working in English and Spanish",
   email: "diabgonzalez9@gmail.com",
   github: "https://github.com/DanielDiab",
   githubUser: "DanielDiab",

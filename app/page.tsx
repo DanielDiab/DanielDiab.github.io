@@ -47,16 +47,16 @@ export default async function Home() {
   const whatIDo = (
     <>
       <h2 className="display pp-name">What I do</h2>
-      <p className="pp-sum">Type a problem in English or Spanish. The list filters itself with the same kind of hybrid retrieval I build for clients, in your browser.</p>
+      <p className="pp-sum">Type a problem in English or Spanish. The list filters itself with the same kind of hybrid retrieval I build into agents, running in your browser.</p>
       <CommandList />
-      <p className="pp-stack">Projects are fixed in scope and quoted after a 30-minute call, in English or Spanish.</p>
+      <p className="pp-stack">Each answer comes with a past result from the projects on this site.</p>
     </>
   );
 
   const contact = (
     <>
       <h2 className="display pp-name">Contact</h2>
-      <p className="pp-sum">Got a workflow eating your week, or a role that fits? Send a few lines about it.</p>
+      <p className="pp-sum">Questions about a project, a talk or the work behind it? Send a few lines.</p>
       <ul className="rows">
         <li><a href={`mailto:${profile.email}?subject=Hello%20Daniel`}>{profile.email}</a></li>
         <li><a href={profile.linkedin}>LinkedIn</a></li>
@@ -76,7 +76,7 @@ export default async function Home() {
         intro={{
           title: "The work, on display",
           lead: "Seven projects, one per monitor. Pick one to open it, or use Work below for the list.",
-          where: "Bogotá, open to work",
+          where: "Bogotá, Colombia",
         }}
         panels={{ work, "what-i-do": whatIDo, contact }}
       />

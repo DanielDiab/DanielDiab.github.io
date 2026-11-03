@@ -92,7 +92,7 @@ export default function CommandList() {
       <p className="cmd-trace" aria-live="polite">
         {trace && !trace.blocked
           ? <>Ranked in {trace.ms.toFixed(1)} ms: {trace.keyword.length} keyword hits, {trace.concept.length} concept hits{trace.concepts.length ? ` (${trace.concepts.join(", ")})` : ""}, fused by reciprocal rank. Runs in your browser.</>
-          : <>Type anything, in English or Spanish. It filters with the kind of hybrid retrieval I build for clients, in your browser. <kbd>⌘K</kbd> jumps here.</>}
+          : <>Type anything, in English or Spanish. It filters with the kind of hybrid retrieval I build into agents, in your browser. <kbd>⌘K</kbd> jumps here.</>}
       </p>
     </div>
   );

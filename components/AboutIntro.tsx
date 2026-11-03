@@ -36,7 +36,7 @@ export default function AboutIntro() {
               <span className="mask"><span className="hero-word" style={{ "--i": 1 } as React.CSSProperties}>Daniel</span></span>
               <span className="mask"><span className="hero-word" style={{ "--i": 2 } as React.CSSProperties}>Diab</span></span>
             </h1>
-            <p className="ab-lead hero-load" style={{ "--i": 4 } as React.CSSProperties}>I build AI agents and the machinery that makes them trustworthy: evaluation gates, guardrails, traces and cost controls. Based in Bogotá, open to full-time roles and projects.</p>
+            <p className="ab-lead hero-load" style={{ "--i": 4 } as React.CSSProperties}>I build AI agents and the machinery that makes them trustworthy: evaluation gates, guardrails, traces and cost controls. Based in Bogotá, Colombia.</p>
             <ul className="ab-facts hero-load" style={{ "--i": 5 } as React.CSSProperties}>
               {keyFacts.map((f) => <li key={f}>{f}</li>)}
             </ul>

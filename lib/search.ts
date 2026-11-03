@@ -101,10 +101,10 @@ export function buildDocs(): Doc[] {
   );
   docs.push({
     id: "contact",
-    title: "Contact and availability",
+    title: "Contact",
     href: "/#contact",
     kind: "Contact",
-    text: `contact hire email available job role freelance project ${profile.status} ${profile.email} ${profile.location} remote`,
+    text: `contact email reach talk collaborate project ${profile.status} ${profile.email} ${profile.location} remote`,
     answer: `${profile.status}. Email ${profile.email}, or reach me on LinkedIn.`,
   });
   docs.push({
