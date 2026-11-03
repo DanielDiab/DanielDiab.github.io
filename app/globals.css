@@ -283,7 +283,8 @@ footer { padding: var(--gap-section) var(--m) 28px; overflow: hidden; }
 .case-still { height: clamp(280px, 40vw, 560px); position: relative; background: var(--bg); }
 .case-still svg, .case-still img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .case-still img { object-fit: cover; object-position: left top; }
-.shots { display: grid; gap: 24px; }
+.gallery { grid-template-columns: 1fr; }
+.shots { display: grid; gap: 32px; }
 .shots img { width: 100%; height: auto; }
 .shots figcaption { margin-top: 10px; font-size: var(--s-small); color: var(--muted); }
 .block { padding: clamp(80px, 10vw, 140px) var(--m); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px 48px; }

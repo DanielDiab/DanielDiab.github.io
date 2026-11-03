@@ -49,7 +49,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
         </div>
       </header>
 
-      <div className={`case-still${p.image ? " has-img" : ""}`} style={{ "--bg": STILL_BG[p.slug] } as React.CSSProperties} data-reveal><div className="open" style={{ position: "absolute", inset: 0 }}>{p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} style={p.slug === "paco" ? { objectFit: "contain", objectPosition: "center" } : undefined} /> : <Still />}</div></div>
+      <div className={`case-still${p.image ? " has-img" : ""}`} style={{ "--bg": STILL_BG[p.slug] } as React.CSSProperties} data-reveal><div className="open" style={{ position: "absolute", inset: 0 }}>{p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} style={p.slug === "paco" || p.image.fit ? { objectFit: "contain", objectPosition: "center", padding: p.image.fit ? "24px var(--m)" : undefined } : undefined} /> : <Still />}</div></div>
 
       <section className="block field-bone" data-reveal>
         <h2 className="display rise">The problem</h2>

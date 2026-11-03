@@ -42,7 +42,7 @@ export type Project = {
   stack: string[];
   link?: { label: string; href: string };
   note?: string;
-  image?: { src: string; w: number; h: number; alt: string };
+  image?: { src: string; w: number; h: number; alt: string; fit?: "contain" };
   gallery?: { src: string; w: number; h: number; alt: string }[];
   keywords: string[];
 };
@@ -93,12 +93,19 @@ export const projects: Project[] = [
       "The guard compares values, not units: a correct number in pesos instead of kWh would still pass. That is the next step.",
     results: [
       "Billing agent suite raised from 80% to 100%",
+      "Internal-procedures agent passed its gate: own suite 7/7, red-team 4/4, US$0.00064 per conversation against a US$0.02 cap",
       "Two-step scope check: 17 of 18 test messages right, against 13 with the classifier alone",
       "85 automated tests that run without a model in under 20 seconds",
       "Fully local on Ollama with Qwen models, no API keys",
     ],
     stack: ["Python", "LangGraph", "MCP", "Ollama", "SQLite", "Pytest"],
     link: { label: "github.com/DanielDiab/Charter", href: "https://github.com/DanielDiab/Charter" },
+    image: { src: "/img/charter-gate.png", w: 1390, h: 311, alt: "charter evaluar: the internal-procedures agent passes its own suite 7 of 7, red-team 4 of 4, and its cost and latency budget", fit: "contain" },
+    gallery: [
+      { src: "/img/charter-inventory.png", w: 1362, h: 489, alt: "charter inventario: every agent with its version, owner, model, data class, risk, tools and cost, then the models and the tools each one can use" },
+      { src: "/img/charter-chat.png", w: 1391, h: 322, alt: "The billing agent explains a 33.2% higher invoice by calling three tools, then offers to escalate to an advisor" },
+      { src: "/img/charter-architect.png", w: 1388, h: 422, alt: "The Architect agent explains how agents are created on the platform, answering from the platform's own docs" },
+    ],
     keywords: ["agents", "platform", "governance", "evaluation", "evals", "gate", "mcp", "langgraph", "ollama", "guardrails", "yaml", "manifest", "enterprise", "llm", "testing", "rag"],
   },
   {

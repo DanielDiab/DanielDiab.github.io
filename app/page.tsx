@@ -37,7 +37,7 @@ export default async function Home() {
                 return (
                   <Link key={slug} href={`/work/${slug}/`} className="tile" style={{ "--g": g } as React.CSSProperties}>
                     <span className="still open" style={{ "--i": r * 2 + t, "--bg": STILL_BG[slug] } as React.CSSProperties}>
-                      {p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} loading="lazy" style={slug === "paco" ? ({ "--pos": "center 45%" } as React.CSSProperties) : undefined} /> : <Still />}
+                      {p.image ? <img src={p.image.src} width={p.image.w} height={p.image.h} alt={p.image.alt} loading="lazy" style={slug === "paco" ? ({ "--pos": "center 45%" } as React.CSSProperties) : p.image.fit ? { objectFit: p.image.fit, objectPosition: "center", padding: 16 } : undefined} /> : <Still />}
                       {slug !== "freelance-automation" && <span className="tile-proof">{p.results[0]}</span>}
                     </span>
                     <span className="cap"><b>{p.name}, {p.kind.toLowerCase()}</b><span className="num">{year(p.period)}</span></span>

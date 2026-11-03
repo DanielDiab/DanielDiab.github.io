@@ -103,7 +103,7 @@ function OptiCloud() {
 }
 
 export const STILL_BG: Record<string, string> = {
-  charter: C.bone,
+  charter: "#fbf4e4",
   "agent-platform": C.slate, "freelance-automation": C.mustard, chromatic: C.ink, stochastic: C.red, opticloud: C.maroon, paco: "#05050a",
 };
 
