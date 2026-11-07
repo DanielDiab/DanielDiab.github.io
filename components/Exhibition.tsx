@@ -11,9 +11,10 @@ export type Exhibit = { slug: string; name: string; index: string; src?: string;
 
 const SLOTS = [
   // back row, taller plinths
-  { x: -1.55, z: -0.9, h: 2.05, ry: 0.22 },
-  { x: 0.0, z: -1.15, h: 2.35, ry: 0 },
-  { x: 1.55, z: -0.9, h: 2.1, ry: -0.22 },
+  { x: -2.34, z: -0.95, h: 2.05, ry: 0.26 },
+  { x: -0.78, z: -1.15, h: 2.35, ry: 0.08 },
+  { x: 0.78, z: -1.15, h: 2.3, ry: -0.08 },
+  { x: 2.34, z: -0.95, h: 2.1, ry: -0.26 },
   // front row
   { x: -2.35, z: 0.75, h: 1.05, ry: 0.32 },
   { x: -0.8, z: 1.05, h: 0.8, ry: 0.1 },
@@ -25,8 +26,9 @@ const SLOTS = [
 const SLOTS_PORTRAIT = [
   { x: -0.8, z: -2.4, h: 3.1, ry: 0.12 },
   { x: 0.8, z: -2.4, h: 3.35, ry: -0.12 },
-  { x: -0.8, z: -0.85, h: 2.0, ry: 0.12 },
-  { x: 0.8, z: -0.85, h: 2.2, ry: -0.12 },
+  { x: -1.5, z: -0.85, h: 2.0, ry: 0.22 },
+  { x: 0, z: -0.95, h: 2.15, ry: 0 },
+  { x: 1.5, z: -0.85, h: 2.05, ry: -0.22 },
   { x: -1.5, z: 0.75, h: 0.9, ry: 0.22 },
   { x: 0, z: 0.95, h: 0.72, ry: 0 },
   { x: 1.5, z: 0.75, h: 0.95, ry: -0.22 },
@@ -195,10 +197,10 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       [body, back, screen, plinth].forEach((m) => { m.userData.slug = ex.slug; hitTargets.push(m); });
       const tag = document.createElement("div");
       // floating titles only for the rows whose plinth fronts are hidden behind other monitors
-      tag.className = i < (portrait ? 4 : 3) ? "room-label" : "room-label hide";
+      tag.className = i < (portrait ? 5 : 4) ? "room-label" : "room-label hide";
       tag.innerHTML = `<span>${ex.index}</span>${ex.name}`;
       labels.appendChild(tag);
-      items.push({ slug: ex.slug, group, monitor, screen, baseY, lift: 0, phase: Math.random() * 6, label: tag, order: i, below: portrait && (i === 2 || i === 3) });
+      items.push({ slug: ex.slug, group, monitor, screen, baseY, lift: 0, phase: Math.random() * 6, label: tag, order: i, below: portrait && i >= 2 && i <= 4 });
 
       const p = ex.src ? loadImage(ex.src) : ex.svgId ? svgToImage(ex.svgId) : null;
       p?.then((img) => { screenMat.map = screenTexture(img, ex.bg); screenMat.color.set(0xffffff); screenMat.needsUpdate = true; }).catch(() => {});

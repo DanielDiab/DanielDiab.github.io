@@ -7,8 +7,8 @@ import type { Exhibit } from "@/components/Exhibition";
 import { profile, projects } from "@/lib/content";
 import { getRepos } from "@/lib/github";
 
-// Which plinth each project stands on: three tall ones at the back, four in front.
-const ROOM = ["chromatic", "opticloud", "freelance-automation", "agent-platform", "charter", "paco", "stochastic"];
+// Which plinth each project stands on: four tall ones at the back, four in front.
+const ROOM = ["chromatic", "kith", "charter", "opticloud", "freelance-automation", "agent-platform", "paco", "stochastic"];
 // Terminal screenshots read as blank at monitor size, so Charter shows its drawing on the screen.
 const DRAWN = new Set(["charter"]);
 
@@ -75,7 +75,7 @@ export default async function Home() {
         exhibits={exhibits}
         intro={{
           title: "The work, on display",
-          lead: "Seven projects, one per monitor. Pick one to open it, or use Work below for the list.",
+          lead: "Eight projects, one per monitor. Pick one to open it, or use Work below for the list.",
           where: "Bogotá, open to work",
         }}
         panels={{ work, "what-i-do": whatIDo, contact }}

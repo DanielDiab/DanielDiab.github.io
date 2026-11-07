@@ -49,6 +49,64 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "kith",
+    name: "Kith",
+    kind: "Native agent over your own Apple data",
+    context: "Personal project, Mac and iPhone",
+    period: "Nov 2026",
+    status: "Open source",
+    summary:
+      "An agent for Mac and iPhone over your Calendar, Reminders and Contacts that you can audit. Simple questions stay on the device, harder ones move to an open model on your Mac and, only if you allow it, to Claude. Every answer shows where it ran, what it cost and the facts it was checked against.",
+    problem:
+      "Anyone who can send you a calendar invite can write into your calendar, and an assistant that reads it reads their instructions too. A small on-device model also answers with confidence and gets it wrong: a meeting at the wrong hour, a conflict it doesn't notice. I wanted an assistant over personal data where every path to the data is gated, every answer is checked against what the tools returned, and nothing is written until the person says yes.",
+    built: [
+      {
+        title: "One gate for every path",
+        body: "The in-app agent, Siri through App Intents, and MCP clients like Claude Desktop all reach EventKit and Contacts through one gate: grants per client, a call cap, every write held for confirmation, and writes refused unless the person's own message asked for them.",
+      },
+      {
+        title: "A data guard for injection inside the data",
+        body: "Every string the agent reads (event titles and notes, reminders, contact notes) is scanned, and fields that carry instructions for the assistant are withheld before any model sees them. Claude reading the calendar over MCP gets the sanitized version too.",
+      },
+      {
+        title: "Routing decided in code",
+        body: "Apple's on-device Foundation Models for simple requests, Qwen3 8B through Ollama on the Mac for multi-step ones, Claude only when the privacy mode allows cloud and nothing local fits. The router decides before any model runs and writes its reasons into the trace.",
+      },
+      {
+        title: "An output guard that compares meaning",
+        body: "Every time, date, figure, count, name and quoted title in an answer must come from a tool result of the same turn or from the person's message. Times are compared as instants in the person's time zone and figures with their unit. A failed check gets one correction, then the next tier, then a safe fallback.",
+      },
+      {
+        title: "Changes bound to what the person said",
+        body: "A proposed event is checked against the day and clock times in the message before it is held. Asked for lunch “a la 1”, the on-device model proposed 12:00; the gate refused it, the request moved to Qwen, and the 13:00 event waited for confirmation.",
+      },
+      {
+        title: "An answer that says how far to trust it",
+        body: "Under every answer, one line in plain words: how many facts were checked against your data, whether suspicious text was withheld, whether a change waits for you, plus where it ran, how long it took and what it cost. \u201cHow this was answered\u201d opens the trace as a timeline. Local runs cost $0, shown next to what the same tokens would cost on Claude.",
+      },
+    ],
+    decision: {
+      title: "Finishing the request is checked in code",
+      body: "The first real-model run scored 6/10, and no failure was a wrong fact: the on-device model answered without reading the calendar, or asked instead of proposing the change. Forcing tool calls broke on all three providers, so after the output guard the agent checks that a data question read data and a requested change was proposed, nudges once, then escalates. The quality suite went to 11/11.",
+    },
+    lesson:
+      "Days and times are bound to the person's message, but titles and people aren't yet: a planted event at the hour and day the person named would still reach the confirmation card, flagged.",
+    results: [
+      "Real models with nothing leaving the Mac: quality suite from 6/10 to 11/11, red-team 6/6 with 0 writes executed, at $0",
+      "No-model red-team 10/10 against a model that obeys every planted instruction; the oracle is the store's write log",
+      "Mutation check: with the write-intent rule off, red-team drops to 7/10, so the suites notice a missing defense",
+      "83 tests and three eval suites that run on Linux CI in about 3 seconds",
+    ],
+    stack: ["Swift", "SwiftUI", "Foundation Models", "EventKit", "App Intents", "MCP", "Ollama", "Claude API"],
+    link: { label: "github.com/DanielDiab/Kith", href: "https://github.com/DanielDiab/Kith" },
+    image: { src: "/img/kith-today.png", w: 2000, h: 1112, alt: "“¿Qué tengo hoy?” answered on the device in 7.7 s for $0, with 10 facts checked and its timeline open; on the right, the same question with a poisoned invite planted, its title withheld by the data guard" },
+    gallery: [
+      { src: "/img/kith-held.png", w: 2000, h: 1191, alt: "Asked for lunch with Mateo on Friday “a la 1”, the on-device model proposed 12:00. The gate refused it, the request moved to Qwen on the Mac, and the 13:00 event waits for confirmation" },
+      { src: "/img/kith-week.png", w: 2000, h: 1141, alt: "The welcome screen, with suggestions and where answers may run; Qwen on the Mac plans the week, finds the 15:00 overlap and checks 20 facts against the calendar" },
+    ],
+    keywords: ["swift", "swiftui", "ios", "macos", "iphone", "mac", "apple", "on-device", "foundation models", "eventkit", "calendar", "reminders", "contacts", "siri", "app intents", "agents", "mcp", "guardrails", "prompt injection", "privacy", "local", "ollama", "routing", "evals", "red team", "calendario", "privacidad"],
+  },
+  {
     slug: "charter",
     name: "Charter",
     kind: "Agent platform with an evaluation gate",
@@ -366,10 +424,11 @@ export const education = {
 };
 
 export const stack: { group: string; items: string[] }[] = [
-  { group: "Languages", items: ["Python", "TypeScript", "JavaScript", "SQL", "Java", "C", "C++"] },
+  { group: "Languages", items: ["Python", "TypeScript", "JavaScript", "Swift", "SQL", "Java", "C", "C++"] },
   { group: "AI & agents", items: ["LangChain", "LangGraph", "LangSmith", "RAG", "MCP", "Voice agents", "Claude API", "Open WebUI"] },
   { group: "Automation", items: ["n8n", "Make", "REST APIs", "Google Workspace"] },
   { group: "Web", items: ["Next.js", "React", "Node.js", "Angular", "Tailwind"] },
+  { group: "Apple", items: ["SwiftUI", "Foundation Models", "EventKit", "App Intents"] },
   { group: "Data", items: ["PostgreSQL", "MongoDB", "MySQL", "Azure Cosmos DB", "Redis"] },
   { group: "Cloud", items: ["AWS", "Google Cloud", "Docker", "Linux"] },
   { group: "Design and 3D", items: ["Figma", "Framer", "OKLCH color", "Design systems", "TouchDesigner", "Photogrammetry", "Rhino", "Fusion 360"] },
@@ -446,8 +505,9 @@ export const capabilities: Capability[] = [
   { key: "V", name: "Voice and class agents", body: "Agents people talk to, and agents that sit inside a class or a process and answer for it.", href: "/work/agent-platform/", proof: "In development at Uniandes", keywords: ["voice", "voz", "call", "speech", "class", "teaching", "education", "students", "assistant", "llamadas"] },
   { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/work/agent-platform/", proof: "RAG architectures at Uniandes", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
   { key: "L", name: "Lead and sales automation", body: "Workflows in n8n or Make that capture, qualify and follow up on leads without someone watching.", href: "/work/freelance-automation/", proof: "+35% client sales", keywords: ["leads", "sales", "crm", "n8n", "make", "automation", "workflow", "ventas", "automatizar", "follow up", "marketing"] },
-  { key: "G", name: "Agent evaluation and governance", body: "Eval suites, red-team tests and a gate that keeps an agent unpublished until it passes, plus an inventory of every agent, model and cost.", href: "/work/charter/", proof: "Charter", keywords: ["evaluation", "evals", "testing", "governance", "compliance", "red team", "security", "inventory", "audit", "quality", "gate"] },
+  { key: "G", name: "Agent evaluation and governance", body: "Eval suites, red-team tests and a gate that keeps an agent unpublished until it passes, plus an inventory of every agent, model and cost.", href: "/work/charter/", proof: "Charter and Kith", keywords: ["evaluation", "evals", "testing", "governance", "compliance", "red team", "security", "inventory", "audit", "quality", "gate"] },
   { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/work/freelance-automation/", proof: "−25% operating cost", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
+  { key: "P", name: "Private agents on Mac and iPhone", body: "Native Swift agents over Calendar, Reminders and Contacts that run on the device when they can, route harder requests to a local or cloud model, and hold every change for the person to confirm.", href: "/work/kith/", proof: "Kith", keywords: ["swift", "swiftui", "ios", "macos", "iphone", "mac", "apple", "on-device", "siri", "calendar", "privacy", "local", "native", "mobile", "movil", "privacidad", "calendario"] },
   { key: "S", name: "Design systems in OKLCH", body: "One brand color in, a full system out: palette, type, spacing and accessible React components, exported as tokens.", href: "/work/chromatic/", proof: "CHRO/MATIC", keywords: ["design", "color", "oklch", "tokens", "ui", "figma", "tailwind", "frontend", "accessibility", "diseno"] },
   { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "This site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
   { key: "R", name: "Real-time interactive visuals", body: "Installations that react to sound and to people: 3D scans, particles and hardware, built in TouchDesigner with Arduino.", href: "/work/paco/", proof: "PACO", keywords: ["touchdesigner", "arduino", "interactive", "installation", "visuals", "3d", "photogrammetry", "audio", "creative", "art", "event", "museum"] },

@@ -49,6 +49,7 @@ const CONCEPTS: Record<string, string[]> = {
   hire: ["hire", "contact", "email", "available", "job", "role", "work", "freelance", "contratar", "trabajo", "empleo", "contacto", "rate", "project", "service", "quote"],
   place: ["where", "based", "live", "bogota", "colombia", "timezone", "location", "remote", "relocate", "donde", "vive", "ubicacion", "country"],
   design: ["design", "color", "oklch", "palette", "token", "ui", "ux", "figma", "frontend", "tailwind", "diseno", "visual", "accessibility", "typography"],
+  apple: ["swift", "swiftui", "ios", "iphone", "macos", "mac", "apple", "siri", "native", "mobile", "movil", "on-device", "device", "privacy", "privacidad", "eventkit", "calendar", "calendario"],
   web: ["react", "next", "nextj", "node", "angular", "web", "frontend", "full-stack", "fullstack", "typescript", "javascript", "site", "app"],
   cloud: ["aws", "cloud", "gcp", "google", "azure", "docker", "devop", "infrastructure", "microservice", "kubernete", "ec2", "vpc", "server", "deploy"],
   data: ["data", "sql", "postgres", "postgresql", "mongodb", "database", "redis", "cosmo", "etl", "pipeline", "dato", "base"],
