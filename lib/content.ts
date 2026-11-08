@@ -210,7 +210,7 @@ export const projects: Project[] = [
     slug: "stochastic",
     name: "Stochastic",
     kind: "Crypto forecasting, backtested",
-    context: "Academic project, machine learning and finance",
+    context: "Personal project, built to learn machine learning for finance",
     period: "2026",
     status: "Live",
     summary:
