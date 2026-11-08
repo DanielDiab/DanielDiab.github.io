@@ -13,6 +13,8 @@ import { getRepos } from "@/lib/github";
 const ROOM = ["chromatic", "kith", "charter", "stochastic", "paco", "agent-platform"];
 // Terminal screenshots read as blank at monitor size, so Charter shows its drawing on the screen.
 const DRAWN = new Set(["charter"]);
+// A 4:3 picture fills a monitor; Kith's confirmation screen is exactly that shape.
+const SCREEN: Record<string, string> = { kith: "/img/kith-held.png" };
 
 const month = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", year: "numeric" });
 
@@ -22,7 +24,7 @@ export default async function Home() {
   const exhibits: Exhibit[] = ROOM.map((slug) => {
     const i = projects.findIndex((p) => p.slug === slug);
     const p = projects[i];
-    return { slug, name: p.name, index: String(i + 1).padStart(2, "0"), src: DRAWN.has(slug) ? undefined : p.image?.src, svgId: p.image && !DRAWN.has(slug) ? undefined : `still-${slug}`, bg: STILL_BG[slug] ?? "#1b1b1b" };
+    return { slug, name: p.name, index: String(i + 1).padStart(2, "0"), src: DRAWN.has(slug) ? undefined : SCREEN[slug] ?? p.image?.src, svgId: p.image && !DRAWN.has(slug) ? undefined : `still-${slug}`, bg: STILL_BG[slug] ?? "#1b1b1b" };
   }).filter((e) => e.name);
 
   const work = (

@@ -109,11 +109,13 @@ export default function Shell({
   }, [valid]);
 
   useEffect(() => {
-    const fromHash = () => {
+    // On load jump straight there; later hash changes glide.
+    const fromHash = (e?: Event) => {
+      const behavior: ScrollBehavior = e ? "smooth" : "instant";
       const h = window.location.hash.slice(1);
-      if (PLACES.includes(h)) { setOpen(null); document.getElementById(h)?.scrollIntoView({ behavior: "smooth" }); return; }
+      if (PLACES.includes(h)) { setOpen(null); document.getElementById(h)?.scrollIntoView({ behavior }); return; }
       setOpen(h && valid(h) ? h : null);
-      if (h && valid(h) && h !== "what-i-do" && h !== "contact") roomRef.current?.scrollIntoView();
+      if (h && valid(h) && h !== "what-i-do" && h !== "contact") roomRef.current?.scrollIntoView({ behavior });
     };
     fromHash();
     window.addEventListener("hashchange", fromHash);

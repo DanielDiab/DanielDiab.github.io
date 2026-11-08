@@ -81,6 +81,10 @@ export const projects: Project[] = [
         body: "A proposed event is checked against the day and clock times in the message before it is held. Asked for lunch “a la 1”, the on-device model proposed 12:00; the gate refused it, the request moved to Qwen, and the 13:00 event waited for confirmation.",
       },
       {
+        title: "A design where every colour means one thing",
+        body: "Its own mark, a k waving toward an amber dot, and a palette in light and dark: moss for Kith and on-device answers, leaf for checked, amber for waiting for your OK, coral for stopped, and one colour for each place an answer can run, the same in the footer, the trace and the home screen.",
+      },
+      {
         title: "An answer that says how far to trust it",
         body: "Under every answer, one line in plain words: how many facts were checked against your data, whether suspicious text was withheld, whether a change waits for you, plus where it ran, how long it took and what it cost. \u201cHow this was answered\u201d opens the trace as a timeline. Local runs cost $0, shown next to what the same tokens would cost on Claude.",
       },
@@ -97,12 +101,12 @@ export const projects: Project[] = [
       "Mutation check: with the write-intent rule off, red-team drops to 7/10, so the suites notice a missing defense",
       "83 tests and three eval suites that run on Linux CI in about 3 seconds",
     ],
-    stack: ["Swift", "SwiftUI", "Foundation Models", "EventKit", "App Intents", "MCP", "Ollama", "Claude API"],
+    stack: ["Swift", "SwiftUI", "Foundation Models", "EventKit", "App Intents", "MCP", "Ollama", "Claude API", "Design system"],
     link: { label: "github.com/DanielDiab/Kith", href: "https://github.com/DanielDiab/Kith" },
-    image: { src: "/img/kith-today.png", w: 2000, h: 1112, alt: "“¿Qué tengo hoy?” answered on the device in 7.7 s for $0, with 10 facts checked and its timeline open; on the right, the same question with a poisoned invite planted, its title withheld by the data guard" },
+    image: { src: "/img/kith-today.png", w: 2000, h: 880, alt: "“¿Qué tengo hoy?” answered on the device in 7.3 s for $0, with 10 facts checked and its timeline open; on the right, in dark mode, the same question with a poisoned invite planted, its title withheld by the data guard" },
     gallery: [
-      { src: "/img/kith-held.png", w: 2000, h: 1191, alt: "Asked for lunch with Mateo on Friday “a la 1”, the on-device model proposed 12:00. The gate refused it, the request moved to Qwen on the Mac, and the 13:00 event waits for confirmation" },
-      { src: "/img/kith-week.png", w: 2000, h: 1141, alt: "The welcome screen, with suggestions and where answers may run; Qwen on the Mac plans the week, finds the 15:00 overlap and checks 20 facts against the calendar" },
+      { src: "/img/kith-held.png", w: 2000, h: 1500, alt: "Asked for lunch with Mateo on Friday “a la 1”, the on-device model proposed 12:00. The gate refused it, the request moved up to Qwen on the Mac, and the 13:00 event waits for confirmation" },
+      { src: "/img/kith-week.png", w: 2000, h: 880, alt: "The home screen in dark mode, with Kith's promises, suggestions and where answers may run; Qwen on the Mac plans the week, finds the 14:00–15:30 and 15:00 overlap and checks 25 facts against the calendar" },
     ],
     keywords: ["swift", "swiftui", "ios", "macos", "iphone", "mac", "apple", "on-device", "foundation models", "eventkit", "calendar", "reminders", "contacts", "siri", "app intents", "agents", "mcp", "guardrails", "prompt injection", "privacy", "local", "ollama", "routing", "evals", "red team", "calendario", "privacidad"],
   },
