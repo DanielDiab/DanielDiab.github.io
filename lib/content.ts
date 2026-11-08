@@ -209,37 +209,57 @@ export const projects: Project[] = [
   {
     slug: "stochastic",
     name: "Stochastic",
-    kind: "Forecasting platform",
+    kind: "Crypto forecasting, backtested",
     context: "Academic project, machine learning and finance",
     period: "2026",
-    status: "Live beta",
+    status: "Live",
     summary:
-      "Ingests real-time crypto market data and forecasts prices more than five hours ahead, with LLM reasoning being added so forecasts explain themselves.",
+      "A live web app that analyses any crypto from five and a half years of daily prices: ARIMA and Random Forest forecasts seven days ahead, RSI, MACD and moving averages, and a buy, sell or hold call written out in Spanish. A walk-forward backtest over a full year keeps every number honest.",
     problem:
-      "Forecasting tools usually return an unexplained number. I wanted the full chain, from live data to model to an answer a person can reason about.",
+      "Forecasting tools hand you a number and a confident chart. I wanted the whole chain, from live market data to models to an answer a person can reason about, and a way to know how far to trust each piece of it.",
     built: [
       {
-        title: "Data ingestion",
-        body: "Real-time market data feeding the modelling layer.",
+        title: "A live data pipeline",
+        body: "Five and a half years of daily prices from CryptoCompare and Yahoo Finance, cleaned and cached so one analysis doesn't call the same API four times.",
       },
       {
-        title: "Models and indicators",
-        body: "ARIMA, Random Forest, RSI, MACD and moving averages producing forecasts on a 5+ hour horizon, with signals refreshed every hour.",
+        title: "Two models, one shared module",
+        body: "ARIMA(1,1,1) on log prices with a 95% interval, and a Random Forest per horizon that predicts returns from indicators scaled to the price, trained only on days whose outcome was already known. The app and the backtest import the same code, so what gets measured is what runs.",
       },
       {
-        title: "Explainable output",
-        body: "Each analysis ends in a plain decision (buy, sell or hold) with the reasoning written out in Spanish: which indicators agree, which disagree, and why.",
+        title: "A call you can read",
+        body: "RSI, MACD and the 50- and 200-day averages vote buy or sell, and the app writes out the call and why in plain Spanish, next to how that same rule did over the last year.",
+      },
+      {
+        title: "A walk-forward backtest",
+        body: "365 days on Bitcoin and Ethereum: every model rebuilt from the data up to each day and scored against the naive forecast, “tomorrow closes where today closed”, the bar a daily crypto forecast has to clear.",
+      },
+      {
+        title: "Shipped and kept safe",
+        body: "Flask on Vercel serverless, about ten seconds for a full analysis with five charts. ARIMA falls back to the naive forecast if its fit fails or leaves a plausible range, and keys live in the environment, not the code.",
       },
     ],
-    results: ["Deployed front-end and API layer", "Full chain from ingestion to forecast"],
-    stack: ["Python", "Flask", "Scikit-learn", "Statsmodels", "Pandas", "CryptoCompare API"],
+    decision: {
+      title: "Measure against doing nothing, then fix what fails",
+      body: "The backtest caught the first version's ARIMA(3,3,3) blowing up to −$17.8 billion on 3 of 365 days, and its Random Forest running 4 to 6 times worse than the naive forecast because of a shuffled split and extrapolated features. I rebuilt both: no blow-ups in a year, and the Random Forest's one-day error fell from 6.8% to 1.7% on Bitcoin.",
+    },
+    lesson:
+      "Neither model beats the naive forecast on daily crypto prices, which is the usual result. So the app draws that line on every chart and presents its calls as a reading of the indicators, not advice. The next model has to beat the baseline in the backtest before it ships.",
+    results: [
+      "One-year backtest on BTC and ETH: forecast blow-ups from 3 to 0",
+      "Random Forest one-day error cut from 6.8% to 1.7% on BTC and from 13.2% to 2.2% on ETH",
+      "Every forecast drawn against the “no change” line; every buy or sell call shown with its one-year hit rate",
+      "Live on Vercel: a full analysis with five charts in about 10 seconds",
+    ],
+    stack: ["Python", "Flask", "Statsmodels", "Scikit-learn", "Pandas", "Matplotlib", "CryptoCompare API", "Vercel"],
+    note: "Code and backtest: github.com/DanielDiab/criptoapp",
     link: { label: "stochastic-beta.vercel.app", href: "https://stochastic-beta.vercel.app" },
     image: { src: "/img/stochastic.jpg", w: 1600, h: 924, alt: "Stochastic dashboard: a grid of coins to analyse and a written hold signal for Bitcoin" },
     gallery: [
       { src: "/img/stochastic-chart.jpg", w: 1800, h: 906, alt: "Bitcoin closing price with 50- and 200-day moving averages and the decision to hold" },
       { src: "/img/stochastic-about.jpg", w: 1600, h: 881, alt: "Stochastic's about page: learning to predict the crypto market with statistical models" },
     ],
-    keywords: ["machine learning", "ml", "forecasting", "crypto", "finance", "arima", "random forest", "data", "time series"],
+    keywords: ["machine learning", "ml", "forecasting", "crypto", "finance", "arima", "random forest", "data", "time series", "backtest", "evaluation", "baseline", "flask", "vercel"],
   },
   {
     slug: "paco",
@@ -479,6 +499,7 @@ export const skillGroups: { group: string; skills: Skill[] }[] = [
       { name: "Time series, ARIMA", projects: ["stochastic"] },
       { name: "Scikit-learn", projects: ["stochastic"] },
       { name: "Pandas", projects: ["stochastic"] },
+      { name: "Backtesting", projects: ["stochastic"] },
       { name: "SQLite", projects: ["charter"] },
     ],
   },
@@ -526,7 +547,7 @@ export const capabilities: Capability[] = [
   { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "CHRO/MATIC and this site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
   { key: "R", name: "Real-time interactive visuals", body: "Installations that react to sound and to people: 3D scans, particles and hardware, built in TouchDesigner with Arduino.", href: "/work/paco/", proof: "PACO", keywords: ["touchdesigner", "arduino", "interactive", "installation", "visuals", "3d", "photogrammetry", "audio", "creative", "art", "event", "museum"] },
   { key: "I", name: "Cloud infrastructure", body: "Services on AWS and Google Cloud: gateways, containers, private networks, databases and caching.", href: "/#path", proof: "AWS Cloud Practitioner and a four-service AWS deployment at Uniandes", keywords: ["aws", "cloud", "gcp", "docker", "microservices", "devops", "infrastructure", "ec2", "redis", "postgres", "kubernetes"] },
-  { key: "F", name: "Forecasting with ML", body: "Time-series and machine-learning models on live data, with an explanation attached to each forecast.", href: "/work/stochastic/", proof: "Stochastic", keywords: ["ml", "machine learning", "forecast", "prediction", "data", "arima", "random forest", "crypto", "finance", "python", "model"] },
+  { key: "F", name: "Forecasting with ML", body: "Time-series and machine-learning models on live data, backtested walk-forward against a naive baseline before anyone trusts them, with each call explained.", href: "/work/stochastic/", proof: "Stochastic", keywords: ["ml", "machine learning", "forecast", "prediction", "data", "arima", "random forest", "crypto", "finance", "python", "model", "backtest", "evaluation"] },
 ];
 
 // Talks and events, from LinkedIn.
