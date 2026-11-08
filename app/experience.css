@@ -25,7 +25,7 @@ html { scroll-behavior: smooth; }
 
 /* ---------- the guide: fixed header with chapters and progress ---------- */
 .sh { position: fixed; top: 0; left: 0; right: 0; z-index: 40; display: flex; align-items: center; gap: 18px; padding: 18px var(--m); color: var(--white); transition: background-color 0.35s ease, transform 0.6s var(--ease), padding 0.35s var(--ease); }
-.js.loaded .sh { animation: shin 0.9s var(--ease) both 0.5s; }
+.js.loaded .sh { animation: shin 0.9s var(--ease) backwards 0.5s; }
 @keyframes shin { from { transform: translateY(-100%); } }
 .sh.solid { background: var(--ink); padding-top: 10px; padding-bottom: 10px; }
 .sh.away, body:has(.app.has-panel) .sh { transform: translateY(-110%); }
@@ -285,9 +285,6 @@ html { scroll-behavior: smooth; }
   .sm-meta b { display: block; font-size: 0.8125rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cm-stats { grid-template-columns: 1fr 1fr; }
   .cs { grid-template-columns: 1fr; gap: 0; }
-  .cs-pin { top: 60px; z-index: 3; padding: 10px 0 12px; background: var(--brown); }
-  .cs-frame { aspect-ratio: 16 / 10; max-height: 36vh; width: 100%; }
-  .cs-steps li, .cs-steps li:first-child { min-height: 56vh; justify-content: center; }
   .tl li { grid-template-columns: 1fr; padding: 16px 12px; }
   .tl li::before { top: 20px; }
 }
@@ -300,8 +297,90 @@ html { scroll-behavior: smooth; }
   .cl-mail { font-size: 6.4vw; }
 }
 
+/* phone-only pieces stay out of the desktop layout */
+.cs-ph, .cs-nav, .sh-menu { display: none; }
+
+/* ================= the phone ================= */
+@media (max-width: 900px) {
+  /* header: the chapter indicator is a button that opens the chapter menu */
+  .sh-now { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border: 0; background: rgba(255, 255, 255, 0.1); color: inherit; font: inherit; font-size: var(--s-small); font-weight: 600; cursor: pointer; }
+  .sh-now i { position: relative; width: 14px; height: 10px; margin-left: 2px; }
+  .sh-now i::before, .sh-now i::after { content: ""; position: absolute; left: 0; right: 0; height: 2px; background: currentColor; transition: transform 0.35s var(--ease), top 0.35s var(--ease); }
+  .sh-now i::before { top: 1px; }
+  .sh-now i::after { top: 7px; }
+  .sh-now i.x::before { top: 4px; transform: rotate(45deg); }
+  .sh-now i.x::after { top: 4px; transform: rotate(-45deg); }
+  .sh-menu { display: flex; flex-direction: column; justify-content: space-between; position: fixed; inset: 0 0 auto 0; height: 100lvh; z-index: -1; padding: 92px var(--m) 28px; background: var(--ink); color: var(--white); clip-path: inset(0 0 100% 0); transition: clip-path 0.6s cubic-bezier(.77, 0, .18, 1), visibility 0s linear 0.6s; }
+  .sh-menu.open { clip-path: inset(0 0 0 0); transition: clip-path 0.6s cubic-bezier(.77, 0, .18, 1), visibility 0s; }
+  .sh-menu li { overflow: hidden; }
+  .sh-menu a:not(.btn) { display: flex; align-items: baseline; gap: 14px; padding: 8px 0; text-decoration: none; transform: translateY(110%); transition: transform 0.6s var(--ease); transition-delay: calc(var(--i, 0) * 45ms); }
+  .sh-menu.open a:not(.btn) { transform: none; transition-delay: calc(0.15s + var(--i, 0) * 45ms); }
+  .sh-menu a .num { color: var(--gold); font-weight: 700; font-size: var(--s-small); }
+  .sh-menu a b { font-size: clamp(2rem, 9vw, 3.5rem); line-height: 1.05; }
+  .sh-menu a.on b { color: var(--gold); }
+  .sh-menu-mail { width: 100%; margin-bottom: calc(100lvh - 100svh); text-transform: none; font-stretch: 100%; overflow-wrap: anywhere; }
+  .sh:has(.sh-menu.open) { background: var(--ink); }
+  .sh-menu:not(.open), .sh.away .sh-menu, body:has(.app.has-panel) .sh-menu { visibility: hidden; }
+  .sh-menu.open { visibility: visible; }
+
+  /* hero: a little more name, a little less air */
+  .kn { padding: 3vh 0 4vh; }
+  .h2-stats li { padding: 14px 14px 16px; }
+
+  /* skills: tighter chips and a compact "what I do" list */
+  .chip { padding: 8px 11px; gap: 8px; font-size: 0.875rem; }
+  .sm-group + .sm-group { margin-top: 20px; }
+  .field-ink .cmd-name { font-size: 1.25rem; line-height: 1.15; }
+  .field-ink .cmd-row { padding: 9px 12px 10px; }
+  .field-ink .cmd-input { height: 52px; font-size: 1.125rem; }
+  .lab { gap: 56px; }
+
+  /* community: the story as cards you swipe, each with its photo */
+  .cs-pin { display: none; }
+  .cs-steps { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--m); margin: 0 calc(-1 * var(--m)); padding: 0 var(--m) 4px; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .cs-steps::-webkit-scrollbar { display: none; }
+  .cs-steps li, .cs-steps li:first-child { flex: 0 0 86%; min-height: 0; justify-content: flex-start; padding: 0 0 22px; opacity: 1; background: rgba(0, 0, 0, 0.24); scroll-snap-align: start; }
+  .cs-steps li > :not(.cs-ph) { margin-left: 18px; margin-right: 18px; }
+  .cs-ph { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 35%; margin-bottom: 16px; background: rgba(0, 0, 0, 0.3); }
+  .cs-steps h3 { margin: 6px 0 10px; font-size: 1.5rem; }
+  .cs-steps p { font-size: 1rem; line-height: 1.45; }
+  .cs-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; }
+  .cs-dots { display: flex; gap: 6px; }
+  .cs-dots button { display: block; width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: rgba(255, 255, 255, 0.25); cursor: pointer; transition: width 0.35s var(--ease), background-color 0.35s ease; }
+  .cs-dots button.on { width: 24px; background: var(--gold); }
+  .cs-swipe { font-size: var(--s-small); font-weight: 600; opacity: 0.8; }
+  .cs-swipe .num { color: var(--gold); margin-left: 6px; }
+
+  /* talks and events: a row you swipe */
+  .cm-events ol { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--m); margin: 18px calc(-1 * var(--m)) 0; padding: 0 var(--m) 4px; scrollbar-width: none; }
+  .cm-events ol::-webkit-scrollbar { display: none; }
+  .cm-events li { flex: 0 0 78%; scroll-snap-align: start; }
+  .cm-events li:hover { transform: none; }
+
+  /* certifications: the issuers in one row you scroll */
+  .ct-tabs { flex-wrap: nowrap; overflow-x: auto; margin: 18px calc(-1 * var(--m)) 12px; padding: 0 var(--m) 4px; scrollbar-width: none; }
+  .ct-tabs::-webkit-scrollbar { display: none; }
+  .ct-tabs button { flex: none; }
+  .ct-list { grid-template-columns: 1fr; }
+
+  /* contact: buttons you can hit with a thumb */
+  .cl-row { display: grid; grid-template-columns: 1fr 1fr; }
+  .cl-row .btn { width: 100%; }
+  .cl-row > .btn:first-child, .cl-row .toast { grid-column: 1 / -1; }
+  .cl-row .toast:empty { display: none; }
+  .cl-foot { flex-direction: column; }
+  .cm-events p { margin-top: 10px; }
+  .sh-mark, .sh-now { white-space: nowrap; }
+}
+@media (max-width: 560px) {
+  /* the menu carries the email, so the bar keeps to one line: name, then where you are */
+  .sh-cta { display: none; }
+  .sh-now b { display: inline; margin-left: 4px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .sh-menu, .sh-menu a:not(.btn) { transition: none !important; transform: none !important; }
   .js .sw > span { transform: none !important; transition: none !important; }
   .js .kn-l, .js .kn-face, .js .hl, .js.loaded .sh, .ct-list li, .loader-mid span { animation: none !important; transform: none !important; opacity: 1 !important; }
   .js:not(.loaded) .kn-face { width: 0.64em; }

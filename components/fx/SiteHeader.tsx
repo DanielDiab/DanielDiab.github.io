@@ -19,6 +19,8 @@ export default function SiteHeader({ email }: { email: string }) {
   const [solid, setSolid] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [progress, setProgress] = useState(0);
+  // the phone's chapter menu; the desktop never shows it
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
     let raf = 0;
@@ -45,8 +47,17 @@ export default function SiteHeader({ email }: { email: string }) {
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, []);
 
+  useEffect(() => {
+    if (!menu) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenu(false); };
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
+  }, [menu]);
+
   const go = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
+    setMenu(false);
     document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     history.replaceState(null, "", id === "about" ? window.location.pathname : `#${id}`);
   };
@@ -63,9 +74,27 @@ export default function SiteHeader({ email }: { email: string }) {
           </a>
         ))}
       </nav>
-      <p className="sh-now num" aria-hidden="true"><span>{CHAPTERS[idx]?.n}</span> / 06 <b>{CHAPTERS[idx]?.label}</b></p>
+      <button type="button" className="sh-now num" aria-expanded={menu} aria-controls="sh-menu" onClick={() => setMenu((m) => !m)}>
+        <span>{CHAPTERS[idx]?.n}</span> / 06 <b>{CHAPTERS[idx]?.label}</b>
+        <i aria-hidden="true" className={menu ? "x" : ""} />
+        <em className="sr">{menu ? "Close the chapter menu" : "Open the chapter menu"}</em>
+      </button>
       <a className="sh-cta" href={`mailto:${email}?subject=Hello%20Daniel`}>Email me</a>
       <span className="sh-bar" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
+      <div id="sh-menu" className={`sh-menu${menu ? " open" : ""}`} inert={!menu}>
+        <nav aria-label="Chapters">
+          <ol>
+            {CHAPTERS.map((c, i) => (
+              <li key={c.id} style={{ "--i": i } as React.CSSProperties}>
+                <a href={`#${c.id}`} className={active === c.id ? "on" : ""} aria-current={active === c.id ? "true" : undefined} onClick={(e) => go(e, c.id)}>
+                  <span className="num">{c.n}</span><b className="display">{c.label}</b>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+        <a className="btn sh-menu-mail" href={`mailto:${email}?subject=Hello%20Daniel`}>{email}</a>
+      </div>
     </header>
   );
 }
