@@ -59,9 +59,9 @@ html { scroll-behavior: smooth; }
 .kn-2 { justify-content: flex-end; translate: calc(var(--p, 0) * 22%) 0; }
 .hero2 .kn-1, .hero2 .kn-2 { will-change: translate; }
 .kn-l { display: inline-block; font-weight: var(--w, 800); font-stretch: var(--s, 150%); }
-.kn-face { flex: none; display: inline-block; width: 1.3em; height: 0.72em; margin-right: 0.08em; border-radius: 0.36em; overflow: hidden; background: var(--gold); }
-.kn-face img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; transition: transform 1.2s var(--ease); }
-.kn-face:hover img { transform: scale(1.08); }
+.kn-face { flex: none; display: inline-block; width: 0.64em; height: 0.76em; margin-right: 0.1em; border-radius: 0.32em; overflow: hidden; background: var(--gold); }
+.kn-face img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform: scale(1.28); transform-origin: 50% 54%; transition: transform 1.2s var(--ease); }
+.kn-face:hover img { transform: scale(1.36); }
 .js:not(.loaded) .kn-l { transform: translateY(112%); }
 .js.loaded .kn-l { animation: knup 1.2s var(--ease) both; animation-delay: calc(var(--i, 0) * 55ms + 250ms); }
 @keyframes knup { from { transform: translateY(112%); } }
@@ -304,7 +304,7 @@ html { scroll-behavior: smooth; }
   html { scroll-behavior: auto; }
   .js .sw > span { transform: none !important; transition: none !important; }
   .js .kn-l, .js .kn-face, .js .hl, .js.loaded .sh, .ct-list li, .loader-mid span { animation: none !important; transform: none !important; opacity: 1 !important; }
-  .js:not(.loaded) .kn-face { width: 1.3em; }
+  .js:not(.loaded) .kn-face { width: 0.64em; }
   .kn-1, .kn-2, .mq-a, .mq-b, .wb-track { translate: none !important; transform: none !important; }
   .h2-foot { opacity: 1 !important; }
   .h2-avail i::after, .h2-cue i::after { animation: none; }
