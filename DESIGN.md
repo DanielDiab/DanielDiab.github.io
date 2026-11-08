@@ -16,7 +16,7 @@ sequence, with a fixed header that names the chapter you're in and a gold bar fo
    a pinned frame and each one wipes in its photo. Then the talks and events.
 4. **Path.** Experience as a timeline whose bar fills as you scroll, education beside it, and every
    certification in tabs by issuer, with IDs and verification links.
-5. **Work.** A gold band leads into the exhibition room (Three.js): six projects, each a monitor on a
+5. **Work.** A gold band leads into the exhibition room (Three.js): five projects, each a monitor on a
    plinth. Hover lifts a monitor, click opens its panel. The dock (Work, What I do, About, Contact) only
    appears inside the room. The URL hash names the open panel, so /#charter opens straight to it.
 6. **Contact.** The question, the address as one large link, copy and profile buttons.
@@ -25,7 +25,8 @@ A short curtain plays once per visit (a counter to 100, then it lifts). On mouse
 trails the pointer and says "Open" over monitors and "View" over project cards. Case-study pages at
 /work/[slug]/ keep the full story for sharing and search.
 
-**Projects on display.** Six: Kith, Charter, CHRO/MATIC, Stochastic, PACO and the Uniandes agent platform.
+**Projects on display.** Five: Kith, Charter, CHRO/MATIC, Stochastic and PACO. The Uniandes agent platform is parked
+(`parkedProjects` in `lib/content.ts`) until its contract allows screenshots and figures; the role stays in the timeline.
 OptiCloud (a course project) and the freelance work (a job, not a project) were taken off the wall; the
 freelance results live in the Experience timeline.
 

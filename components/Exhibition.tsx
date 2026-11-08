@@ -30,6 +30,18 @@ const SLOTS_PORTRAIT = [
   { x: 0.82, z: 0.85, h: 0.85, ry: -0.16 },
 ];
 
+// With five on display the front row has two plinths, set between the three at the back.
+const FRONT_PAIR = [
+  { x: -0.88, z: 0.95, h: 0.9, ry: 0.12 },
+  { x: 0.88, z: 0.95, h: 0.82, ry: -0.12 },
+];
+const FRONT_ONE_PORTRAIT = [{ x: 0, z: 0.9, h: 0.8, ry: 0 }];
+
+function slotsFor(count: number, portrait: boolean) {
+  if (count === 5) return portrait ? [...SLOTS_PORTRAIT.slice(0, 4), ...FRONT_ONE_PORTRAIT] : [...SLOTS.slice(0, 3), ...FRONT_PAIR];
+  return portrait ? SLOTS_PORTRAIT : SLOTS;
+}
+
 const COL = { room: 0x1f2f3a, floor: 0x24363f, plinth: 0xe1d8c9, body: 0x1b1b1b, bezel: 0x262626, ink: "#1b1b1b" };
 
 function screenTexture(img: CanvasImageSource & { width: number; height: number }, bg: string) {
@@ -159,7 +171,7 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
     const hitTargets: THREE.Object3D[] = [];
 
     const portrait = el.clientWidth / Math.max(1, el.clientHeight) < 0.9;
-    const slots = portrait ? SLOTS_PORTRAIT : SLOTS;
+    const slots = slotsFor(exhibits.length, portrait);
     exhibits.slice(0, slots.length).forEach((ex, i) => {
       const s = slots[i];
       const group = new THREE.Group();

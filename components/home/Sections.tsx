@@ -201,7 +201,7 @@ export function WorkBand() {
       <span id="selected-work" className="anchor" />
       <p className="chh-n"><span className="num">05</span><span>Work</span></p>
       <div className="wb-track display" aria-hidden="true">{words}</div>
-      <h2 id="wb-title" className="wb-p">Six projects, each on its own monitor. Pick one to open it.</h2>
+      <h2 id="wb-title" className="wb-p">Five projects, each on its own monitor. Pick one to open it.</h2>
     </section>
   );
 }

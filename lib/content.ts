@@ -289,6 +289,11 @@ export const projects: Project[] = [
     ],
     keywords: ["touchdesigner", "arduino", "photogrammetry", "3d", "scan", "interactive", "installation", "audio", "music", "visual", "creative coding", "art", "hardware"],
   },
+];
+
+// Off the wall until the contract allows sharing screenshots and figures (late 2026).
+// To bring it back, move it into `projects` and add it to ROOM in app/page.tsx and to skillGroups.
+export const parkedProjects: Project[] = [
   {
     slug: "agent-platform",
     name: "Connected agent platform",
@@ -353,7 +358,7 @@ export const services: Service[] = [
 export type Role = { when: string; title: string; org: string; detail: string };
 
 export const roles: Role[] = [
-  { when: "Jan 2026 – now", title: "Research Assistant, Generative AI", org: "Universidad de los Andes", detail: "Leads the university's platform of connected AI agents: voice agents, class agents and process automation." },
+  { when: "Jan 2026 – now", title: "Research Assistant, Generative AI", org: "Universidad de los Andes", detail: "Leads the architecture of the university's platform of connected AI agents: voice agents, class agents and process automation, on LangGraph, n8n and Open WebUI with memory on Azure Cosmos DB." },
   { when: "Aug 2026 – now", title: "Teaching Assistant, Business Systems", org: "Universidad de los Andes", detail: "SAP S/4HANA and Dolibarr ERP/CRM, and the Design-Led innovation method. Trains students to talk like consultants." },
   { when: "Dec 2025 – now", title: "President", org: "IEEE Computer Society Uniandes", detail: "70+ active members, 8+ projects running at once, nearly 20 technical events with industry companies, and more hands-on AI workshops." },
   { when: "Apr 2026 – now", title: "Ambassador", org: "IEEE CS SYP TechX Initiative", detail: "Represents the program within the Section, supporting outreach and technical education." },
@@ -446,22 +451,20 @@ export const skillGroups: { group: string; skills: Skill[] }[] = [
   {
     group: "AI and agents",
     skills: [
-      { name: "LangGraph", projects: ["charter", "agent-platform"] },
-      { name: "LangChain", projects: ["agent-platform"] },
+      { name: "LangGraph", projects: ["charter"] },
       { name: "MCP servers", projects: ["kith", "charter"] },
-      { name: "RAG", projects: ["charter", "agent-platform"] },
+      { name: "RAG", projects: ["charter"] },
       { name: "Evals and red-teaming", projects: ["kith", "charter"] },
       { name: "Guardrails", projects: ["kith", "charter"] },
       { name: "Local models, Ollama", projects: ["kith", "charter"] },
       { name: "Claude API", projects: ["kith"] },
-      { name: "Voice agents", projects: ["agent-platform"] },
       { name: "Apple Foundation Models", projects: ["kith"] },
     ],
   },
   {
     group: "Code",
     skills: [
-      { name: "Python", projects: ["charter", "stochastic", "agent-platform"] },
+      { name: "Python", projects: ["charter", "stochastic"] },
       { name: "Swift and SwiftUI", projects: ["kith"] },
       { name: "TypeScript", projects: ["chromatic"] },
       { name: "React", projects: ["chromatic"] },
@@ -477,8 +480,6 @@ export const skillGroups: { group: string; skills: Skill[] }[] = [
       { name: "Scikit-learn", projects: ["stochastic"] },
       { name: "Pandas", projects: ["stochastic"] },
       { name: "SQLite", projects: ["charter"] },
-      { name: "Azure Cosmos DB", projects: ["agent-platform"] },
-      { name: "n8n", projects: ["agent-platform"] },
     ],
   },
   {
@@ -495,7 +496,7 @@ export const skillGroups: { group: string; skills: Skill[] }[] = [
 ];
 
 // Tools used in jobs, courses and this site, without a project on display.
-export const toolbox = ["Next.js", "Three.js", "Node.js", "AWS", "Google Cloud", "Docker", "PostgreSQL", "MongoDB", "Redis", "Make", "Figma", "Java", "C and C++", "Linux", "SAP S/4HANA"];
+export const toolbox = ["LangChain", "Voice agents", "n8n", "Azure Cosmos DB", "Open WebUI", "Next.js", "Three.js", "Node.js", "AWS", "Google Cloud", "Docker", "PostgreSQL", "MongoDB", "Redis", "Make", "Figma", "Java", "C and C++", "Linux", "SAP S/4HANA"];
 
 // The chapter told as a sequence on the home page: each step swaps the photo beside it.
 export const chapterStory = [
@@ -515,8 +516,8 @@ export type Capability = { key: string; name: string; body: string; href: string
 
 export const capabilities: Capability[] = [
   { key: "A", name: "LangChain and LangGraph agents", body: "Agents with tools, memory and retrieval, wired into your systems through MCP, with guardrails so they refuse prompt injection and questions outside their material.", href: "/work/charter/", proof: "Charter and the Uniandes agent platform", keywords: ["agent", "langgraph", "langchain", "guardrails", "llm", "ai", "mcp", "chatbot", "assistant", "agente", "prompt injection", "tools", "memory"] },
-  { key: "V", name: "Voice and class agents", body: "Agents people talk to, and agents that sit inside a class or a process and answer for it.", href: "/work/agent-platform/", proof: "In development at Uniandes", keywords: ["voice", "voz", "call", "speech", "class", "teaching", "education", "students", "assistant", "llamadas"] },
-  { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/work/agent-platform/", proof: "RAG architectures at Uniandes", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
+  { key: "V", name: "Voice and class agents", body: "Agents people talk to, and agents that sit inside a class or a process and answer for it.", href: "/#path", proof: "In development at Uniandes, as research assistant", keywords: ["voice", "voz", "call", "speech", "class", "teaching", "education", "students", "assistant", "llamadas"] },
+  { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/#path", proof: "RAG architectures at Uniandes, and Charter", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
   { key: "L", name: "Lead and sales automation", body: "Workflows in n8n or Make that capture, qualify and follow up on leads without someone watching.", href: "/#path", proof: "+35% client sales as a freelancer", keywords: ["leads", "sales", "crm", "n8n", "make", "automation", "workflow", "ventas", "automatizar", "follow up", "marketing"] },
   { key: "G", name: "Agent evaluation and governance", body: "Eval suites, red-team tests and a gate that keeps an agent unpublished until it passes, plus an inventory of every agent, model and cost.", href: "/work/charter/", proof: "Charter and Kith", keywords: ["evaluation", "evals", "testing", "governance", "compliance", "red team", "security", "inventory", "audit", "quality", "gate"] },
   { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/#path", proof: "−25% operating cost for a freelance client", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
