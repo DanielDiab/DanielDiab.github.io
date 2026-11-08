@@ -167,71 +167,6 @@ export const projects: Project[] = [
     keywords: ["agents", "platform", "governance", "evaluation", "evals", "gate", "mcp", "langgraph", "ollama", "guardrails", "yaml", "manifest", "enterprise", "llm", "testing", "rag"],
   },
   {
-    slug: "agent-platform",
-    name: "Connected agent platform",
-    kind: "Multi-agent system",
-    context: "Research Assistant, Universidad de los Andes",
-    period: "Jan 2026 – now",
-    status: "Ongoing",
-    summary:
-      "A full platform of connected AI agents for Universidad de los Andes, including voice agents and class agents. I own the architecture and the technical direction.",
-    problem:
-      "University teams had repetitive internal processes and no shared way to put AI agents to work on them without each project starting from zero.",
-    built: [
-      {
-        title: "Connected agents",
-        body: "Selected by faculty to design and build the platform with LangGraph, n8n and Open WebUI, so agents share tools and data instead of living as one-off bots.",
-      },
-      {
-        title: "Voice and class agents",
-        body: "Voice agents, and class agents that make teaching interactions faster for students and professors.",
-      },
-      {
-        title: "Process automation",
-        body: "Custom full-stack agents that automate internal university processes, using machine learning, data normalization and statistical algorithms.",
-      },
-      {
-        title: "Cost-first architecture",
-        body: "RAG database configuration, model and provider choice, and memory on Azure Cosmos DB, with LLM cost treated as a design input from day one.",
-      },
-    ],
-    results: [
-      "Voice agents and class agents in development for the university",
-      "Technical direction and planning owned end to end, with academic stakeholders",
-    ],
-    stack: ["LangGraph", "LangChain", "n8n", "Open WebUI", "Azure Cosmos DB", "Python"],
-    keywords: ["agents", "multi-agent", "langgraph", "langchain", "n8n", "open webui", "architecture", "memory", "cosmos", "cost", "university", "voice", "rag"],
-  },
-  {
-    slug: "freelance-automation",
-    name: "Freelance automation",
-    kind: "Client work",
-    context: "Independent developer",
-    period: "Nov 2022 – Nov 2024",
-    status: "Two years, multiple clients",
-    summary:
-      "I was the whole engineering team for small clients: automation that replaced manual steps and AI features that paid for themselves.",
-    problem:
-      "Small businesses were losing hours to manual follow-ups and copy-paste between tools, and their early AI features cost more to run than they returned.",
-    built: [
-      {
-        title: "AI lead generation",
-        body: "Automations that capture, qualify and follow up on leads without someone watching.",
-      },
-      {
-        title: "LLM cost optimization",
-        body: "Reworked how a client's product used the Claude API: prompts, resources and call patterns.",
-      },
-      {
-        title: "Integrations",
-        body: "Connected databases and REST APIs with Make and Google Workspace so internal communication stopped depending on manual handling.",
-      },
-    ],
-    results: ["25% lower LLM operating cost for a client", "35% increase in client sales from lead-generation automation"],
-    stack: ["Make", "Claude API", "REST APIs", "Google Workspace", "SQL", "JavaScript"],
-    keywords: ["freelance", "automation", "leads", "sales", "cost", "clients", "make", "integrations", "workflow", "business", "ventas"],
-  },
-  {
     slug: "chromatic",
     name: "CHRO/MATIC",
     kind: "Design system generator",
@@ -351,33 +286,40 @@ export const projects: Project[] = [
     keywords: ["touchdesigner", "arduino", "photogrammetry", "3d", "scan", "interactive", "installation", "audio", "music", "visual", "creative coding", "art", "hardware"],
   },
   {
-    slug: "opticloud",
-    name: "OptiCloud",
-    kind: "Microservices on AWS",
-    context: "Course project, Uniandes",
-    period: "2026",
-    status: "Deployed",
+    slug: "agent-platform",
+    name: "Connected agent platform",
+    kind: "Multi-agent system",
+    context: "Research Assistant, Universidad de los Andes",
+    period: "Jan 2026 – now",
+    status: "Ongoing",
     summary:
-      "Four services in four frameworks behind a Kong gateway inside an AWS VPC, each containerized on its own EC2 instance.",
+      "A full platform of connected AI agents for Universidad de los Andes, including voice agents and class agents. I own the architecture and the technical direction.",
     problem:
-      "Design and run a multi-service platform end to end: networking, security, data stores and deployment, not only the code.",
+      "University teams had repetitive internal processes and no shared way to put AI agents to work on them without each project starting from zero.",
     built: [
       {
-        title: "Gateway and services",
-        body: "A Kong API gateway on EC2 routing to independent services in NestJS, Spring Boot, Django and FastAPI, each in Docker on its own instance.",
+        title: "Connected agents",
+        body: "Selected by faculty to design and build the platform with LangGraph, n8n and Open WebUI, so agents share tools and data instead of living as one-off bots.",
       },
       {
-        title: "Data layer",
-        body: "RDS PostgreSQL for transactional and reporting data, MongoDB for access logs and Redis caching precomputed reports.",
+        title: "Voice and class agents",
+        body: "Voice agents, and class agents that make teaching interactions faster for students and professors.",
       },
       {
-        title: "Infrastructure",
-        body: "Provisioning, AMI and instance sizing, security groups, inter-service networking, load balancing, JWT auth and YAML deployment definitions.",
+        title: "Process automation",
+        body: "Custom full-stack agents that automate internal university processes, using machine learning, data normalization and statistical algorithms.",
+      },
+      {
+        title: "Cost-first architecture",
+        body: "RAG database configuration, model and provider choice, and memory on Azure Cosmos DB, with LLM cost treated as a design input from day one.",
       },
     ],
-    results: ["Running inside a private VPC", "Four frameworks behind one gateway"],
-    stack: ["AWS", "Docker", "Kong", "PostgreSQL", "MongoDB", "Redis"],
-    keywords: ["aws", "cloud", "microservices", "docker", "devops", "infrastructure", "backend", "kong", "redis", "postgres"],
+    results: [
+      "Voice agents and class agents in development for the university",
+      "Technical direction and planning owned end to end, with academic stakeholders",
+    ],
+    stack: ["LangGraph", "LangChain", "n8n", "Open WebUI", "Azure Cosmos DB", "Python"],
+    keywords: ["agents", "multi-agent", "langgraph", "langchain", "n8n", "open webui", "architecture", "memory", "cosmos", "cost", "university", "voice", "rag"],
   },
 ];
 
@@ -413,7 +355,7 @@ export const roles: Role[] = [
   { when: "Apr 2026 – now", title: "Ambassador", org: "IEEE CS SYP TechX Initiative", detail: "Represents the program within the Section, supporting outreach and technical education." },
   { when: "Feb 2025 – now", title: "Organizer", org: "TechTalks Uniandes", detail: "Technical and networking talks with startups and companies. Brought 10+ companies on as speakers, partners or sponsors." },
   { when: "Aug 2024 – Dec 2025", title: "Community Manager", org: "IEEE Computer Society Uniandes", detail: "Ran the chapter's community and web presence before becoming president." },
-  { when: "Nov 2022 – Nov 2024", title: "Freelance Software Developer", org: "Independent", detail: "Custom web apps, automation and AI features for clients, remote." },
+  { when: "Nov 2022 – Nov 2024", title: "Freelance Software Developer", org: "Independent", detail: "Custom web apps, automation and AI features for clients, remote. Cut a client's LLM operating cost by 25%, and lead-generation automation raised client sales 35%." },
 ];
 
 export const education = {
@@ -493,6 +435,73 @@ export const chapter = {
   ],
 };
 
+// The skill map on the home page: each skill names the projects that prove it.
+export type Skill = { name: string; projects: string[] };
+
+export const skillGroups: { group: string; skills: Skill[] }[] = [
+  {
+    group: "AI and agents",
+    skills: [
+      { name: "LangGraph", projects: ["charter", "agent-platform"] },
+      { name: "LangChain", projects: ["agent-platform"] },
+      { name: "MCP servers", projects: ["kith", "charter"] },
+      { name: "RAG", projects: ["charter", "agent-platform"] },
+      { name: "Evals and red-teaming", projects: ["kith", "charter"] },
+      { name: "Guardrails", projects: ["kith", "charter"] },
+      { name: "Local models, Ollama", projects: ["kith", "charter"] },
+      { name: "Claude API", projects: ["kith"] },
+      { name: "Voice agents", projects: ["agent-platform"] },
+      { name: "Apple Foundation Models", projects: ["kith"] },
+    ],
+  },
+  {
+    group: "Code",
+    skills: [
+      { name: "Python", projects: ["charter", "stochastic", "agent-platform"] },
+      { name: "Swift and SwiftUI", projects: ["kith"] },
+      { name: "TypeScript", projects: ["chromatic"] },
+      { name: "React", projects: ["chromatic"] },
+      { name: "Tailwind", projects: ["chromatic"] },
+      { name: "Flask", projects: ["stochastic"] },
+      { name: "Pytest", projects: ["charter"] },
+    ],
+  },
+  {
+    group: "Data and ML",
+    skills: [
+      { name: "Time series, ARIMA", projects: ["stochastic"] },
+      { name: "Scikit-learn", projects: ["stochastic"] },
+      { name: "Pandas", projects: ["stochastic"] },
+      { name: "SQLite", projects: ["charter"] },
+      { name: "Azure Cosmos DB", projects: ["agent-platform"] },
+      { name: "n8n", projects: ["agent-platform"] },
+    ],
+  },
+  {
+    group: "Design and 3D",
+    skills: [
+      { name: "OKLCH color", projects: ["chromatic"] },
+      { name: "Design systems", projects: ["chromatic"] },
+      { name: "Accessibility", projects: ["chromatic"] },
+      { name: "TouchDesigner", projects: ["paco"] },
+      { name: "Arduino", projects: ["paco"] },
+      { name: "Photogrammetry", projects: ["paco"] },
+    ],
+  },
+];
+
+// Tools used in jobs, courses and this site, without a project on display.
+export const toolbox = ["Next.js", "Three.js", "Node.js", "AWS", "Google Cloud", "Docker", "PostgreSQL", "MongoDB", "Redis", "Make", "Figma", "Java", "C and C++", "Linux", "SAP S/4HANA"];
+
+// The chapter told as a sequence on the home page: each step swaps the photo beside it.
+export const chapterStory = [
+  { when: "Aug 2024", title: "Joined as community manager", body: "Ran the chapter's community and web presence: the people, the channels and the site, for over a year before leading it.", photo: "/img/chapter-event.jpg" },
+  { when: "2025", title: "First in Colombia at IEEEXtreme 19.0", body: "With Overflowsquad, 24 hours of competitive programming against teams worldwide, finishing first nationwide.", photo: "/img/ieeextreme.jpg" },
+  { when: "Dec 2025", title: "Elected president", body: "Grew the chapter to 70+ active members with 8+ projects running at once, and a board that leads cross-functional teams.", photo: "/img/board.jpg" },
+  { when: "2026", title: "Teaching students to build agents", body: "Hands-on AI workshops like “¿Te imaginas crear tu propio agente de IA?”: students from every program build an agent from scratch and use it in their own projects.", photo: "/img/teaching.jpg" },
+  { when: "2026", title: "Bringing the industry to campus", body: "Nearly 20 technical events and the 6th Foro Tech, a 100+ participant hackathon with 8+ companies, the AI Incident Response Sprint with AI Safety Colombia, and TechX ambassador for IEEE CS.", photo: "/img/talk.jpg" },
+];
+
 export const headline = "AI Engineer: agents, RAG and evaluation";
 export const keyFacts = ["6 MCP servers authored", "25% lower LLM operating costs", "1st nationwide, IEEEXtreme 19.0", "C1 English"];
 
@@ -504,14 +513,14 @@ export const capabilities: Capability[] = [
   { key: "A", name: "LangChain and LangGraph agents", body: "Agents with tools, memory and retrieval, wired into your systems through MCP, with guardrails so they refuse prompt injection and questions outside their material.", href: "/work/charter/", proof: "Charter and the Uniandes agent platform", keywords: ["agent", "langgraph", "langchain", "guardrails", "llm", "ai", "mcp", "chatbot", "assistant", "agente", "prompt injection", "tools", "memory"] },
   { key: "V", name: "Voice and class agents", body: "Agents people talk to, and agents that sit inside a class or a process and answer for it.", href: "/work/agent-platform/", proof: "In development at Uniandes", keywords: ["voice", "voz", "call", "speech", "class", "teaching", "education", "students", "assistant", "llamadas"] },
   { key: "D", name: "Search your documents", body: "PDFs, scans and Word files turned into structured data your team can question in plain language, with links back to the source.", href: "/work/agent-platform/", proof: "RAG architectures at Uniandes", keywords: ["documents", "pdf", "ocr", "rag", "retrieval", "search", "knowledge", "documentos", "buscar", "scan"] },
-  { key: "L", name: "Lead and sales automation", body: "Workflows in n8n or Make that capture, qualify and follow up on leads without someone watching.", href: "/work/freelance-automation/", proof: "+35% client sales", keywords: ["leads", "sales", "crm", "n8n", "make", "automation", "workflow", "ventas", "automatizar", "follow up", "marketing"] },
+  { key: "L", name: "Lead and sales automation", body: "Workflows in n8n or Make that capture, qualify and follow up on leads without someone watching.", href: "/#path", proof: "+35% client sales as a freelancer", keywords: ["leads", "sales", "crm", "n8n", "make", "automation", "workflow", "ventas", "automatizar", "follow up", "marketing"] },
   { key: "G", name: "Agent evaluation and governance", body: "Eval suites, red-team tests and a gate that keeps an agent unpublished until it passes, plus an inventory of every agent, model and cost.", href: "/work/charter/", proof: "Charter and Kith", keywords: ["evaluation", "evals", "testing", "governance", "compliance", "red team", "security", "inventory", "audit", "quality", "gate"] },
-  { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/work/freelance-automation/", proof: "−25% operating cost", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
+  { key: "C", name: "LLM cost review", body: "I go through how your product calls models and cut the waste in prompts, model choice and caching without hurting answers.", href: "/#path", proof: "−25% operating cost for a freelance client", keywords: ["cost", "tokens", "price", "budget", "optimization", "api", "claude", "openai", "costos", "ahorro", "cheap"] },
   { key: "P", name: "Private agents on Mac and iPhone", body: "Native Swift agents over Calendar, Reminders and Contacts that run on the device when they can, route harder requests to a local or cloud model, and hold every change for the person to confirm.", href: "/work/kith/", proof: "Kith", keywords: ["swift", "swiftui", "ios", "macos", "iphone", "mac", "apple", "on-device", "siri", "calendar", "privacy", "local", "native", "mobile", "movil", "privacidad", "calendario"] },
   { key: "S", name: "Design systems in OKLCH", body: "One brand color in, a full system out: palette, type, spacing and accessible React components, exported as tokens.", href: "/work/chromatic/", proof: "CHRO/MATIC", keywords: ["design", "color", "oklch", "tokens", "ui", "figma", "tailwind", "frontend", "accessibility", "diseno"] },
-  { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "This site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
+  { key: "W", name: "Web apps in Next.js", body: "Full-stack products in Next.js, React and Node, from scoping to deployment. This site is one.", href: "/work/chromatic/", proof: "CHRO/MATIC and this site", keywords: ["web", "next", "react", "node", "typescript", "frontend", "fullstack", "app", "site", "angular"] },
   { key: "R", name: "Real-time interactive visuals", body: "Installations that react to sound and to people: 3D scans, particles and hardware, built in TouchDesigner with Arduino.", href: "/work/paco/", proof: "PACO", keywords: ["touchdesigner", "arduino", "interactive", "installation", "visuals", "3d", "photogrammetry", "audio", "creative", "art", "event", "museum"] },
-  { key: "I", name: "Cloud infrastructure", body: "Services on AWS and Google Cloud: gateways, containers, private networks, databases and caching.", href: "/work/opticloud/", proof: "OptiCloud", keywords: ["aws", "cloud", "gcp", "docker", "microservices", "devops", "infrastructure", "ec2", "redis", "postgres", "kubernetes"] },
+  { key: "I", name: "Cloud infrastructure", body: "Services on AWS and Google Cloud: gateways, containers, private networks, databases and caching.", href: "/#path", proof: "AWS Cloud Practitioner and a four-service AWS deployment at Uniandes", keywords: ["aws", "cloud", "gcp", "docker", "microservices", "devops", "infrastructure", "ec2", "redis", "postgres", "kubernetes"] },
   { key: "F", name: "Forecasting with ML", body: "Time-series and machine-learning models on live data, with an explanation attached to each forecast.", href: "/work/stochastic/", proof: "Stochastic", keywords: ["ml", "machine learning", "forecast", "prediction", "data", "arima", "random forest", "crypto", "finance", "python", "model"] },
 ];
 

@@ -6,11 +6,15 @@ Personal portfolio of Daniel Diab, built with Next.js (static export) and deploy
 
 ## What's in it
 
-- **Brutalist, industrial design:** flat fields of post red, ink, mustard, bone and maroon, TikTok Sans stretched wide. See `DESIGN.md`.
-- **Exhibition home:** a Three.js room where each project is a monitor on a plinth; click one to open its panel. A dock opens What I do, About and Contact.
+- **A guided home page in six chapters:** Intro, Skills, Community, Path, Work, Contact, with a header that
+  shows where you are and how far along. See `DESIGN.md`.
+- **A kinetic name:** TikTok Sans with its width and weight axes reacting to the pointer.
+- **Skill map:** every skill points to the projects that prove it, in both directions.
+- **IEEE Computer Society Uniandes, told as a sequence:** steps scroll past a pinned photo frame.
 - **What I do:** a working command list. Typing filters it with an in-browser hybrid retriever (input guardrail, BM25, concept vectors, reciprocal rank fusion). `⌘K` jumps to it.
-- **Work wall** linking to case studies at `/work/[slug]/`, generated from `lib/content.ts`.
-- **GitHub section** fetched from the GitHub API at build time. Coursework repos are hidden by the pattern in `lib/github.ts`.
+- **Exhibition room:** a Three.js room where each project is a monitor on a plinth; click one to open its panel.
+- **Case studies** at `/work/[slug]/`, generated from `lib/content.ts`.
+- **GitHub section** in the Work panel, fetched from the GitHub API at build time. Coursework repos are hidden by the pattern in `lib/github.ts`.
 
 ## Replace pictures
 
@@ -19,6 +23,7 @@ Photos and screenshots live in `public/img/`. Projects without screenshots use d
 ## Edit content
 
 Everything the site says lives in `lib/content.ts`. The search index is built from the same file.
+Which projects each skill points to is set in `skillGroups`; the Community story is `chapterStory`.
 
 ## Run locally
 

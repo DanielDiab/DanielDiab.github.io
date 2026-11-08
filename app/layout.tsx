@@ -2,7 +2,10 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/tiktok-sans/standard.css";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
+import "./experience.css";
 import Reveal from "@/components/Reveal";
+import ScrollFX from "@/components/fx/ScrollFX";
+import Cursor from "@/components/fx/Cursor";
 import { bootScript } from "@/lib/theme";
 import { profile } from "@/lib/content";
 
@@ -29,6 +32,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip" href="#main">Skip to content</a>
         <main id="main">{children}</main>
         <Reveal />
+        <ScrollFX />
+        <Cursor />
       </body>
     </html>
   );

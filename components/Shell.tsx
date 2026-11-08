@@ -19,7 +19,7 @@ const DOCK: { id: "about" | PanelId; label: string }[] = [
   { id: "contact", label: "Contact" },
 ];
 const PANELS: PanelId[] = ["work", "what-i-do", "contact"];
-const PLACES = ["about", "talks", "chapter", "experience", "certifications", "exhibition"];
+const PLACES = ["about", "skills", "chapter", "path", "certifications", "exhibition", "selected-work", "hello"];
 
 function BogotaClock() {
   const [t, setT] = useState("");
@@ -120,7 +120,7 @@ export default function Shell({
     const mq = window.matchMedia("(max-width: 900px)");
     const n = () => setNarrow(mq.matches);
     n(); mq.addEventListener("change", n);
-    const io = new IntersectionObserver(([e]) => setInRoom(e.isIntersecting && e.intersectionRatio > 0.5), { threshold: [0, 0.5, 1] });
+    const io = new IntersectionObserver(([e]) => setInRoom(e.isIntersecting && e.intersectionRatio > 0.5), { threshold: [0, 0.25, 0.5, 0.75, 1] });
     if (roomRef.current) io.observe(roomRef.current);
     return () => { window.removeEventListener("hashchange", fromHash); mq.removeEventListener("change", n); io.disconnect(); };
   }, [valid]);
@@ -132,7 +132,6 @@ export default function Shell({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && open) show(null);
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); show("what-i-do"); setTimeout(() => document.getElementById("cmd-input")?.focus(), 350); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -158,7 +157,7 @@ export default function Shell({
   };
 
   return (
-    <div ref={roomRef} id="exhibition" className={`app${open ? " has-panel" : ""}`}>
+    <div ref={roomRef} id="exhibition" className={`app${open ? " has-panel" : ""}${inRoom ? " in-room" : ""}`}>
       <header className="topbar">
         <a href="#about" className="wordmark" onClick={(e) => { e.preventDefault(); onDock("about"); }}>Daniel Diab</a>
         <p className="status"><span>{intro.where}</span><BogotaClock /></p>

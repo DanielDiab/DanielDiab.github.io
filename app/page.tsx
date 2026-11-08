@@ -1,5 +1,7 @@
 import Shell from "@/components/Shell";
-import AboutIntro from "@/components/AboutIntro";
+import { Closing, Community, Hero, Path, Skills, WorkBand } from "@/components/home/Sections";
+import SiteHeader from "@/components/fx/SiteHeader";
+import Loader from "@/components/fx/Loader";
 import CommandList from "@/components/CommandList";
 import CopyEmail from "@/components/CopyEmail";
 import { STILLS, STILL_BG } from "@/components/Stills";
@@ -7,8 +9,8 @@ import type { Exhibit } from "@/components/Exhibition";
 import { profile, projects } from "@/lib/content";
 import { getRepos } from "@/lib/github";
 
-// Which plinth each project stands on: four tall ones at the back, four in front.
-const ROOM = ["chromatic", "kith", "charter", "opticloud", "freelance-automation", "agent-platform", "paco", "stochastic"];
+// Which plinth each project stands on: three tall ones at the back, three in front.
+const ROOM = ["chromatic", "kith", "charter", "stochastic", "paco", "agent-platform"];
 // Terminal screenshots read as blank at monitor size, so Charter shows its drawing on the screen.
 const DRAWN = new Set(["charter"]);
 
@@ -48,7 +50,7 @@ export default async function Home() {
     <>
       <h2 className="display pp-name">What I do</h2>
       <p className="pp-sum">Type a problem in English or Spanish. The list filters itself with the same kind of hybrid retrieval I build for clients, in your browser.</p>
-      <CommandList />
+      <CommandList uid="pcmd" hotkey={false} />
       <p className="pp-stack">Projects are fixed in scope and quoted after a 30-minute call, in English or Spanish.</p>
     </>
   );
@@ -69,17 +71,24 @@ export default async function Home() {
 
   return (
     <>
-      <AboutIntro />
+      <Loader />
+      <SiteHeader email={profile.email} />
+      <Hero />
+      <Skills />
+      <Community />
+      <Path />
+      <WorkBand />
       <Shell
         projects={projects}
         exhibits={exhibits}
         intro={{
           title: "The work, on display",
-          lead: "Eight projects, one per monitor. Pick one to open it, or use Work below for the list.",
+          lead: "Six projects, one per monitor. Pick one to open it, or use Work below for the list.",
           where: "Bogotá, open to work",
         }}
         panels={{ work, "what-i-do": whatIDo, contact }}
       />
+      <Closing />
       {/* Drawings used as monitor screens for projects without screenshots */}
       <div hidden>
         {ROOM.filter((s) => DRAWN.has(s) || !projects.find((p) => p.slug === s)?.image).map((s) => {

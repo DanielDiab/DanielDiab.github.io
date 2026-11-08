@@ -11,27 +11,23 @@ export type Exhibit = { slug: string; name: string; index: string; src?: string;
 
 const SLOTS = [
   // back row, taller plinths
-  { x: -2.34, z: -0.95, h: 2.05, ry: 0.26 },
-  { x: -0.78, z: -1.15, h: 2.35, ry: 0.08 },
-  { x: 0.78, z: -1.15, h: 2.3, ry: -0.08 },
-  { x: 2.34, z: -0.95, h: 2.1, ry: -0.26 },
+  { x: -1.75, z: -1.0, h: 2.1, ry: 0.2 },
+  { x: 0, z: -1.2, h: 2.35, ry: 0 },
+  { x: 1.75, z: -1.0, h: 2.15, ry: -0.2 },
   // front row
-  { x: -2.35, z: 0.75, h: 1.05, ry: 0.32 },
-  { x: -0.8, z: 1.05, h: 0.8, ry: 0.1 },
-  { x: 0.8, z: 1.05, h: 0.9, ry: -0.1 },
-  { x: 2.35, z: 0.75, h: 1.1, ry: -0.32 },
+  { x: -1.75, z: 0.85, h: 0.95, ry: 0.24 },
+  { x: 0, z: 1.05, h: 0.78, ry: 0 },
+  { x: 1.75, z: 0.85, h: 1.0, ry: -0.24 },
 ];
 
-// Portrait screens: three rows, so the monitors stay large on a phone.
+// Portrait screens: three rows of two, so the monitors stay large on a phone.
 const SLOTS_PORTRAIT = [
-  { x: -0.8, z: -2.4, h: 3.1, ry: 0.12 },
-  { x: 0.8, z: -2.4, h: 3.35, ry: -0.12 },
-  { x: -1.5, z: -0.85, h: 2.0, ry: 0.22 },
-  { x: 0, z: -0.95, h: 2.15, ry: 0 },
-  { x: 1.5, z: -0.85, h: 2.05, ry: -0.22 },
-  { x: -1.5, z: 0.75, h: 0.9, ry: 0.22 },
-  { x: 0, z: 0.95, h: 0.72, ry: 0 },
-  { x: 1.5, z: 0.75, h: 0.95, ry: -0.22 },
+  { x: -0.82, z: -2.4, h: 3.2, ry: 0.12 },
+  { x: 0.82, z: -2.4, h: 3.4, ry: -0.12 },
+  { x: -0.82, z: -0.8, h: 2.0, ry: 0.14 },
+  { x: 0.82, z: -0.8, h: 2.1, ry: -0.14 },
+  { x: -0.82, z: 0.85, h: 0.8, ry: 0.16 },
+  { x: 0.82, z: 0.85, h: 0.85, ry: -0.16 },
 ];
 
 const COL = { room: 0x1f2f3a, floor: 0x24363f, plinth: 0xe1d8c9, body: 0x1b1b1b, bezel: 0x262626, ink: "#1b1b1b" };
@@ -197,10 +193,10 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       [body, back, screen, plinth].forEach((m) => { m.userData.slug = ex.slug; hitTargets.push(m); });
       const tag = document.createElement("div");
       // floating titles only for the rows whose plinth fronts are hidden behind other monitors
-      tag.className = i < (portrait ? 5 : 4) ? "room-label" : "room-label hide";
+      tag.className = i < (portrait ? 4 : 3) ? "room-label" : "room-label hide";
       tag.innerHTML = `<span>${ex.index}</span>${ex.name}`;
       labels.appendChild(tag);
-      items.push({ slug: ex.slug, group, monitor, screen, baseY, lift: 0, phase: Math.random() * 6, label: tag, order: i, below: portrait && i >= 2 && i <= 4 });
+      items.push({ slug: ex.slug, group, monitor, screen, baseY, lift: 0, phase: Math.random() * 6, label: tag, order: i, below: false });
 
       const p = ex.src ? loadImage(ex.src) : ex.svgId ? svgToImage(ex.svgId) : null;
       p?.then((img) => { screenMat.map = screenTexture(img, ex.bg); screenMat.color.set(0xffffff); screenMat.needsUpdate = true; }).catch(() => {});
@@ -230,7 +226,7 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
       if (e.pointerType !== "touch") target.copy(pointer);
     };
-    const onLeave = () => { target.set(0, 0); pointer.set(9, 9); hovered = null; el.style.cursor = ""; hoverCb.current?.(null); };
+    const onLeave = () => { target.set(0, 0); pointer.set(9, 9); hovered = null; el.style.cursor = ""; delete el.dataset.cursor; hoverCb.current?.(null); };
     const onClick = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
       pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
@@ -259,7 +255,7 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       const sway = reduce ? 0 : Math.sin(t * 0.25) * 0.25;
       const dist = narrow ? 11.6 : 10;
       // on desktop the room sits right of the title; with a panel open it centres in the space left
-      const goalX = narrow ? 0 : shiftRef.current ? 2.7 : -1.1;
+      const goalX = narrow ? 0 : shiftRef.current ? 2.3 : -1.0;
       baseX += (goalX - baseX) * 0.06;
       look.set(baseX, narrow ? 2.05 : 1.6, 0);
       camera.position.set(baseX + cam.x * 1.6 + sway * (narrow ? 0.4 : 1), (narrow ? 3.1 : 2.4) + cam.y * 0.7, dist);
@@ -268,7 +264,7 @@ export default function Exhibition({ exhibits, onSelect, onHover, paused, shifte
       ray.setFromCamera(pointer, camera);
       const hit = ray.intersectObjects(hitTargets, false)[0];
       const now = hit ? (hit.object.userData.slug as string) : null;
-      if (now !== hovered) { hovered = now; el.style.cursor = now ? "pointer" : ""; hoverCb.current?.(now); }
+      if (now !== hovered) { hovered = now; el.style.cursor = now ? "pointer" : ""; if (now) el.dataset.cursor = "Open"; else delete el.dataset.cursor; hoverCb.current?.(now); }
 
       if (introStart < 0) introStart = t;
       const since = reduce ? 99 : t - introStart;
